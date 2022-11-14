@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import background from "../../assets/background/testreact.jpg";
+import background from '../../assets/background/testreact.jpg'
 
-function Background() {
-    return <img src={background} alt="background"/>;
+function Background (): JSX.Element {
+    return <img src={background} alt="background"/>
 }
 
-export default Background;
+export default Background
