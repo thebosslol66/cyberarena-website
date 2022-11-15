@@ -69,8 +69,8 @@ export default class Card extends Component< CardProps, {}> {
     constructor (props: CardProps) {
         super(props)
 
-        this.springR = { stiffness: 0.066, damping: 0.25, mass: 1 }
-        this.springD = { stiffness: 0.033, damping: 0.45, mass: 1 }
+        this.springR = { stiffness: 0.066, damping: 0.25 }
+        this.springD = { stiffness: 0.033, damping: 0.45 }
         this.SpringSnap = { stiffness: 0.01, damping: 0.06 }
 
         this.state = {
@@ -127,7 +127,7 @@ export default class Card extends Component< CardProps, {}> {
             ...defaultSettings,
             ...this.props.options
         }
-        this.reverse = (this.settings.reverse) ? 1 : -1
+        this.reverse = (this.settings.reverse) ? -1 : 1
 
         this.mouse = null
         this.isReset = false
@@ -142,6 +142,15 @@ export default class Card extends Component< CardProps, {}> {
         this.o.setConfig(this.springR)
         this.posx.setConfig(this.springR)
         this.posy.setConfig(this.springR)
+
+        this.rx.resetTime()
+        this.ry.resetTime()
+        this.mx.resetTime()
+        this.my.resetTime()
+        this.s.resetTime()
+        this.o.resetTime()
+        this.posx.resetTime()
+        this.posy.resetTime()
 
         this.updateElementPosition()
         this.isReset = false
@@ -183,27 +192,23 @@ export default class Card extends Component< CardProps, {}> {
         this.isReset = true
         this.mouse = null
         this.o.setValue(0)
-        /*
-        setTimeout(() => {
 
-            this.rx.setConfigUpdate({soft: 1})
-            this.rx.setConfig(this.SpringSnap)
-            this.ry.setConfigUpdate({soft: 1})
-            this.ry.setConfig(this.SpringSnap)
-            this.mx.setConfigUpdate({soft: 1})
-            this.mx.setConfig(this.SpringSnap)
-            this.my.setConfigUpdate({soft: 1})
-            this.my.setConfig(this.SpringSnap)
-            this.s.setConfigUpdate({soft: 1})
-            this.s.setConfig(this.SpringSnap)
-            this.s.setConfigUpdate({soft: 1})
-            this.o.setConfig(this.SpringSnap)
-            this.posx.setConfigUpdate({soft: 1})
-            this.posx.setConfig(this.SpringSnap)
-            this.posy.setConfigUpdate({soft: 1})
-            this.posy.setConfig(this.SpringSnap)
-        }, 500)
-        */
+        this.rx.setConfigUpdate({ soft: 1 })
+        this.rx.setConfig(this.SpringSnap)
+        this.ry.setConfigUpdate({ soft: 1 })
+        this.ry.setConfig(this.SpringSnap)
+        this.mx.setConfigUpdate({ soft: 1 })
+        this.mx.setConfig(this.SpringSnap)
+        this.my.setConfigUpdate({ soft: 1 })
+        this.my.setConfig(this.SpringSnap)
+        this.s.setConfigUpdate({ soft: 1 })
+        this.s.setConfig(this.SpringSnap)
+        this.s.setConfigUpdate({ soft: 1 })
+        this.o.setConfig(this.SpringSnap)
+        this.posx.setConfigUpdate({ soft: 1 })
+        this.posx.setConfig(this.SpringSnap)
+        this.posy.setConfigUpdate({ soft: 1 })
+        this.posy.setConfig(this.SpringSnap)
 
         if (this.settings.reset) {
             cancelAnimationFrame(this.updateCall)
@@ -280,12 +285,16 @@ export default class Card extends Component< CardProps, {}> {
         }
         const values = this.getValues()
 
+        console.log('Values', values)
+
         this.rx.setValue(values.tiltX)
         this.ry.setValue(values.tiltY)
         this.mx.setValue(values.percentageX)
         this.my.setValue(values.percentageY)
         this.posx.setValue(values.backgroundX)
         this.posy.setValue(values.backgroundY)
+
+        console.log('SpringValues', this.rx.getValue(), this.rx.getLastTime(), Date.now() - this.rx.getLastTime(), this.ry.getValue())
 
         this.rx.update()
         this.ry.update()
@@ -298,7 +307,9 @@ export default class Card extends Component< CardProps, {}> {
 
         this.updateCard()
 
-        this.updateCall = requestAnimationFrame(this.update)
+        setTimeout(() => {
+            this.updateCall = requestAnimationFrame(this.update)
+        }, 1000 / 60)
     }
 
     handleMouseMove (e: React.MouseEvent<HTMLButtonElement>): void {

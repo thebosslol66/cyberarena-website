@@ -32,7 +32,7 @@ export default class Spring {
         }
         this.time = Date.now()
 
-        this.precision = 0.0001
+        this.precision = 0.001
 
         this.goalValue = value
         this.inv_mass_recovery_rate = 0
@@ -75,6 +75,10 @@ export default class Spring {
         this.lastValue = value
     }
 
+    public resetTime (): void {
+        this.time = Date.now()
+    }
+
     getConfig (): SpringConfig {
         return this.config
     }
@@ -84,10 +88,13 @@ export default class Spring {
             return this.value
         }
         const dt = (Date.now() - this.time) * 60 / 1000
+        if (dt < 0.005) {
+            return this.value
+        }
 
         // @ts-expect-error
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        this.config.mass = Math.min(this.inv_mass_recovery_rate / 10 + this.config.mass, 1)
+        this.config.mass = Math.min(this.inv_mass_recovery_rate + this.config.mass, 1)
         if (this.config.mass === 1) {
             this.inv_mass_recovery_rate = 0
         }
