@@ -6,7 +6,7 @@ export default class Glare extends Component {
     render (): JSX.Element {
         return (
             <>
-                <div className="card__glare basic v rare ultra svelte-y0attf"/>
+                <div className="card__glare basic v rare ultra"/>
             </>
         )
     }

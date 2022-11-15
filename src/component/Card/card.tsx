@@ -3,6 +3,7 @@ import Shine from './card-shine'
 import Glare from './card-glare'
 
 import './card.css'
+import Spring, { SpringConfig } from '../../utils/spring'
 
 // make a card componnent like pokemon-cards-css
 
@@ -12,7 +13,6 @@ interface CardProps {
     subtypes: string
     supertype: string
     rarity: string
-    types: string
     gallery: string
     styles: React.CSSProperties
     back_img: string
@@ -27,7 +27,6 @@ interface CardState {
     ry: number
     s: number
     o: number
-    pos: number
     posx: number
     posy: number
     hyp: number
@@ -51,12 +50,28 @@ export default class Card extends Component< CardProps, {}> {
     private readonly element: any
     private readonly settings: any
     private readonly reverse: number
-    private transitionTimeout: any | null
     private updateCall: any | null
     public state: CardState
+    private readonly springR: SpringConfig
+    private readonly springD: SpringConfig
+    private readonly rx: Spring
+    private readonly ry: Spring
+    private readonly mx: Spring
+    private readonly my: Spring
+    private readonly s: Spring
+    private readonly o: Spring
+    private readonly posx: Spring
+    private readonly posy: Spring
+    private mouse: React.MouseEvent<HTMLButtonElement> | null
+    private isReset: boolean
+    private readonly SpringSnap: SpringConfig
 
     constructor (props: CardProps) {
         super(props)
+
+        this.springR = { stiffness: 0.066, damping: 0.25, mass: 1 }
+        this.springD = { stiffness: 0.033, damping: 0.45, mass: 1 }
+        this.SpringSnap = { stiffness: 0.01, damping: 0.06 }
 
         this.state = {
             rx: 0,
@@ -64,13 +79,21 @@ export default class Card extends Component< CardProps, {}> {
             mx: 50,
             my: 50,
             s: 1,
-            o: 1,
-            pos: 0,
+            o: 0,
             posx: 0,
             posy: 0,
             hyp: 0,
             galaxybg: 0
         }
+
+        this.rx = new Spring(0, this.springR)
+        this.ry = new Spring(0, this.springR)
+        this.mx = new Spring(50, this.springR)
+        this.my = new Spring(50, this.springR)
+        this.s = new Spring(1, this.springD)
+        this.o = new Spring(0, this.springR)
+        this.posx = new Spring(0, this.springR)
+        this.posy = new Spring(0, this.springR)
 
         this.back_loading = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4' +
         'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
@@ -86,98 +109,159 @@ export default class Card extends Component< CardProps, {}> {
         this.left = 0
         this.top = 0
 
-        this.transitionTimeout = null
         this.updateCall = null
 
         this.handleMouseEnter = this.handleMouseEnter.bind(this)
-        this.handleMouseMove = this.handleMouseMove.bind(this)
         this.handleMouseLeave = this.handleMouseLeave.bind(this)
+        this.handleMouseMove = this.handleMouseMove.bind(this)
+        this.update = this.update.bind(this)
 
         const defaultSettings = {
             reverse: false,
-            max: 35,
-            perspective: 1000,
-            easing: 'cubic-bezier(.03,.98,.52,.99)',
-            scale: '1.1',
-            speed: '1000',
-            transition: true,
-            axis: null,
-            reset: true
+            maxX: 16,
+            maxY: 18,
+            reset: false
         }
 
         this.settings = {
             ...defaultSettings,
             ...this.props.options
         }
-        this.reverse = (this.settings.reverse) ? -1 : 1
+        this.reverse = (this.settings.reverse) ? 1 : -1
 
-        // TODO: Use alternative to spring
+        this.mouse = null
+        this.isReset = false
     }
 
     handleMouseEnter (e: React.MouseEvent<HTMLButtonElement>): void {
+        this.rx.setConfig(this.springR)
+        this.ry.setConfig(this.springR)
+        this.mx.setConfig(this.springR)
+        this.my.setConfig(this.springR)
+        this.s.setConfig(this.springD)
+        this.o.setConfig(this.springR)
+        this.posx.setConfig(this.springR)
+        this.posy.setConfig(this.springR)
+
         this.updateElementPosition()
-        this.setTransition()
+        this.isReset = false
+        this.mouse = e
+        this.o.setValue(1)
+
+        this.updateCall = requestAnimationFrame(this.update)
     }
 
-    reset (): void {
-        window.requestAnimationFrame(() => {
-            console.log('RESETTING TRANSFORM STATE', `perspective(${this.settings.perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`)
-            this.setState({
-                rx: 0,
-                ry: 0,
-                mx: 50,
-                my: 50
-            })
+    private updateCard (): void {
+        this.setState({
+            rx: this.rx.getValue(),
+            ry: this.ry.getValue(),
+            mx: this.mx.getValue(),
+            my: this.my.getValue(),
+            s: this.s.getValue(),
+            o: this.o.getValue(),
+            posx: this.posx.getValue(),
+            posy: this.posy.getValue()
         })
     }
 
-    handleMouseMove (e: React.MouseEvent<HTMLButtonElement>): void {
-        e.persist()
-        if (this.updateCall !== null) {
-            window.cancelAnimationFrame(this.updateCall)
-        }
-        this.updateCall = requestAnimationFrame(this.update.bind(this, e))
-    }
+    reset (): void {
+        this.rx.forceValue(0)
+        this.ry.forceValue(0)
+        this.mx.forceValue(50)
+        this.my.forceValue(50)
+        this.s.forceValue(1)
+        this.o.forceValue(0)
+        this.posx.forceValue(0)
+        this.posy.forceValue(0)
+        this.o.forceValue(0)
 
-    setTransition (): void {
-        clearTimeout(this.transitionTimeout)
-        console.log('SET TRANSITION', `Speed: ${this.settings.speed}ms Easing: ${this.settings.easing}`)
-
-        this.transitionTimeout = setTimeout(() => {
-            console.log('TRANSITION COMPLETE')
-
-            this.setState({
-                rx: 0,
-                ry: 0,
-                mx: 50,
-                my: 50
-            })
-        }, this.settings.speed)
+        this.updateCard()
+        this.mouse = null
     }
 
     handleMouseLeave (e: React.MouseEvent<HTMLButtonElement>): void {
-        this.setTransition()
+        this.isReset = true
+        this.mouse = null
+        this.o.setValue(0)
+        /*
+        setTimeout(() => {
+
+            this.rx.setConfigUpdate({soft: 1})
+            this.rx.setConfig(this.SpringSnap)
+            this.ry.setConfigUpdate({soft: 1})
+            this.ry.setConfig(this.SpringSnap)
+            this.mx.setConfigUpdate({soft: 1})
+            this.mx.setConfig(this.SpringSnap)
+            this.my.setConfigUpdate({soft: 1})
+            this.my.setConfig(this.SpringSnap)
+            this.s.setConfigUpdate({soft: 1})
+            this.s.setConfig(this.SpringSnap)
+            this.s.setConfigUpdate({soft: 1})
+            this.o.setConfig(this.SpringSnap)
+            this.posx.setConfigUpdate({soft: 1})
+            this.posx.setConfig(this.SpringSnap)
+            this.posy.setConfigUpdate({soft: 1})
+            this.posy.setConfig(this.SpringSnap)
+        }, 500)
+        */
+
         if (this.settings.reset) {
+            cancelAnimationFrame(this.updateCall)
             this.reset()
         }
     }
 
-    getValues (e: React.MouseEvent<HTMLButtonElement>): { tiltY: string, percentageX: number, tiltX: string, percentageY: number } {
-        const x = (e.nativeEvent.clientX - this.left) / this.width
-        const y = (e.nativeEvent.clientY - this.top) / this.height
+    getValues (): {
+        tiltY: number
+        percentageX: number
+        tiltX: number
+        percentageY: number
+        backgroundX: number
+        backgroundY: number
+
+    } {
+        const e = this.mouse
+        if (e == null) {
+            return {
+                tiltY: 0,
+                percentageX: 0,
+                tiltX: 0,
+                percentageY: 0,
+                backgroundX: 0,
+                backgroundY: 0
+            }
+        }
+
+        let x = 0.5
+        let y = 0.5
+        if (!this.isReset) {
+            x = (e.nativeEvent.clientX - this.left) / this.width
+            y = (e.nativeEvent.clientY - this.top) / this.height
+        }
+
         const _x = Math.min(Math.max(x, 0), 1)
         const _y = Math.min(Math.max(y, 0), 1)
-        const tiltX = (this.reverse * (this.settings.max / 2 - _x * this.settings.max)).toFixed(2)
-        const tiltY = (this.reverse * (_y * this.settings.max - this.settings.max / 2)).toFixed(2)
         const percentageX = _x * 100
         const percentageY = _y * 100
-        console.log('JUST GOT NEW VALUES', `X: ${x} Y: ${y} -- TILT X: ${tiltX} TILT Y: ${tiltY} -- TILT X%: ${percentageX} TILT Y%: ${percentageY}`)
-        console.log('Notice how X turned into percentageX.')
+
+        const center = {
+            x: percentageX - 50,
+            y: percentageY - 50
+        }
+
+        const tiltX = (this.reverse * -(center.x / 3.5))
+        const tiltY = (this.reverse * (center.y / 2))
+
+        const backgroundX = (50 + _x * 100 / 4 - 12.5)
+        const backgroundY = (50 + _y * 100 / 3 - 16.67)
+
         return {
             tiltX,
             tiltY,
             percentageX,
-            percentageY
+            percentageY,
+            backgroundX,
+            backgroundY
         }
     }
 
@@ -187,22 +271,39 @@ export default class Card extends Component< CardProps, {}> {
         this.height = this.element.current.offsetHeight
         this.left = rect.left
         this.top = rect.top
-        console.log('UPDATED ELEMENT POSITION', `Width: ${this.width} Height: ${this.height} -- Left: ${this.left} Top: ${this.top}`)
     }
 
-    update (e: React.MouseEvent<HTMLButtonElement>): void {
-        const values = this.getValues(e)
-        console.log('VALUES', values)
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        console.log('NEW CSS TRANSFORM VALUES', `perspective(${this.settings.perspective}px) rotateX(${this.settings.axis === 'x' ? 0 : values.tiltY}deg) rotateY(${this.settings.axis === 'y' ? 0 : values.tiltX}deg) scale3d(${this.settings.scale}, ${this.settings.scale}, ${this.settings.scale})`)
-        this.setState({
-            rx: this.settings.axis === 'y' ? 0 : values.tiltX,
-            ry: this.settings.axis === 'x' ? 0 : values.tiltY,
-            mx: values.percentageX,
-            my: values.percentageY
-        })
+    update (): void {
+        if (this.isReset && this.rx.getValue() === 0 && this.ry.getValue() === 0) {
+            cancelAnimationFrame(this.updateCall)
+            return
+        }
+        const values = this.getValues()
 
-        this.updateCall = null
+        this.rx.setValue(values.tiltX)
+        this.ry.setValue(values.tiltY)
+        this.mx.setValue(values.percentageX)
+        this.my.setValue(values.percentageY)
+        this.posx.setValue(values.backgroundX)
+        this.posy.setValue(values.backgroundY)
+
+        this.rx.update()
+        this.ry.update()
+        this.mx.update()
+        this.my.update()
+        this.posx.update()
+        this.posy.update()
+        this.s.update()
+        this.o.update()
+
+        this.updateCard()
+
+        this.updateCall = requestAnimationFrame(this.update)
+    }
+
+    handleMouseMove (e: React.MouseEvent<HTMLButtonElement>): void {
+        e.persist()
+        this.mouse = e
     }
 
     public render (): JSX.Element {
@@ -223,7 +324,7 @@ export default class Card extends Component< CardProps, {}> {
                     ['--s' as any]: this.state.s.toString(),
                     ['--rx' as any]: this.state.rx.toString() + 'deg',
                     ['--ry' as any]: this.state.ry.toString() + 'deg',
-                    ['--pos' as any]: this.state.pos.toString() + '%',
+                    ['--pos' as any]: this.state.posx.toString() + '%' + this.state.posy.toString() + '%',
                     ['--posx' as any]: this.state.posx.toString() + '%',
                     ['--posy' as any]: this.state.posy.toString() + '%',
                     ['--hyp' as any]: '0',

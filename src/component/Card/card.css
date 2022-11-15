@@ -37,7 +37,7 @@
 .card__translater,
 .card__rotator {
   display: grid;
-  perspective: 600px;
+  perspective: 500px;
   transform-origin: center;
   -webkit-transform-origin: center;
   will-change: transform;
