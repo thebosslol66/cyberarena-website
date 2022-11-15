@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import Background from './component/Menu/Background'
 import reportWebVitals from './reportWebVitals'
-import Card from './component/Menu/card'
+import Card from './component/Card/card'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -13,18 +13,16 @@ root.render(
     <React.StrictMode>
         <Background/>
 
-        <Card number={0}
-              name={'First'}
-              subtypes={'Rare'}
-              supertype={'Water'}
-              rarity={'Rare'}
-              types={'Rare'}
-              gallery={'E'}
-              styles={{ }}
+        <Card number={190}
+            name={'First'}
+            subtypes={'basic v'}
+            supertype={'pokémon'}
+            rarity={'rare ultra'}
+            gallery={'false'}
+            styles={{ }}
 
-              back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
-              front_img={'https://images.pokemontcg.io/base1/1_hires.png'}
-        />
+            back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
+            front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
 
     </React.StrictMode>
 )
