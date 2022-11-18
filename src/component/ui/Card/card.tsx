@@ -3,7 +3,7 @@ import Shine from './card-shine'
 import Glare from './card-glare'
 
 import './card.css'
-import Spring, { SpringConfig } from '../../utils/spring'
+import Spring, { SpringConfig } from '../../../utils/spring'
 
 // make a card componnent like pokemon-cards-css
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import Background from './component/Menu/Background'
 import reportWebVitals from './reportWebVitals'
-import Card from './component/Card/card'
+import Card from './component/ui/Card/card'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
