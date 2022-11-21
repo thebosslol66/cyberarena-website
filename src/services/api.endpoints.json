@@ -1,0 +1,8 @@
+{
+  "url": "http://localhost:8000/api/",
+  "endpoint": {
+    "signup": "sign/sign-up",
+    "signin": "sign/token",
+    "refresh": "sign/refresh-token"
+  }
+}
