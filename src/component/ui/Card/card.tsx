@@ -127,7 +127,7 @@ export default class Card extends Component< CardProps, {}> {
             ...defaultSettings,
             ...this.props.options
         }
-        this.reverse = (this.settings.reverse) ? -1 : 1
+        this.reverse = (this.settings.reverse === true) ? -1 : 1
 
         this.mouse = null
         this.isReset = false
@@ -188,7 +188,7 @@ export default class Card extends Component< CardProps, {}> {
         this.mouse = null
     }
 
-    handleMouseLeave (e: React.MouseEvent<HTMLButtonElement>): void {
+    handleMouseLeave (): void {
         this.isReset = true
         this.mouse = null
         this.o.setValue(0)
@@ -210,7 +210,7 @@ export default class Card extends Component< CardProps, {}> {
         this.posy.setConfigUpdate({ soft: 1 })
         this.posy.setConfig(this.SpringSnap)
 
-        if (this.settings.reset) {
+        if (this.settings.reset === true) {
             cancelAnimationFrame(this.updateCall)
             this.reset()
         }
@@ -285,16 +285,12 @@ export default class Card extends Component< CardProps, {}> {
         }
         const values = this.getValues()
 
-        console.log('Values', values)
-
         this.rx.setValue(values.tiltX)
         this.ry.setValue(values.tiltY)
         this.mx.setValue(values.percentageX)
         this.my.setValue(values.percentageY)
         this.posx.setValue(values.backgroundX)
         this.posy.setValue(values.backgroundY)
-
-        console.log('SpringValues', this.rx.getValue(), this.rx.getLastTime(), Date.now() - this.rx.getLastTime(), this.ry.getValue())
 
         this.rx.update()
         this.ry.update()
