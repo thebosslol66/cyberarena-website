@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-less/semantic.less'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Layout from './pages/Layout'
 import HomePage from './pages/home'
@@ -12,6 +12,10 @@ import SigninPage from './pages/signin'
 import SignupPage from './pages/signup'
 import NoPage from './pages/NoPage'
 import DashboardPage from './pages/dashboard'
+import SignoutPage from './pages/signout'
+import ThemingLayout from './pages/theming'
+import { AuthProvider } from './context/AuthContext'
+import RequireLoginRoutes from './pages/RequireLoginRoutes'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -19,17 +23,23 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path="signin" element={<SigninPage />} />
-                    <Route path="signup" element={<SignupPage />} />
-                    <Route path="dashboard" element={<DashboardPage />} />
-                    <Route path="*" element={<NoPage />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout/>}>
+                        <Route index element={<HomePage/>}/>
+                        <Route path="signin" element={<SigninPage/>}/>
+                        <Route path="signup" element={<SignupPage/>}/>
+                        <Route element={<RequireLoginRoutes/>}>
+                            <Route path="dashboard" element={<DashboardPage/>}/>
+                            <Route path="signout" element={<SignoutPage/>}/>
+                        </Route>
+                        {process.env.NODE_ENV === 'development' && <Route path="theming" element={<ThemingLayout/>}/>}
+                        <Route path="*" element={<NoPage/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
     </React.StrictMode>
 )
 

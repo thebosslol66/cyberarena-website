@@ -33,16 +33,15 @@ interface CardState {
     galaxybg: number
 }
 
-export default class Card extends Component< CardProps, {}> {
+export default class Card extends Component<CardProps, {}> {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
 
+    public state: CardState
     private readonly back_loading: string
     private readonly front_loading: string
     private readonly img_base: string
     private readonly front_img: string
-
     private readonly galaxyPosition: number
-
     private width: number
     private height: number
     private left: number
@@ -51,7 +50,6 @@ export default class Card extends Component< CardProps, {}> {
     private readonly settings: any
     private readonly reverse: number
     private updateCall: any | null
-    public state: CardState
     private readonly springR: SpringConfig
     private readonly springD: SpringConfig
     private readonly rx: Spring
@@ -96,9 +94,9 @@ export default class Card extends Component< CardProps, {}> {
         this.posy = new Spring(0, this.springR)
 
         this.back_loading = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4' +
-        'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
+            'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
         this.front_loading = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAN0lEQVR42u3OIQ' +
-        'EAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg=='
+            'EAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg=='
         this.img_base = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
         this.front_img = ''
         this.galaxyPosition = Math.floor(Math.random() * 1500)
@@ -158,19 +156,6 @@ export default class Card extends Component< CardProps, {}> {
         this.o.setValue(1)
 
         this.updateCall = requestAnimationFrame(this.update)
-    }
-
-    private updateCard (): void {
-        this.setState({
-            rx: this.rx.getValue(),
-            ry: this.ry.getValue(),
-            mx: this.mx.getValue(),
-            my: this.my.getValue(),
-            s: this.s.getValue(),
-            o: this.o.getValue(),
-            posx: this.posx.getValue(),
-            posy: this.posy.getValue()
-        })
     }
 
     reset (): void {
@@ -374,12 +359,25 @@ export default class Card extends Component< CardProps, {}> {
                                 width="660"
                                 height="921"
                             />
-                            <Shine />
-                            <Glare />
+                            <Shine/>
+                            <Glare/>
                         </div>
                     </button>
                 </div>
             </div>
         )
+    }
+
+    private updateCard (): void {
+        this.setState({
+            rx: this.rx.getValue(),
+            ry: this.ry.getValue(),
+            mx: this.mx.getValue(),
+            my: this.my.getValue(),
+            s: this.s.getValue(),
+            o: this.o.getValue(),
+            posx: this.posx.getValue(),
+            posy: this.posy.getValue()
+        })
     }
 }

@@ -1,4 +1,3 @@
-
 import api from './api'
 import TokenService from './token.service'
 
@@ -33,7 +32,6 @@ const signin = (username: string, password: string): any => {
             if (response.data.access_token !== undefined) {
                 TokenService.setUser(response.data)
             }
-
             return response.data
         })
 }

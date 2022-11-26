@@ -4,6 +4,7 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { defaultSignValues, SignInterface } from '../../Interfaces/sign'
 import AuthService from '../../../services/auth.service'
 import { SignUpStatusDTO } from '../../../services/Interfaces/sign'
+import { Link } from 'react-router-dom'
 
 export default class SignUpForm extends React.Component<SignInterface, {
     username: string
@@ -15,6 +16,7 @@ export default class SignUpForm extends React.Component<SignInterface, {
 
 }> {
     static defaultProps = defaultSignValues
+
     constructor (props: SignInterface) {
         super(props)
         this.state = {
@@ -77,9 +79,9 @@ export default class SignUpForm extends React.Component<SignInterface, {
 
     render (): JSX.Element {
         return (
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' color={this.props.color} textAlign='center'>
+                    <Header as='h2' textAlign='center'>
                         Create a new account
                     </Header>
                     <Form size='large' onSubmit={this.handleSubmit}>
@@ -116,7 +118,7 @@ export default class SignUpForm extends React.Component<SignInterface, {
                                 required={true}
                                 onChange={event => this.setState({ passwordConfirm: event.target.value })}
                             />
-                            <Button color={this.props.color} fluid size='large' type="submit" loading={this.state.isRequestWaiting}
+                            <Button primary fluid size='large' type="submit" loading={this.state.isRequestWaiting}
                                 disabled={this.state.isRequestWaiting}>
                                 Create Account
                             </Button>
@@ -124,7 +126,7 @@ export default class SignUpForm extends React.Component<SignInterface, {
                     </Form>
                     {(this.props.signInAndUpSamePage === false) && (
                         <Message>
-                            You have already an account ? <a href='/signin'>Sign In</a>
+                            You have already an account ? <Link to={'/signin'}>Sign In </Link>
                         </Message>
                     )}
                 </Grid.Column>
