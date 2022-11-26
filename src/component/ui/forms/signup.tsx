@@ -33,7 +33,6 @@ export default class SignUpForm extends React.Component<SignInterface, {
 
     handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
-        console.log(event)
 
         if (this.state.username === '') {
             this.setState({ error: 'Username is required' })
@@ -88,15 +87,18 @@ export default class SignUpForm extends React.Component<SignInterface, {
                         <Segment stacked>
                             {this.state.error !== '' && <Message negative>
                                 <Message.Header>Sign-up error</Message.Header>
-                                <p>{this.state.error}</p>
+                                <p data-testid='error-signup-message'>{this.state.error}</p>
                             </Message>}
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username'
                                 minLength={4}
                                 required={true}
-                                onChange={event => this.setState({ username: event.target.value })}/>
+                                onChange={event => this.setState({ username: event.target.value })}
+                                data-testid='username-field'
+                            />
                             <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail address' type='email'
                                 onChange={event => this.setState({ email: event.target.value })}
-                                required={true}/>
+                                required={true}
+                                data-testid='email-field'/>
                             <Form.Input
                                 fluid
                                 icon='lock'
@@ -107,6 +109,7 @@ export default class SignUpForm extends React.Component<SignInterface, {
                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                 required={true}
                                 onChange={event => this.setState({ password: event.target.value })}
+                                data-testid='password-field'
                             />
                             <Form.Input
                                 fluid
@@ -117,9 +120,12 @@ export default class SignUpForm extends React.Component<SignInterface, {
                                 minLength={8}
                                 required={true}
                                 onChange={event => this.setState({ passwordConfirm: event.target.value })}
+                                data-testid='password-confirm-field'
                             />
                             <Button primary fluid size='large' type="submit" loading={this.state.isRequestWaiting}
-                                disabled={this.state.isRequestWaiting}>
+                                disabled={this.state.isRequestWaiting}
+                                data-testid='submit-button'
+                            >
                                 Create Account
                             </Button>
                         </Segment>

@@ -1,25 +1,32 @@
 import React from 'react'
-import logo from './logo.svg'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import Layout from './pages/Layout'
+import HomePage from './pages/home'
+import SigninPage from './pages/signin'
+import SignupPage from './pages/signup'
+import RequireLoginRoutes from './pages/RequireLoginRoutes'
+import DashboardPage from './pages/dashboard'
+import SignoutPage from './pages/signout'
+import ThemingLayout from './pages/theming'
+import NoPage from './pages/NoPage'
 
 function App (): JSX.Element {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    open<code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+
+        <Routes>
+            <Route path="/" element={<Layout/>}>
+                <Route index element={<HomePage/>}/>
+                <Route path="signin" element={<SigninPage/>}/>
+                <Route path="signup" element={<SignupPage/>}/>
+                <Route element={<RequireLoginRoutes/>}>
+                    <Route path="dashboard" element={<DashboardPage/>}/>
+                    <Route path="signout" element={<SignoutPage/>}/>
+                </Route>
+                {process.env.NODE_ENV === 'development' && <Route path="theming" element={<ThemingLayout/>}/>}
+                <Route path="*" element={<NoPage/>}/>
+            </Route>
+        </Routes>
     )
 }
 
