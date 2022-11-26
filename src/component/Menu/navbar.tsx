@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { Button, Container, Image, Menu } from 'semantic-ui-react'
 
@@ -11,17 +11,14 @@ export default class Navbar extends React.Component {
             <AuthContext.Consumer>
                 {({ isLogged }) => (
                     <Menu
-                        primary
                         fixed="top"
-                        borderless={true}>
+                        borderless={true}
+                        data-testid="navbar"
+                    >
                         <Container>
-                            <Menu.Item as="a" header>
-                                <Link to={'/'} inputMode="text">
-                                    <Image size='mini' src='/logo192.png' style={{ marginRight: '1.5em' }}/>
-                                </Link>
-                                <Link to={'/'} inputMode="text">
-                                    Project Name
-                                </Link>
+                            <Menu.Item as="a" to={'/'} header>
+                                <Image size='mini' src='/logo192.png' style={{ marginRight: '1.5em' }}/>
+                                Project Name
                             </Menu.Item>
                             <Menu.Item
                                 as={NavLink}
