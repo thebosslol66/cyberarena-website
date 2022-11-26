@@ -1,4 +1,3 @@
-
 export interface SpringConfig {
     mass?: number
     damping?: number

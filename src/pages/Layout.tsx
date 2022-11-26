@@ -7,8 +7,8 @@ import Navbar from '../component/Menu/navbar'
 const Layout = (): JSX.Element => {
     return (
         <>
-            <Navbar />
-            <Outlet />
+            <Navbar/>
+            <Outlet/>
         </>
     )
 }

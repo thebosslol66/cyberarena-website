@@ -1,9 +1,10 @@
-
-import React from 'react'
+import React, { Context } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
-import { SignInterface, defaultSignValues } from '../../Interfaces/sign'
+import { defaultSignValues, SignInterface } from '../../Interfaces/sign'
 import AuthService from '../../../services/auth.service'
+import { Link, redirect } from 'react-router-dom'
+import AuthContext, { AuthContextInterface } from '../../../context/AuthContext'
 
 export default class SignInForm extends React.Component<SignInterface,
 {
@@ -14,6 +15,8 @@ export default class SignInForm extends React.Component<SignInterface,
     isRequestWaiting: boolean
 }> {
     static defaultProps = defaultSignValues
+    static contextType: Context<AuthContextInterface> = AuthContext
+
     constructor (props: SignInterface) {
         super(props)
         this.state = {
@@ -26,13 +29,14 @@ export default class SignInForm extends React.Component<SignInterface,
 
     handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
+        const { setIsLogged } = this.context as AuthContextInterface
 
         this.setState({ isRequestWaiting: true })
         AuthService.signin(this.state.username, this.state.password).then(() => {
             this.setState({ isRequestWaiting: false })
             this.setState({ error: '' })
-            // redirect to dashboard
-            window.location.href = '/dashboard'
+            setIsLogged(true)
+            redirect('/dashboard')
         })
             .catch((error: any) => {
                 this.setState({ isRequestWaiting: false })
@@ -42,9 +46,9 @@ export default class SignInForm extends React.Component<SignInterface,
 
     render (): JSX.Element {
         return (
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' color={this.props.color} textAlign='center'>
+                    <Header as='h2' textAlign='center'>
                         Sign-in to your account
                     </Header>
                     <Form size='large' onSubmit={this.handleSubmit}>
@@ -53,7 +57,8 @@ export default class SignInForm extends React.Component<SignInterface,
                                 <Message.Header>Sign-in error</Message.Header>
                                 <p>{this.state.error}</p>
                             </Message>}
-                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username or E-mail address' onChange={event => this.setState({ username: event.target.value })}/>
+                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username or E-mail address'
+                                onChange={event => this.setState({ username: event.target.value })}/>
                             <Form.Input
                                 fluid
                                 icon='lock'
@@ -62,7 +67,7 @@ export default class SignInForm extends React.Component<SignInterface,
                                 type='password'
                                 onChange={event => this.setState({ password: event.target.value })}
                             />
-                            <Button color={this.props.color} fluid size='large' loading={this.state.isRequestWaiting}
+                            <Button primary fluid size='large' loading={this.state.isRequestWaiting}
                                 disabled={this.state.isRequestWaiting}>
                                 Login
                             </Button>
@@ -70,7 +75,7 @@ export default class SignInForm extends React.Component<SignInterface,
                     </Form>
                     {(this.props.signInAndUpSamePage === false) && (
                         <Message>
-                            Don&lsquo;t have account ? <a href='/signup'>Sign Up</a>
+                            Don&lsquo;t have account ? <Link to={'/signup'}>Sign Up </Link>
                         </Message>
                     )}
                 </Grid.Column>

@@ -8,7 +8,7 @@ function App (): JSX.Element {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo"/>
                 <p>
-          open<code>src/App.tsx</code> and save to reload.
+                    open<code>src/App.tsx</code> and save to reload.
                 </p>
                 <a
                     className="App-link"
@@ -16,7 +16,7 @@ function App (): JSX.Element {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-          Learn React
+                    Learn React
                 </a>
             </header>
         </div>
