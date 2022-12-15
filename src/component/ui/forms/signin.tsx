@@ -39,6 +39,7 @@ export default class SignInForm extends React.Component<SignInterface,
             redirect('/dashboard')
         })
             .catch((error: any) => {
+                console.log(error)
                 this.setState({ isRequestWaiting: false })
                 this.setState({ error: error.response.data.detail })
             }) // TODO: Handle connection error
@@ -58,7 +59,8 @@ export default class SignInForm extends React.Component<SignInterface,
                                 <p>{this.state.error}</p>
                             </Message>}
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username or E-mail address'
-                                onChange={event => this.setState({ username: event.target.value })}/>
+                                onChange={event => this.setState({ username: event.target.value })}
+                                data-testid='username-field'/>
                             <Form.Input
                                 fluid
                                 icon='lock'
@@ -66,9 +68,11 @@ export default class SignInForm extends React.Component<SignInterface,
                                 placeholder='Password'
                                 type='password'
                                 onChange={event => this.setState({ password: event.target.value })}
+                                data-testid='password-field'
                             />
                             <Button primary fluid size='large' loading={this.state.isRequestWaiting}
-                                disabled={this.state.isRequestWaiting}>
+                                disabled={this.state.isRequestWaiting}
+                                data-testid='submit-button'>
                                 Login
                             </Button>
                         </Segment>
