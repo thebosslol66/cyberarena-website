@@ -39,7 +39,6 @@ export default class SignInForm extends React.Component<SignInterface,
             redirect('/dashboard')
         })
             .catch((error: any) => {
-                console.log(error)
                 this.setState({ isRequestWaiting: false })
                 this.setState({ error: error.response.data.detail })
             }) // TODO: Handle connection error
