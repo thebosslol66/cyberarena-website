@@ -20,7 +20,8 @@ jest.mock('../../../services/auth.service', () => {
     }
 })
 
-var mockRedirect: jest.Mock<void, [data: any]>
+var mockRedirect: jest.Mock
+
 jest.mock('react-router-dom', () => {
     mockRedirect = jest.fn(() => {})
     return ({
