@@ -11,7 +11,7 @@ function SignInPage (): JSX.Element {
             {({ isLogged }) => (
                 <>
                     {isLogged && <Navigate to='/dashboard'/>}
-                    <Container fluid={true} style={{ marginTop: '7em' }}>
+                    <Container fluid={true} style={{ paddingTop: '7em' }}>
                         <SignInForm color="teal"/>
                     </Container>
                 </>

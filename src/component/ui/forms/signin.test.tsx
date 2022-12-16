@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, render } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import SignInForm from './signin'
 import React from 'react'
@@ -23,7 +23,8 @@ jest.mock('../../../services/auth.service', () => {
 let mockRedirect: jest.Mock
 
 jest.mock('react-router-dom', () => {
-    mockRedirect = jest.fn(() => {})
+    mockRedirect = jest.fn(() => {
+    })
     return ({
         ...jest.requireActual('react-router-dom'),
         redirect: mockRedirect
@@ -37,7 +38,9 @@ beforeEach(() => {
 
 function renderSignInForm (): void {
     let isLogged = false
-    const setIsLogged = (value: boolean): void => { isLogged = value }
+    const setIsLogged = (value: boolean): void => {
+        isLogged = value
+    }
     render(
         <AuthContext.Provider value={{ isLogged, setIsLogged }}>
             <MemoryRouter>

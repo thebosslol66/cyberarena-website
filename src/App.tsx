@@ -10,6 +10,7 @@ import DashboardPage from './pages/dashboard'
 import SignoutPage from './pages/signout'
 import ThemingLayout from './pages/theming'
 import NoPage from './pages/NoPage'
+import PrivacyPolicyPage from './pages/privacyPolicy'
 
 function App (): JSX.Element {
     return (
@@ -24,6 +25,7 @@ function App (): JSX.Element {
                     <Route path="signout" element={<SignoutPage/>}/>
                 </Route>
                 {process.env.NODE_ENV === 'development' && <Route path="theming" element={<ThemingLayout/>}/>}
+                <Route path='privacypolicy' element={<PrivacyPolicyPage/>}/>
                 <Route path="*" element={<NoPage/>}/>
             </Route>
         </Routes>
