@@ -2,4 +2,5 @@
      User Global Variables
 *******************************/
 
+@fontSize: 16px;
 @primaryColor: #002f8e;
