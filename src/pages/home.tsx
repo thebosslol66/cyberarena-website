@@ -56,7 +56,7 @@ function HomePage (): JSX.Element {
                                 supertype={'pokemon'}
                                 rarity={'rare ultra'}
                                 gallery={'false'}
-                                styles={{ maxWidth: '25vw', maxHeight: '25vh', margin: 'auto', transform: 'translateY(-25%)' }}
+                                style={{ maxWidth: '35vmin', margin: 'auto' }}
 
                                 back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
                                 front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
