@@ -67,7 +67,11 @@ describe('Good nav bar links in page ', () => {
     test('Dashboard page', async () => {
         render(
             <MemoryRouter initialEntries={['/dashboard']}>
-                <AuthContext.Provider value={{ isLogged: true, setIsLogged: () => {} }}>
+                <AuthContext.Provider value={{
+                    isLogged: true,
+                    setIsLogged: () => {
+                    }
+                }}>
                     <App/>
                 </AuthContext.Provider>
             </MemoryRouter>

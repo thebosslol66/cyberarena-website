@@ -94,13 +94,13 @@ export default class Card extends Component<CardProps, {}> {
         this.posy = new Spring(0, this.springR)
 
         this.back_loading =
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4' +
-      'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4' +
+            'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
         this.front_loading =
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAN0lEQVR42u3OIQ' +
-      'EAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg=='
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAN0lEQVR42u3OIQ' +
+            'EAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg=='
         this.img_base =
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
         this.front_img = ''
         this.galaxyPosition = Math.floor(Math.random() * 1500)
 
@@ -318,12 +318,12 @@ export default class Card extends Component<CardProps, {}> {
                     ['--rx' as any]: this.state.rx.toString() + 'deg',
                     ['--ry' as any]: this.state.ry.toString() + 'deg',
                     ['--pos' as any]:
-            this.state.posx.toString() + '%' + this.state.posy.toString() + '%',
+                    this.state.posx.toString() + '%' + this.state.posy.toString() + '%',
                     ['--posx' as any]: this.state.posx.toString() + '%',
                     ['--posy' as any]: this.state.posy.toString() + '%',
                     ['--hyp' as any]: '0',
                     ['--galaxybg' as any]:
-            'center ' + this.state.galaxybg.toString() + 'px'
+                    'center ' + this.state.galaxybg.toString() + 'px'
                 }}
                 // onChange={this.interact}
             >
@@ -337,18 +337,19 @@ export default class Card extends Component<CardProps, {}> {
                 >
                     <button
                         className="card__rotator"
-                        // onChange={this.rotator}
-                        // onClick={this.active}
-                        // onPointerMove={this.interact}
-                        // onMouseOut={this.interact}
-                        // onBlur={this.deactivate}
-
                         aria-label="Expand the Pokemon Card; {name}."
                         tabIndex={0}
                         onMouseEnter={this.handleMouseEnter}
                         onMouseMove={this.handleMouseMove}
                         onMouseLeave={this.handleMouseLeave}
                         ref={this.element}
+
+                        // onChange={this.rotator}
+                        // onClick={this.active}
+                        // onPointerMove={this.interact}
+                        // onMouseOut={this.interact}
+                        // onBlur={this.deactivate}
+
                     >
                         <img
                             className="card__back"
@@ -367,8 +368,8 @@ export default class Card extends Component<CardProps, {}> {
                                 width="660"
                                 height="921"
                             />
-                            <Shine />
-                            <Glare />
+                            <Shine/>
+                            <Glare/>
                         </div>
                     </button>
                 </div>

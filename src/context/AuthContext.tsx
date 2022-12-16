@@ -9,7 +9,8 @@ interface AuthContextInterface {
 
 const AuthContext = React.createContext<AuthContextInterface>({
     isLogged: false,
-    setIsLogged: () => {}
+    setIsLogged: () => {
+    }
 })
 
 const AuthProvider = ({ children }: any): JSX.Element => {

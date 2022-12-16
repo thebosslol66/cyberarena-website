@@ -21,11 +21,11 @@ function FirstPartHomePage (): JSX.Element {
         <div style={{
             background: `url(${background}) no-repeat center center fixed`,
             backgroundSize: 'cover',
-            width: '100vw',
+            width: '100%',
             height: '100vh',
             position: 'relative'
         }}>
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2} >
+            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
                 <Grid.Column
                     style={{
                         padding: '5px 10px 5px 10px',
@@ -44,16 +44,20 @@ function FirstPartHomePage (): JSX.Element {
                         </Header>
                         <p>
                             Welcome to CyberArena, the ultimate card game experience!
-                            With stunning graphics and immersive gameplay, you&apos;ll feel like you&apos;ve stepped right into the cyber world. Test your skills and strategy against players from all over the world in this fast-paced, high-stakes card game. Challenge yourself to become a master of CyberArena and prove your worth on the virtual battlefield! Are you ready for an electrifying adventure? Play now and find out what CyberArena has to offer!
+                            With stunning graphics and immersive gameplay, you&apos;ll feel like you&apos;ve stepped
+                            right into the cyber world. Test your skills and strategy against players from all over the
+                            world in this fast-paced, high-stakes card game. Challenge yourself to become a master of
+                            CyberArena and prove your worth on the virtual battlefield! Are you ready for an
+                            electrifying adventure? Play now and find out what CyberArena has to offer!
                         </p>
                         <Button
-                            primary={ true }
+                            primary={true}
                             content='Play Now'
                             icon='play'
                             labelPosition='right'
-                            floated={ 'right' }
-                            as={ Link }
-                            to={ '/dashboard' }
+                            floated={'right'}
+                            as={Link}
+                            to={'/dashboard'}
                         />
                     </Container>
                 </Grid.Column>
@@ -76,10 +80,24 @@ function FirstPartHomePage (): JSX.Element {
     )
 }
 
+function SecondPartHomePage (): JSX.Element {
+    return (
+        <div style={{
+            backgroundSize: 'cover',
+            width: '100%',
+            height: '100vh',
+            position: 'relative'
+        }}>
+
+        </div>
+    )
+}
+
 function HomePage (): JSX.Element {
     return (
         <>
             <FirstPartHomePage/>
+            <SecondPartHomePage/>
         </>
     )
 }
