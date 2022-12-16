@@ -1,6 +1,7 @@
 import React from 'react'
-import {Container, Grid, Header} from 'semantic-ui-react'
+import { Container, Grid, Header } from 'semantic-ui-react'
 import background from '../assets/background/testreact.jpg'
+import Card from '../component/ui/Card/card'
 
 /*
 1. Enter the CyberArena and take your chances in the ultimate card game challenge!
@@ -8,6 +9,10 @@ import background from '../assets/background/testreact.jpg'
 3. Step into a digital world where every move counts - can you become king of CyberArena?
 4. Unleash your strategic genius and show them who's boss in an electrifying game of cards!
 5. Get ready for an adventure like no other - welcome to CyberArena!
+ <p>
+                                Enter the thrilling world of CyberArena, where strategy and skill determine your victory. Challenge yourself against players from around the world and see if you have what it takes to be crowned champion of the virtual arena! Join now and test your mettle in a digital duel that will push you to your limits.
+                            </p>
+
  */
 
 function HomePage (): JSX.Element {
@@ -20,7 +25,7 @@ function HomePage (): JSX.Element {
                 height: '100vh',
                 position: 'relative'
             }}>
-                <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle' columns={2} >
+                <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2} >
                     <Grid.Column
                         style={{
                             padding: '5px 10px 5px 10px',
@@ -38,18 +43,23 @@ function HomePage (): JSX.Element {
                                 Welcome to CyberArena traveller!
                             </Header>
                             <p>
-                                Welcome to CyberArena, the ultimate card game experience! With stunning graphics and immersive gameplay, you'll feel like you've stepped right into the cyber world. Test your skills and strategy against players from all over the world in this fast-paced, high-stakes card game. Challenge yourself to become a master of CyberArena and prove your worth on the virtual battlefield! Are you ready for an electrifying adventure? Play now and find out what CyberArena has to offer!
+                                Welcome to CyberArena, the ultimate card game experience!
+                                With stunning graphics and immersive gameplay, you&apos;ll feel like you&apos;ve stepped right into the cyber world. Test your skills and strategy against players from all over the world in this fast-paced, high-stakes card game. Challenge yourself to become a master of CyberArena and prove your worth on the virtual battlefield! Are you ready for an electrifying adventure? Play now and find out what CyberArena has to offer!
                             </p>
                         </Container>
                     </Grid.Column>
                     <Grid.Column only='large screen'>
-                        <Header as='h2' color='teal' textAlign='center'>
-                            Welcome to React
-                        </Header>
-                        <Container>
-                            <p>
-                                Enter the thrilling world of CyberArena, where strategy and skill determine your victory. Challenge yourself against players from around the world and see if you have what it takes to be crowned champion of the virtual arena! Join now and test your mettle in a digital duel that will push you to your limits.
-                            </p>
+                        <Container textAlign='center'>
+                            <Card number={190}
+                                name={'First'}
+                                subtypes={'basic v'}
+                                supertype={'pokemon'}
+                                rarity={'rare ultra'}
+                                gallery={'false'}
+                                styles={{ maxWidth: '25vw', maxHeight: '25vh', margin: 'auto', transform: 'translateY(-25%)' }}
+
+                                back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
+                                front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
                         </Container>
                     </Grid.Column>
                 </Grid>
