@@ -14,7 +14,7 @@ interface CardProps {
     supertype: string
     rarity: string
     gallery: string
-    styles: React.CSSProperties
+    style: React.CSSProperties
     back_img: string
     front_img: string
     options?: any
@@ -93,11 +93,14 @@ export default class Card extends Component<CardProps, {}> {
         this.posx = new Spring(0, this.springR)
         this.posy = new Spring(0, this.springR)
 
-        this.back_loading = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4' +
-            'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
-        this.front_loading = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAN0lEQVR42u3OIQ' +
-            'EAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg=='
-        this.img_base = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
+        this.back_loading =
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4' +
+      'twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC'
+        this.front_loading =
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAN0lEQVR42u3OIQ' +
+      'EAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg=='
+        this.img_base =
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
         this.front_img = ''
         this.galaxyPosition = Math.floor(Math.random() * 1500)
 
@@ -125,7 +128,7 @@ export default class Card extends Component<CardProps, {}> {
             ...defaultSettings,
             ...this.props.options
         }
-        this.reverse = (this.settings.reverse === true) ? -1 : 1
+        this.reverse = this.settings.reverse === true ? -1 : 1
 
         this.mouse = null
         this.isReset = false
@@ -208,7 +211,6 @@ export default class Card extends Component<CardProps, {}> {
         percentageY: number
         backgroundX: number
         backgroundY: number
-
     } {
         const e = this.mouse
         if (e == null) {
@@ -239,11 +241,11 @@ export default class Card extends Component<CardProps, {}> {
             y: percentageY - 50
         }
 
-        const tiltX = (this.reverse * -(center.x / 3.5))
-        const tiltY = (this.reverse * (center.y / 2))
+        const tiltX = this.reverse * -(center.x / 3.5)
+        const tiltY = this.reverse * (center.y / 2)
 
-        const backgroundX = (50 + _x * 100 / 4 - 12.5)
-        const backgroundY = (50 + _y * 100 / 3 - 16.67)
+        const backgroundX = 50 + (_x * 100) / 4 - 12.5
+        const backgroundY = 50 + (_y * 100) / 3 - 16.67
 
         return {
             tiltX,
@@ -300,7 +302,6 @@ export default class Card extends Component<CardProps, {}> {
 
     public render (): JSX.Element {
         return (
-
             <div
                 className="card"
                 data-number={this.props.number}
@@ -309,22 +310,31 @@ export default class Card extends Component<CardProps, {}> {
                 data-rarity={this.props.rarity}
                 data-gallery={this.props.gallery}
                 style={{
-                    ...this.props.styles,
+                    ...this.props.style,
                     ['--mx' as any]: this.state.mx.toString() + '%',
                     ['--my' as any]: this.state.my.toString() + '%',
                     ['--o' as any]: this.state.o.toString(),
                     ['--s' as any]: this.state.s.toString(),
                     ['--rx' as any]: this.state.rx.toString() + 'deg',
                     ['--ry' as any]: this.state.ry.toString() + 'deg',
-                    ['--pos' as any]: this.state.posx.toString() + '%' + this.state.posy.toString() + '%',
+                    ['--pos' as any]:
+            this.state.posx.toString() + '%' + this.state.posy.toString() + '%',
                     ['--posx' as any]: this.state.posx.toString() + '%',
                     ['--posy' as any]: this.state.posy.toString() + '%',
                     ['--hyp' as any]: '0',
-                    ['--galaxybg' as any]: 'center ' + this.state.galaxybg.toString() + 'px'
+                    ['--galaxybg' as any]:
+            'center ' + this.state.galaxybg.toString() + 'px'
                 }}
                 // onChange={this.interact}
             >
-                <div className="card__translater">
+                <div className="card__translater"
+                    style={{
+                        width: this.props.style.width,
+                        maxWidth: this.props.style.maxWidth,
+                        height: this.props.style.height,
+                        maxHeight: this.props.style.maxHeight
+                    }}
+                >
                     <button
                         className="card__rotator"
                         // onChange={this.rotator}
@@ -335,11 +345,9 @@ export default class Card extends Component<CardProps, {}> {
 
                         aria-label="Expand the Pokemon Card; {name}."
                         tabIndex={0}
-
                         onMouseEnter={this.handleMouseEnter}
                         onMouseMove={this.handleMouseMove}
                         onMouseLeave={this.handleMouseLeave}
-
                         ref={this.element}
                     >
                         <img
@@ -359,8 +367,8 @@ export default class Card extends Component<CardProps, {}> {
                                 width="660"
                                 height="921"
                             />
-                            <Shine/>
-                            <Glare/>
+                            <Shine />
+                            <Glare />
                         </div>
                     </button>
                 </div>

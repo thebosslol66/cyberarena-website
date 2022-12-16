@@ -45,6 +45,7 @@
 
 .card__translater {
     width: auto;
+    height: auto;
     position: relative;
     transform: translate3d(var(--tx), var(--ty), 0) scale(var(--s));
     -webkit-transform: translate3d(var(--tx), var(--ty), 0) scale(var(--s));
