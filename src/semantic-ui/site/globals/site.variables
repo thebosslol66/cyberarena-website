@@ -2,6 +2,10 @@
      User Global Variables
 *******************************/
 
+@emSize      : 16px;
+@fontSize    : 16px;
+
+
 /*-------------------
      Fonts
 --------------------*/
@@ -29,9 +33,9 @@
 /*---  Colors  ---*/
 @blue             : #3B83C0;
 @green            : #5BBD72;
-@orange           : #E07B53;
+@orange           : #f88f08;
 @pink             : #D9499A;
-@purple           : #564F8A;
+@purple           : #9362dc;
 @red              : #D95C5C;
 @teal             : #00B5AD;
 @yellow           : #F2C61F;
@@ -41,8 +45,8 @@
 @white            : #FFFFFF;
 
 /*---  Brand Colors  ---*/
-@primaryColor        : @blue;
-@secondaryColor      : @black;
+@primaryColor        : @orange;
+@secondaryColor      : @purple;
 /*-------------------
       Sizes
 --------------------*/
