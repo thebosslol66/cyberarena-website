@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import Card from '../component/ui/Card/card'
 import { Link } from 'react-router-dom'
+import Carousel from "../component/ui/carousel/homeCarousel";
 
 const background = '/img/background/testreact.jpg'
 const background2 = '/img/background/testreact2.jpg'
@@ -166,7 +167,21 @@ function ThirdPartHomePage (): JSX.Element {
         }}>
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
                 <Grid.Column>
-
+                    <Carousel
+                        images={[
+                            {
+                                src: 'https://images.pokemontcg.io/base1/1_hires.png',
+                                description: 'Image 1 description',
+                            },
+                            {
+                                src: 'https://images.pokemontcg.io/base1/1_hires.png',
+                                description: 'Image 2 description',
+                            },
+                            {
+                                src: 'https://images.pokemontcg.io/base1/1_hires.png',
+                                description: 'Image 3 description',
+                            }
+                        ]} />
                 </Grid.Column>
                 <Grid.Column
                     style={{
