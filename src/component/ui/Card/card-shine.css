@@ -213,9 +213,9 @@
 
     clip-path: inset(10% 8.5% 52.5% 8.5%);
 
-    background-image: url("../../../../public/img/galaxy.jpg"),
-    url("../../../../public/img/galaxy.jpg"),
-    url("../../../../public/img/galaxy.jpg"),
+    background-image: url("../../../../public/img/cardstyle/galaxy.jpg"),
+    url("../../../../public/img/cardstyle/galaxy.jpg"),
+    url("../../../../public/img/cardstyle/galaxy.jpg"),
     repeating-linear-gradient(
             82deg,
             rgb(219, 204, 86) calc(var(--space) * 1),
@@ -320,7 +320,7 @@
     --space: 6%;
     --angle: 133deg;
     --imgsize: 60% 30%;
-    background-image: url("../../../../public/img/vmaxbg.jpg"),
+    background-image: url("../../../../public/img/cardstyle/vmaxbg.jpg"),
     repeating-linear-gradient(-33deg,
             rgb(206, 42, 36) calc(var(--space) * 1),
             rgb(157, 170, 223) calc(var(--space) * 2),
@@ -364,7 +364,7 @@
     --angle: 133deg;
     --imgsize: 18% 15%;
 
-    background-image: url("../../../../public/img/ancient.png"),
+    background-image: url("../../../../public/img/cardstyle/ancient.png"),
     repeating-linear-gradient(0deg,
             rgb(255, 119, 115) calc(var(--space) * 1),
             rgba(255, 237, 95, 1) calc(var(--space) * 2),
@@ -417,7 +417,7 @@
     --angle: 133deg;
     --imgsize: 50% 42%;
 
-    background-image: url("../../../../public/img/illusion.png"),
+    background-image: url("../../../../public/img/cardstyle/illusion.png"),
     repeating-linear-gradient(0deg,
             rgb(255, 119, 115) calc(var(--space) * 1),
             rgba(255, 237, 95, 1) calc(var(--space) * 2),
@@ -471,7 +471,7 @@
     --angle: 133deg;
     --imgsize: 25% 20%;
 
-    background-image: url("../../../../public/img/trainerbg.png"),
+    background-image: url("../../../../public/img/cardstyle/trainerbg.png"),
     repeating-linear-gradient(0deg,
             rgb(255, 119, 115) calc(var(--space) * 1),
             rgba(255, 237, 95, 1) calc(var(--space) * 2),
@@ -531,7 +531,7 @@
     --angle2: 130deg;
     --imgsize: 130% 180%;
 
-    background-image: url("../../../../public/img/glitter.png"),
+    background-image: url("../../../../public/img/cardstyle/glitter.png"),
     repeating-linear-gradient(var(--angle),
             rgb(253, 71, 65) calc(var(--rainbowspace) * 1),
             rgb(255, 243, 151) calc(var(--rainbowspace) * 2),
@@ -549,7 +549,7 @@
             rgba(14, 21, 46, 0.5) calc(var(--overlayspace) * 5),
             rgba(14, 21, 46, 0.5) calc(var(--overlayspace) * 6)
     ),
-    url("../../../../public/img/illusion2.png");
+    url("../../../../public/img/cardstyle/illusion2.png");
 
     background-size: 20% 15%, 500% 500%, 1000% 1000%, var(--imgsize);
     background-position: center, calc(var(--posx) * 1.5) calc(var(--posy) * 1.5), calc(var(--posx) * 1.5) var(--posy), bottom left;
@@ -591,7 +591,7 @@
     --angle: 110deg;
     --imgsize: 28% 23%;
 
-    background-image: url("../../../../public/img/glitter.png"),
+    background-image: url("../../../../public/img/cardstyle/glitter.png"),
     repeating-linear-gradient(var(--angle),
             rgba(89, 46, 80, 0.5) 0%,
             hsl(39, 37%, 60%) 2.5%,
@@ -600,7 +600,7 @@
             rgba(14, 21, 46, 0.5) 10%,
             rgba(14, 21, 46, 0.5) 15%
     ),
-    url("../../../../public/img/metal.png");
+    url("../../../../public/img/cardstyle/metal.png");
 
     background-size: 25% 25%, 600% 100%, var(--imgsize);
     background-position: center, var(--posx) var(--posy), center;
@@ -615,7 +615,7 @@
 
     content: "";
 
-    background-image: url("../../../../public/img/glitter.png"),
+    background-image: url("../../../../public/img/cardstyle/glitter.png"),
     repeating-linear-gradient(var(--angle),
             rgba(89, 46, 80, 0.5) 0%,
             hsl(39, 37%, 60%) 2.5%,
@@ -718,7 +718,7 @@
 
     content: "";
 
-    background-image: url("../../../../public/img/glitter.png"),
+    background-image: url("../../../../public/img/cardstyle/glitter.png"),
     repeating-linear-gradient(55deg,
             rgb(255, 161, 158) calc(var(--space) * 1),
             rgb(85, 178, 255) calc(var(--space) * 2),
@@ -821,7 +821,7 @@
 
     --space: 5%;
     --angle: 133deg;
-    --img: url("../../../../public/img/illusion.png");
+    --img: url("../../../../public/img/cardstyle/illusion.png");
     --imgsize: 60% 52%;
 
     background-image: var(--img),
@@ -874,7 +874,7 @@
 .card[data-rarity="rare holo v"][data-gallery="true"][data-subtypes*="vmax"] .card__shine,
 .card[data-rarity="rare holo v"][data-gallery="true"][data-subtypes*="vmax"] .card__shine:after {
 
-    --img: url("../../../../public/img/stylish.png");
+    --img: url("../../../../public/img/cardstyle/stylish.png");
     --imgsize: 30% 26%;
 
 }
