@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 export default class Footer extends React.Component {
     render (): JSX.Element {
         return (
-            <Segment inverted vertical style={{ padding: '5em 0em', marginTop: '2em' }}>
+            <Segment inverted vertical style={{ padding: '5em 0em', marginTop: '2em'}}>
                 <Container>
                     <Grid divided inverted stackable>
                         <Grid.Row>
