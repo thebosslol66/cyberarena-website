@@ -21,7 +21,7 @@ export default class PrivacyPolicyPage extends React.Component {
                     <p>
                         At CyberArena, we take your privacy seriously. This privacy policy explains how we collect, use,
                         and share information about you when you use our website and online game services (collectively,
-                        the "Services").
+                        the &quot;Services&quot;).
                     </p>
 
                     <Accordion styled={true} fluid={true}>
