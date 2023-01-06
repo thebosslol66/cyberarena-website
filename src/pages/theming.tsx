@@ -108,8 +108,8 @@ const ThemingLayout = (): JSX.Element => (
                     <Menu
                         items={[
                             { key: '1', name: 'link-1', content: 'Link' },
-                            { key: '2', name: 'link-2', content: 'Link' },
-                            { key: '3', name: 'link-3', content: 'Link' }
+                            { key: '2', name: 'link-2', content: 'Link2' },
+                            { key: '3', name: 'link-3', content: 'Link3' }
                         ]}
                         pointing
                         secondary
