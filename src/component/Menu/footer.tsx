@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
                                 <Header inverted as='h4' content='About'/>
                                 <List link inverted>
                                     <List.Item as={NavLink}>Contact Us</List.Item>
-                                    <List.Item as={NavLink}>About Us</List.Item>
+                                    <List.Item as={NavLink} to={'/aboutus'} >About Us</List.Item>
                                     <List.Item as={NavLink}>FAQ</List.Item>
                                 </List>
                             </Grid.Column>
