@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
+
 /* eslint-disable */
 export class CancelError extends Error {
 
@@ -26,7 +27,6 @@ export class CancelablePromise<T> implements Promise<T> {
 
     private _isResolved: boolean;
     private _isRejected: boolean;
-    private _isCancelled: boolean;
     private readonly _cancelHandlers: (() => void)[];
     private readonly _promise: Promise<T>;
     private _resolve?: (value: T | PromiseLike<T>) => void;
@@ -86,6 +86,12 @@ export class CancelablePromise<T> implements Promise<T> {
         });
     }
 
+    private _isCancelled: boolean;
+
+    public get isCancelled(): boolean {
+        return this._isCancelled;
+    }
+
     public then<TResult1 = T, TResult2 = never>(
         onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
         onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null
@@ -120,9 +126,5 @@ export class CancelablePromise<T> implements Promise<T> {
         }
         this._cancelHandlers.length = 0;
         this._reject?.(new CancelError('Request aborted'));
-    }
-
-    public get isCancelled(): boolean {
-        return this._isCancelled;
     }
 }
