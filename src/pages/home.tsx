@@ -106,9 +106,10 @@ function SecondPartHomePage (): JSX.Element {
         Explain how work the game, the features, the cards,
      */
     return (
-        <Segment basic >
+        <Segment basic>
             <Container>
-                <Grid columns={2} relaxed='very' stackable={true} reversed={'tablet computer'} style={{ marginTop: '20px', marginBottom: '20px' }}>
+                <Grid columns={2} relaxed='very' stackable={true} reversed={'tablet computer'}
+                    style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <Grid.Column>
                         {/*  TODO: Add a video or justa gameplay image */}
                         <Image src='https://images.pokemontcg.io/base1/1_hires.png' size='medium' centered={true}/>
@@ -119,9 +120,12 @@ function SecondPartHomePage (): JSX.Element {
                                 Fight for glory!
                             </Header>
                             <p>
-                                Enter the thrilling world of CyberArena, where strategy and skill determine your victory.
-                                Challenge yourself against players from around the world and see if you have what it takes
-                                to be crowned champion of the cyber arena! Join now and test your mettle in a digital duel
+                                Enter the thrilling world of CyberArena, where strategy and skill determine your
+                                victory.
+                                Challenge yourself against players from around the world and see if you have what it
+                                takes
+                                to be crowned champion of the cyber arena! Join now and test your mettle in a digital
+                                duel
                                 that will push you to your limits.
                             </p>
                         </Container>
@@ -129,7 +133,7 @@ function SecondPartHomePage (): JSX.Element {
 
                 </Grid>
 
-                <Divider hidden={true} clearing={true} />
+                <Divider hidden={true} clearing={true}/>
 
                 <Grid columns={2} relaxed='very' stackable={true} style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <Grid.Column>
@@ -139,13 +143,15 @@ function SecondPartHomePage (): JSX.Element {
                     <Grid.Column>
                         <Container style={{ position: 'relative', top: '50%', transform: 'translateY(-50%)' }}>
                             <Header as='h2'>
-                        Collect cards and build your deck!
+                                Collect cards and build your deck!
                             </Header>
                             <p>
-                               Collect hundreds of incredible cards and build your deck to suit your play style. With
-                                 hundreds of cards to choose from, you can create a deck that is truly your own. Whether you
-                                    prefer to play a fast-paced, aggressive deck or a more defensive, control deck, you&apos;ll
-                                    find the cards you need to build the deck of your dreams.
+                                Collect hundreds of incredible cards and build your deck to suit your play style. With
+                                hundreds of cards to choose from, you can create a deck that is truly your own. Whether
+                                you
+                                prefer to play a fast-paced, aggressive deck or a more defensive, control deck,
+                                you&apos;ll
+                                find the cards you need to build the deck of your dreams.
                             </p>
                         </Container>
                     </Grid.Column>
@@ -184,8 +190,10 @@ function ThirdPartHomePage (): JSX.Element {
                             Discover the world of CyberArena!
                         </Header>
                         <p>
-                            CyberArena take place in a futuristic world where humans and machines live side by side. The world is
-                            divided into four factions, each with their own unique play style. Choose your faction and fight for
+                            CyberArena take place in a futuristic world where humans and machines live side by side. The
+                            world is
+                            divided into four factions, each with their own unique play style. Choose your faction and
+                            fight for
                             glory in the cyber arena!
                         </p>
                         <Button
@@ -203,6 +211,7 @@ function ThirdPartHomePage (): JSX.Element {
         </div>
     )
 }
+
 function FourthPartHomePage (): JSX.Element {
     /*
             Show the lootbox system
@@ -219,13 +228,13 @@ const MediaSection = (): JSX.Element => {
             <Header as="h2">Check out our game</Header>
             <Grid columns={3}>
                 <Grid.Column>
-                    <Image src="/screenshots/screenshot1.png" alt="Screenshot of CyberArena gameplay" />
+                    <Image src="/screenshots/screenshot1.png" alt="Screenshot of CyberArena gameplay"/>
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src="/screenshots/screenshot2.png" alt="Screenshot of CyberArena gameplay" />
+                    <Image src="/screenshots/screenshot2.png" alt="Screenshot of CyberArena gameplay"/>
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src="/screenshots/screenshot3.png" alt="Screenshot of CyberArena gameplay" />
+                    <Image src="/screenshots/screenshot3.png" alt="Screenshot of CyberArena gameplay"/>
                 </Grid.Column>
             </Grid>
             <Header as="h3">Watch the trailer</Header>
@@ -237,6 +246,7 @@ const MediaSection = (): JSX.Element => {
         </div>
     )
 }
+
 function HomePage (): JSX.Element {
     return (
         <>

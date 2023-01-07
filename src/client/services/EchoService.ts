@@ -1,27 +1,27 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Message } from '../models/Message';
+import type {Message} from '../models/Message';
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type {CancelablePromise} from '../core/CancelablePromise';
+import {OpenAPI} from '../core/OpenAPI';
+import {request as __request} from '../core/request';
 
 export class EchoService {
 
     /**
      * Send Echo Message
      * Sends echo back to user.
- *
- * :param incoming_message: incoming message.
- * :returns: message same as the incoming.
-     * @param requestBody 
+     *
+     * :param incoming_message: incoming message.
+     * :returns: message same as the incoming.
+     * @param requestBody
      * @returns Message Successful Response
      * @throws ApiError
      */
     public static sendEchoMessageApiEchoPost(
-requestBody: Message,
-): CancelablePromise<Message> {
+        requestBody: Message,
+    ): CancelablePromise<Message> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/echo/',
