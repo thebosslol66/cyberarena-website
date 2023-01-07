@@ -1,3 +1,5 @@
+// noinspection ES6ConvertVarToLetConst
+
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import SignInForm from './signin'
@@ -20,7 +22,7 @@ jest.mock('../../../services/auth.service', () => {
     }
 })
 
-let mockRedirect: jest.Mock
+var mockRedirect: jest.Mock // eslint-disable-line no-var
 
 jest.mock('react-router-dom', () => {
     mockRedirect = jest.fn(() => {
