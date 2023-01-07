@@ -11,10 +11,10 @@ import SignoutPage from './pages/signout'
 import ThemingLayout from './pages/theming'
 import NoPage from './pages/NoPage'
 import PrivacyPolicyPage from './pages/privacyPolicy'
+import AboutUsPage from './pages/aboutUs';
 
 function App (): JSX.Element {
     return (
-
         <Routes>
             <Route path="/" element={<Layout/>}>
                 <Route index element={<HomePage/>}/>
@@ -25,6 +25,7 @@ function App (): JSX.Element {
                     <Route path="signout" element={<SignoutPage/>}/>
                 </Route>
                 {process.env.NODE_ENV === 'development' && <Route path="theming" element={<ThemingLayout/>}/>}
+                <Route path='aboutus' element={<AboutUsPage/>}/>
                 <Route path='privacypolicy' element={<PrivacyPolicyPage/>}/>
                 <Route path="*" element={<NoPage/>}/>
             </Route>

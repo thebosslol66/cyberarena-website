@@ -8,9 +8,13 @@ import Footer from '../component/Menu/footer'
 const Layout = (): JSX.Element => {
     return (
         <>
-            <Navbar/>
-            <Outlet/>
-            <Footer/>
+            <div className="flex-layout">
+                <div className="flex-layout-content">
+                    <Navbar/>
+                    <Outlet/>
+                </div>
+                <Footer/>
+            </div>
         </>
     )
 }
