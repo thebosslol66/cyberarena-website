@@ -11,7 +11,7 @@ import SignoutPage from './pages/signout'
 import ThemingLayout from './pages/theming'
 import NoPage from './pages/NoPage'
 import PrivacyPolicyPage from './pages/privacyPolicy'
-import AboutUsPage from './pages/aboutUs';
+import AboutUsPage from './pages/aboutUs'
 
 function App (): JSX.Element {
     return (
