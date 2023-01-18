@@ -1,16 +1,17 @@
 /* istanbul ignore file */
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 /* tslint:disable */
 /* eslint-disable */
 import axios from 'axios';
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import FormData from 'form-data';
 
-import {ApiError} from './ApiError';
-import type {ApiRequestOptions} from './ApiRequestOptions';
-import type {ApiResult} from './ApiResult';
-import type {OnCancel} from './CancelablePromise';
-import {CancelablePromise} from './CancelablePromise';
-import type {OpenAPIConfig} from './OpenAPI';
+import { ApiError } from './ApiError';
+import type { ApiRequestOptions } from './ApiRequestOptions';
+import type { ApiResult } from './ApiResult';
+import { CancelablePromise } from './CancelablePromise';
+import type { OnCancel } from './CancelablePromise';
+import type { OpenAPIConfig } from './OpenAPI';
+import api from "../../services/api";
 
 const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
     return value !== undefined && value !== null;
@@ -156,11 +157,11 @@ const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions, for
         ...options.headers,
         ...formHeaders,
     })
-        .filter(([_, value]) => isDefined(value))
-        .reduce((headers, [key, value]) => ({
-            ...headers,
-            [key]: String(value),
-        }), {} as Record<string, string>);
+    .filter(([_, value]) => isDefined(value))
+    .reduce((headers, [key, value]) => ({
+        ...headers,
+        [key]: String(value),
+    }), {} as Record<string, string>);
 
     if (isStringWithValue(token)) {
         headers['Authorization'] = `Bearer ${token}`;
@@ -216,7 +217,7 @@ const sendRequest = async <T>(
     onCancel(() => source.cancel('The user aborted a request.'));
 
     try {
-        return await axios.request(requestConfig);
+        return await api.request(requestConfig);
     } catch (error) {
         const axiosError = error as AxiosError<T>;
         if (axiosError.response) {

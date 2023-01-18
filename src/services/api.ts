@@ -14,11 +14,13 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const token = TokenService.getLocalAccessToken()
+        console.log('token :' + token)
         if (token != null) {
             if (config.headers == null) {
                 config.headers = {}
             }
-            // config.headers.Authorization = 'Bearer ' + token
+            config.headers.Authorization = 'Bearer ' + token
+
         }
         return config
     },
