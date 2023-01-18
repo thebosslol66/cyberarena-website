@@ -3,6 +3,10 @@
   "endpoint": {
     "signup": "sign/sign-up",
     "signin": "sign/token",
-    "refresh": "sign/refresh-token"
+    "refresh": "sign/refresh-token",
+    "myavatar": "profile/me/avatar",
+    "myprofile": "profile/me",
+    "profile": "profile/{username}",
+    "avatar": "profile/{username}/avatar"
   }
 }

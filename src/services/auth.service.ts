@@ -16,13 +16,13 @@ const signup = async (username: string, email: string, password: string): Promis
     )
 }
 
-const signin = (username: string, password: string): any => {
+const signin = async (username: string, password: string): Promise<Tokens> => {
     const config = {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }
-    return api
+    return await api
         .post(API_URL.endpoint.signin, {
             username,
             password
