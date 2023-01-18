@@ -1,9 +1,15 @@
 import React from 'react'
+import { Container, Segment } from 'semantic-ui-react'
+import MyProfile from '../component/ui/userCard/myPlayerCard'
 
-function DashboardPage (): JSX.Element {
+function Dashboard (): JSX.Element {
     return (
-        <h1>Wellcome to the private page</h1>
+        <Segment basic style={{ paddingTop: '6em' }} fluid="true">
+            <Container>
+                <MyProfile/>
+            </Container>
+        </Segment>
     )
 }
 
-export default DashboardPage
+export default Dashboard

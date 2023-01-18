@@ -4,7 +4,7 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { defaultSignValues, SignInterface } from '../../Interfaces/sign'
 import AuthService from '../../../services/auth.service'
 import { SignUpStatusDTO } from '../../../services/Interfaces/sign'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 
 export default class SignUpForm extends React.Component<SignInterface, {
     username: string
@@ -58,12 +58,19 @@ export default class SignUpForm extends React.Component<SignInterface, {
         this.setState({ isRequestWaiting: true })
         AuthService.signup(this.state.username, this.state.email, this.state.password).then((response: SignUpStatusDTO) => {
             this.setState({ isRequestWaiting: false })
+            console.log(response)
             if (response.status === 0) {
-                // Utilisateur créé
+                redirect('/signin')
             } else {
                 if (response.status === 1) {
                     this.setState({ error: 'Username already exists' })
                 } else if (response.status === 2) {
+                    this.setState({ error: 'Password not correct' })
+                } else if (response.status === 3) {
+                    this.setState({ error: 'Email incorrect' })
+                } else if (response.status === 4) {
+                    this.setState({ error: 'Name is already used' })
+                } else if (response.status === 5) {
                     this.setState({ error: 'Email already exists' })
                 } else {
                     this.setState({ error: response.message })
