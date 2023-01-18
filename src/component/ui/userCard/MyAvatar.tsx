@@ -2,7 +2,7 @@
 /* eslint-disable */
 import React from 'react'
 import {Image} from "semantic-ui-react";
-import UserService from "../../../services/user.service";
+import {ProfileService} from "../../../client";
 
 export default class MyAvatar extends React.Component {
     state = { loading: true, avatar: '' }
@@ -12,11 +12,11 @@ export default class MyAvatar extends React.Component {
     }
 
     getAvatar = (): void => {
-        UserService.getMyAvatar().then((res: Blob) => {
-            URL.revokeObjectURL(this.state.avatar)
-            this.setState({ avatar: URL.createObjectURL(res), loading: false })
+        ProfileService.getCurrentUserAvatarApiProfileMeAvatarGet().then((response: ArrayBuffer) => {
+            const blob = new Blob([response], {type: 'image/jpeg'})
+            const url = URL.createObjectURL(blob)
+            this.setState({avatar: url})
         })
-
     }
 
     render () {
