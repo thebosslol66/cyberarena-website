@@ -158,6 +158,7 @@ username: string,
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/profile/me/avatar',
+            responseType: 'arraybuffer',
         });
     }
 
@@ -182,6 +183,7 @@ username: string,
             errors: {
                 422: `Validation Error`,
             },
+            responseType: 'arraybuffer',
         });
     }
 
