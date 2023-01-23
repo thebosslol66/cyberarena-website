@@ -47,34 +47,17 @@ export default class MyProfile extends React.Component {
                     <GridColumn width={8}>
                         <Grid.Row>
                             <Header as='h3' >
-                                Username : {this.state.username}
+                                {this.state.username}
                             </Header>
                         </Grid.Row>
 
                         <Grid.Row style={{ paddingTop: '1em' }}>
                             <Header as='h3' >
-                                E-mail : {this.state.email}
+                                {this.state.email}
                             </Header>
                         </Grid.Row>
-                        <Grid.Row style={{ paddingTop: '1em' }}>
-                            {this.state.active
-                                ? (
-                                    <Button color='blue'>Change username</Button>
 
-                                )
-                                : (
-                                    <Button color='green' onClick={this.activateProfile}>Activate account</Button>
-                                )}
-                        </Grid.Row>
-                        <GridRow style={{ paddingTop: '1em' }}>
-                            <Button color='blue'>Change e-mail</Button>
-                        </GridRow>
-                        <GridRow style={{ paddingTop: '1em' }}>
-                            <Button color='blue'>Change password</Button>
-                        </GridRow>
-                        <GridRow style={{ paddingTop: '1em' }}>
-                            <Button color='blue'>Change avatar</Button>
-                        </GridRow>
+
 
                     </GridColumn>
                     <GridColumn width={4}>
