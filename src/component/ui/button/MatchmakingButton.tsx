@@ -1,5 +1,8 @@
+/* tslint:disable */
+/* eslint-disable */
 import { Button, Header, Icon, Loader, Modal } from 'semantic-ui-react'
 import React from 'react'
+import { NavLink } from "react-router-dom";
 
 export default class MatchmakingButton extends React.Component {
     state = { open: false }
@@ -21,7 +24,9 @@ export default class MatchmakingButton extends React.Component {
                     <Button basic color='red' inverted onClick={() => { this.setState({ open: false }) }}>
                         <Icon name='remove' /> Cancel
                     </Button>
-
+                    <Button basic color='blue' inverted as={NavLink} to={'/game'}>
+                        <Icon name='check circle' /> Start game
+                    </Button>
                 </Modal.Actions>
             </Modal>
         )
