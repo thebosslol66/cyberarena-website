@@ -18,7 +18,7 @@ export default class Navbar extends React.Component {
                         <Container>
                             <Menu.Item as="a" to={'/'} header>
                                 <Image size='mini' src='/logo192.png' style={{ marginRight: '1.5em' }}/>
-                                Project Name
+                                CyberArena
                             </Menu.Item>
                             <Menu.Item
                                 as={NavLink}
