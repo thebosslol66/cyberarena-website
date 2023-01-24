@@ -1,29 +1,38 @@
-/* tslint:disable */
-/* eslint-disable */
 import React from 'react'
-import {Image} from "semantic-ui-react";
-import {ProfileService} from "../../../client";
+import { Image, Placeholder } from 'semantic-ui-react'
+import { ProfileService } from '../../../client'
 
 export default class MyAvatar extends React.Component {
     state = { loading: true, avatar: '' }
 
-    componentDidMount () {
+    componentDidMount (): void {
         this.getAvatar()
     }
 
     getAvatar = (): void => {
-        ProfileService.getCurrentUserAvatarApiProfileMeAvatarGet().then((response: ArrayBuffer) => {
-            const blob = new Blob([response], {type: 'image/jpeg'})
+        void ProfileService.getCurrentUserAvatarApiProfileMeAvatarGet().then((response: ArrayBuffer) => {
+            const blob = new Blob([response], { type: 'image/jpeg' })
             const url = URL.createObjectURL(blob)
-            this.setState({avatar: url})
+            this.setState({ avatar: url, loading: false })
         })
     }
 
-    render () {
+    render (): JSX.Element {
         return (
-            <Image src={this.state.avatar} alt="avatar" width={256} height={256} fluid={true} >
+            <>
+                {this.state.loading
+                    ? (
+                        <Placeholder>
+                            <Placeholder.Image square fluid/>
+                        </Placeholder>
+                    )
+                    : (
+                        <Image src={this.state.avatar} alt="avatar" width={256} height={256} fluid={true}>
 
-            </Image>
+                        </Image>
+                    )
+                }
+            </>
         )
     }
 }
