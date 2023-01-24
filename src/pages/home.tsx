@@ -42,7 +42,7 @@ function FirstPartHomePage (): JSX.Element {
                 >
                     <Container textAlign='left'>
                         <Header as='h1'>
-                            Welcome to CyberArena traveller!
+                            Welcome to CyberArena, traveller!
                         </Header>
                         <p>
                             Welcome to CyberArena, the ultimate card game experience!
