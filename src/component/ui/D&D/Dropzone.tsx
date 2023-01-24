@@ -9,22 +9,20 @@ interface Props {
 }
 const Dropzone: React.FC<Props> = ({ isDropDisabled, cards, id }) => {
     return (
-        <Grid>
-            <Grid.Row>
-                <Droppable droppableId={id} isDropDisabled={isDropDisabled}>
-                    {provided => {
-                        return (
-                            <div className="menu hero-list" {...provided.droppableProps} ref={provided.innerRef}>
-                                {cards.map((name: string, index: any) => (
-                                    <CardDrag key={name} name={name} index={index}/>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )
-                    }}
-                </Droppable>
-            </Grid.Row>
-        </Grid>
+        <Grid.Row>
+            <Droppable droppableId={id} isDropDisabled={isDropDisabled}>
+                {provided => {
+                    return (
+                        <div className="menu hero-list" {...provided.droppableProps} ref={provided.innerRef}>
+                            {cards.map((name: string, index: any) => (
+                                <CardDrag key={name} name={name} index={index}/>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )
+                }}
+            </Droppable>
+        </Grid.Row>
     )
 }
 

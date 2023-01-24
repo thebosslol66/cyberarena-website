@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Button } from 'semantic-ui-react'
+import {Button, Grid} from 'semantic-ui-react'
 import React from 'react'
 import {Link} from "react-router-dom";
 import { DragDropContext } from "react-beautiful-dnd"
@@ -53,11 +53,15 @@ export default class GamePage extends React.Component {
             }}>
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={true} textAlign='center' floated={'right'} style={{ marginTop: '2em', marginRight: '1em'}}/>
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                    <Dropzone id="1" cards={ this.state["deck_1"] } isDropDisabled={isDropDisabled} />
-                    <Dropzone id="plateau1" cards={ this.state["plateau_1"] } isDropDisabled={isDropDisabled} />
-                    <Dropzone id="plateau2" cards={ this.state["plateau_2"] } isDropDisabled={isDropDisabled} />
-                    <Dropzone id="2" cards={ this.state["deck_2"] } isDropDisabled={isDropDisabled} />
+                    <Grid>
+
+                            <Dropzone id="1" cards={ this.state["deck_1"] } isDropDisabled={isDropDisabled} />
+                        <Dropzone id="plateau1" cards={ this.state["plateau_1"] } isDropDisabled={isDropDisabled} />
+                        <Dropzone id="plateau2" cards={ this.state["plateau_2"] } isDropDisabled={isDropDisabled} />
+                        <Dropzone id="2" cards={ this.state["deck_2"] } isDropDisabled={isDropDisabled} />
+                    </Grid>
                 </DragDropContext>
+
             </div>
         )
     }
