@@ -1,67 +1,57 @@
 /* tslint:disable */
 /* eslint-disable */
 import React from 'react'
-import {Button, Grid, GridColumn, GridRow, Header, Image, Placeholder, Segment} from 'semantic-ui-react'
-import { ProfileService, SignService } from '../../../client'
+import { Container, Grid, Header, Icon, Placeholder } from 'semantic-ui-react'
+import { ProfileService } from '../../../client'
 import MyAvatar from './MyAvatar'
 
 export default class MyProfile extends React.Component {
-    state = { loading: true, username: '', email: '', active: false }
-
+    state = { loading: true, username: '', active: false }
     componentDidMount () {
         this.getProfile()
     }
 
     getProfile = (): void => {
         ProfileService.getCurrentUserProfileApiProfileMeGet().then((response) => {
-            this.setState({ username: response.username, email: response.email, active: response.active, loading: false })
+            this.setState({ username: response.username, active: response.active, loading: false })
         })
     }
     render () {
         return (
-            <Segment>
-                <Header as='h2' textAlign='center'>
-                    My Cyber Profile
-                </Header>
-                <Grid celled>
-                    <GridColumn width={4}>
+            <Container>
+                <Grid>
+                    <Grid.Row centered>
                         <MyAvatar/>
-                    </GridColumn>
-
-                    <GridColumn width={8}>
+                    </Grid.Row>
+                    <Grid.Row centered>
                         {this.state.loading
                             ? (
                                 <Placeholder>
                                     <Placeholder.Line/>
-                                    <Placeholder.Line/>
                                 </Placeholder>
                             )
                             : (
-                                <Grid.Row>
-                                    <Header as='h3' >
-                                        {this.state.username}
-                                    </Header>
-                                    <Header as='h3' >
-                                        {this.state.email}
-                                    </Header>
-                                </Grid.Row>
+                                <Header as='h2' >
+                                    {this.state.username}
+                                </Header>
                             )
                         }
-                    </GridColumn>
-                    <GridColumn width={4}>
-                        <Grid.Row>
-                            <Header as='h3' >
-                                Cyber Points : 0
-                            </Header>
-                        </Grid.Row>
-                        <Grid.Row style={{ paddingTop: '1em' }}>
-                            <Header as='h3' >
-                                Cyber Level : 0
-                            </Header>
-                        </Grid.Row>
-                    </GridColumn>
+                    </Grid.Row>
+                    <Grid.Row centered>
+                        <Header as='h3' inline>
+                            <Icon name='gem'/>
+                            Cyber Points : 0
+                        </Header>
+                    </Grid.Row>
+                    <Grid.Row centered>
+                        <Header as='h3' inline>
+                            <Icon name='gamepad'/>
+                            Cyber Level : 0
+                        </Header>
+                    </Grid.Row>
                 </Grid>
-            </Segment>
+
+            </Container>
         )
     }
 }

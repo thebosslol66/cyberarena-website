@@ -1,6 +1,5 @@
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { Grid } from 'semantic-ui-react'
 import Card from '../Card/card'
 interface Props {
     isDropDisabled: any
@@ -9,24 +8,22 @@ interface Props {
 }
 const Dropzone: React.FC<Props> = ({ isDropDisabled, cards, id }) => {
     return (
-        <Grid.Row>
-            <Droppable droppableId={id} isDropDisabled={isDropDisabled}>
-                {provided => {
-                    return (
-                        <div className="menu hero-list" {...provided.droppableProps} ref={provided.innerRef}>
-                            {cards.map((name: string, index: any) => (
-                                <CardDrag key={name} name={name} index={index}/>
-                            ))}
-                            {provided.placeholder}
-                        </div>
-                    )
-                }}
-            </Droppable>
-        </Grid.Row>
+        <Droppable droppableId={id} isDropDisabled={isDropDisabled}>
+            {provided => {
+                return (
+                    <div className="menu hero-list" {...provided.droppableProps} ref={provided.innerRef}>
+                        {cards.map((name: string, index: any) => (
+                            <CardDrag key={name} name={name} index={index}/>
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )
+            }}
+        </Droppable>
     )
 }
 
-const CardDrag = (name: any, index: any) => (
+const CardDrag = (name: any, index: any): JSX.Element => (
     <Draggable key={name} draggableId={name} index={index}>
         {provided => {
             return (

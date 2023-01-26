@@ -24,5 +24,6 @@ export { DefaultService } from './services/DefaultService';
 export { DummyService } from './services/DummyService';
 export { EchoService } from './services/EchoService';
 export { EconomyService } from './services/EconomyService';
+export { GameService } from './services/GameService';
 export { ProfileService } from './services/ProfileService';
 export { SignService } from './services/SignService';
