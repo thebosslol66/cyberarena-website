@@ -38,13 +38,13 @@ export default class MyProfile extends React.Component {
                         }
                     </Grid.Row>
                     <Grid.Row centered>
-                        <Header as='h3' inline>
+                        <Header as='h3'>
                             <Icon name='gem'/>
                             Cyber Points : 0
                         </Header>
                     </Grid.Row>
                     <Grid.Row centered>
-                        <Header as='h3' inline>
+                        <Header as='h3'>
                             <Icon name='gamepad'/>
                             Cyber Level : 0
                         </Header>
