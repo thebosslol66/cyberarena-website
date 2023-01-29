@@ -16,7 +16,7 @@ instance.interceptors.request.use(
         const token = TokenService.getLocalAccessToken()
         if (token != null) {
             if (config.headers == null) {
-                config.headers = {}
+                config.headers = Object.assign({})
             }
             config.headers.Authorization = 'Bearer ' + token
         }

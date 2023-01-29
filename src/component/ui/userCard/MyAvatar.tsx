@@ -22,8 +22,8 @@ export default class MyAvatar extends React.Component {
             <>
                 {this.state.loading
                     ? (
-                        <Placeholder>
-                            <Placeholder.Image square fluid/>
+                        <Placeholder fluid>
+                            <Placeholder.Image square />
                         </Placeholder>
                     )
                     : (
