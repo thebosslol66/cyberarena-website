@@ -3,7 +3,7 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 import { defaultSignValues, SignInterface } from '../../Interfaces/sign'
 import AuthService from '../../../services/auth.service'
-import { Link, redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AuthContext, { AuthContextInterface } from '../../../context/AuthContext'
 
 export default class SignInForm extends React.Component<SignInterface,
@@ -36,7 +36,6 @@ export default class SignInForm extends React.Component<SignInterface,
             this.setState({ isRequestWaiting: false })
             this.setState({ error: '' })
             setIsLogged(true)
-            redirect('/dashboard')
         })
             .catch((error: any) => {
                 this.setState({ isRequestWaiting: false })

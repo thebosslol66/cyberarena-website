@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Context } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-
 import { defaultSignValues, SignInterface } from '../../Interfaces/sign'
 import AuthService from '../../../services/auth.service'
 import { SignUpStatusDTO } from '../../../services/Interfaces/sign'
-import { Link, redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import AuthContext, { AuthContextInterface } from '../../../context/AuthContext'
 
 export default class SignUpForm extends React.Component<SignInterface, {
     username: string
@@ -16,6 +16,7 @@ export default class SignUpForm extends React.Component<SignInterface, {
 
 }> {
     static defaultProps = defaultSignValues
+    static contextType: Context<AuthContextInterface> = AuthContext
 
     constructor (props: SignInterface) {
         super(props)
@@ -33,7 +34,7 @@ export default class SignUpForm extends React.Component<SignInterface, {
 
     handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
-
+        const { setIsLogged } = this.context as AuthContextInterface
         if (this.state.username === '') {
             this.setState({ error: 'Username is required' })
             return
@@ -58,14 +59,21 @@ export default class SignUpForm extends React.Component<SignInterface, {
         this.setState({ isRequestWaiting: true })
         AuthService.signup(this.state.username, this.state.email, this.state.password).then((response: SignUpStatusDTO) => {
             this.setState({ isRequestWaiting: false })
-            console.log(response)
             if (response.status === 0) {
-                redirect('/signin')
+                AuthService.signin(this.state.username, this.state.password).then(() => {
+                    this.setState({ isRequestWaiting: false })
+                    this.setState({ error: '' })
+                    setIsLogged(true)
+                })
+                    .catch((error: Error) => {
+                        this.setState({ isRequestWaiting: false })
+                        this.setState({ error: error.message })
+                    })
             } else {
                 if (response.status === 1) {
                     this.setState({ error: 'Username already exists' })
                 } else if (response.status === 2) {
-                    this.setState({ error: 'Password not correct' })
+                    this.setState({ error: 'Password must contain at least one special character' })
                 } else if (response.status === 3) {
                     this.setState({ error: 'Email incorrect' })
                 } else if (response.status === 4) {
