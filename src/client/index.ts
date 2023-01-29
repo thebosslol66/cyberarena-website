@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 export type { AskNewTokenData } from './models/AskNewTokenData';
 export type { Body_change_avatar_api_profile_change_avatar_put } from './models/Body_change_avatar_api_profile_change_avatar_put';
 export type { Body_login_for_access_token_api_sign_token_post } from './models/Body_login_for_access_token_api_sign_token_post';
+export type { CardModel } from './models/CardModel';
 export type { ChangeUserInformations } from './models/ChangeUserInformations';
 export type { DummyModelDTO } from './models/DummyModelDTO';
 export type { DummyModelInputDTO } from './models/DummyModelInputDTO';
