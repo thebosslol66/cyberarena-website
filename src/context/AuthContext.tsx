@@ -5,6 +5,7 @@ import { Tokens } from '../services/Interfaces/sign'
 interface AuthContextInterface {
     isLogged: boolean
     setIsLogged: (arg0: boolean) => void
+
 }
 
 const AuthContext = React.createContext<AuthContextInterface>({
