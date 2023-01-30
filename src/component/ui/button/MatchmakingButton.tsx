@@ -10,7 +10,6 @@ export default class MatchmakingButton extends React.Component {
         return (
             <Modal
                 basic
-                onClose={() => { this.setState({ open: false }) }}
                 onOpen={() => { this.setState({ open: true }) }}
                 open={this.state.open}
                 size='small'

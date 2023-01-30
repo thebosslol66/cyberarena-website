@@ -20,7 +20,6 @@ export default class MyProfile extends React.Component {
         return (
             <Container>
                 <Card>
-
                     <MyAvatar/>
                             <Card.Content extra={true}>
                                 <Card.Header>
