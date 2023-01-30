@@ -27,7 +27,7 @@ export default class MyAvatar extends React.Component {
                         </Placeholder>
                     )
                     : (
-                        <Image src={this.state.avatar} alt="avatar" width={256} height={256}>
+                        <Image src={this.state.avatar} alt="avatar" width={256} height={256} wrapped ui={false}>
 
                         </Image>
                     )
