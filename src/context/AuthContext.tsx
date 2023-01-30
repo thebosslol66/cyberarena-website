@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import AuthService from '../services/auth.service'
-import { Tokens } from '../services/Interfaces/sign'
+import React, { useState } from 'react'
+import TokenService from '../services/token.service'
 
 interface AuthContextInterface {
     isLogged: boolean
@@ -17,12 +16,7 @@ const AuthContext = React.createContext<AuthContextInterface>({
 const AuthProvider = ({ children }: any): JSX.Element => {
     const [isLogged, setIsLogged] = useState(false)
 
-    useEffect(() => {
-        const user: Tokens | null = AuthService.getCurrentUser()
-        if (user !== null) {
-            setIsLogged(true)
-        }
-    }, [])
+    TokenService.registerLoginHandler(setIsLogged)
 
     return (
         <AuthContext.Provider value={{ isLogged, setIsLogged }}>

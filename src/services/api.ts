@@ -34,7 +34,7 @@ instance.interceptors.response.use(
     async (err): Promise<AxiosInstance> => {
         const originalConfig = err.config
 
-        if (originalConfig.url !== API_URL.endpoint.signin && err.response !== false) {
+        if (originalConfig.url !== API_URL.endpoint.signin && originalConfig.url !== API_URL.endpoint.refresh && err.response !== false) {
             // Access Token was expired
             if (err.response.status === 401 && originalConfig._retry !== true) {
                 originalConfig._retry = true
