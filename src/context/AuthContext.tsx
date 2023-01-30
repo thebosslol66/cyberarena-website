@@ -18,6 +18,12 @@ const AuthProvider = ({ children }: any): JSX.Element => {
 
     TokenService.registerLoginHandler(setIsLogged)
 
+    useState(() => {
+        if (TokenService.getLocalAccessToken() !== null) {
+            setIsLogged(true)
+        }
+    })
+
     return (
         <AuthContext.Provider value={{ isLogged, setIsLogged }}>
             {children}
