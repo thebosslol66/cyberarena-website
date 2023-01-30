@@ -1,4 +1,7 @@
 import { Tokens } from './Interfaces/sign'
+import React from 'react'
+
+let setLoginHandler: React.Dispatch<React.SetStateAction<boolean>> = () => {}
 
 const getLocalRefreshToken = (): string | null => {
     const user = JSON.parse(localStorage.getItem('user') ?? '{}')
@@ -27,11 +30,17 @@ const getUser = (): Tokens => {
 }
 
 const setUser = (user: Tokens): void => {
+    setLoginHandler(true)
     localStorage.setItem('user', JSON.stringify(user))
 }
 
 const removeUser = (): void => {
+    setLoginHandler(false)
     localStorage.removeItem('user')
+}
+
+function registerLoginHandler (setLogin: React.Dispatch<React.SetStateAction<boolean>>): void {
+    setLoginHandler = setLogin
 }
 
 const TokenService = {
@@ -41,7 +50,8 @@ const TokenService = {
     getUser,
     setUser,
     removeUser,
-    getLocalExpireTime
+    getLocalExpireTime,
+    registerLoginHandler
 }
 
 export default TokenService
