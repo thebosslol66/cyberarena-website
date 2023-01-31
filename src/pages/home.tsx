@@ -2,11 +2,10 @@ import React from 'react'
 import { Button, Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import Card from '../component/ui/Card/card'
 import { Link } from 'react-router-dom'
-import {WebsiteOverlay} from "../component/ui/homeElements/WebsiteOverlay";
-import {VideoBackground} from "../component/ui/homeElements/VideoBackground";
 
-const background = '/img/background/testreact.jpg'
 const background2 = '/img/background/testreact2.jpg'
+const backgroundVideo = '/video/videoplayback.webm'
+const backgroundVideoPoster = '/img/vidoeplayback.png'
 
 /*
 1. Enter the CyberArena and take your chances in the ultimate card game challenge!
@@ -22,9 +21,89 @@ const background2 = '/img/background/testreact2.jpg'
 
 function FirstPartHomePage (): JSX.Element {
     return (
-        <div className="flex relative w-full h-full">
-            <WebsiteOverlay/>
-            <VideoBackground/>
+
+        <div style={{
+            position: 'relative',
+            width: '100%',
+            height: '100vh'
+
+        }}>
+            <div style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                clip: 'rect(auto, auto, auto, auto)'
+            }}>
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    disablePictureInPicture
+                    style={{
+                        position: 'fixed',
+                        top: '0',
+                        left: '0',
+                        width: '100%',
+                        height: '100vh',
+                        objectFit: 'cover',
+                        zIndex: '-1'
+                    }}
+                    poster={backgroundVideoPoster}
+                >
+                    <source src={backgroundVideo} type='video/webm' />
+                </video>
+            </div>
+            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
+                <Grid.Column
+                    style={{
+                        padding: '5px 10px 5px 10px',
+                        borderRadius: '10px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                    }}
+                    widescreen={6}
+                    largeScreen={6}
+                    computer={8}
+                    tablet={12}
+                    mobile={14}
+                >
+                    <Container textAlign='left'>
+                        <Header as='h1'>
+                            Welcome to CyberArena traveller!
+                        </Header>
+                        <p>
+                            Welcome to CyberArena, the ultimate card game experience!
+                            With stunning graphics and immersive gameplay, you&apos;ll feel like you&apos;ve stepped
+                            right into the cyber world. Test your skills and strategy against players from all over the
+                            world in this fast-paced, high-stakes card game. Challenge yourself to become a master of
+                            CyberArena and prove your worth on the virtual battlefield! Are you ready for an
+                            electrifying adventure? Play now and find out what CyberArena has to offer!
+                        </p>
+                        <Button
+                            primary={true}
+                            content='Play Now'
+                            icon='play'
+                            labelPosition='right'
+                            floated={'right'}
+                            as={Link}
+                            to={'/dashboard'}
+                        />
+                    </Container>
+                </Grid.Column>
+                <Grid.Column only='large screen'>
+                    <Container textAlign='center'>
+                        <Card number={190}
+                            name={'First'}
+                            subtypes={'basic v'}
+                            supertype={'pokemon'}
+                            rarity={'rare ultra'}
+                            gallery={'false'}
+                            style={{ maxWidth: '35vmin', margin: 'auto' }}
+
+                            back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
+                            front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
+                    </Container>
+                </Grid.Column>
+            </Grid>
         </div>
     )
 }
@@ -113,7 +192,7 @@ function ThirdPartHomePage (): JSX.Element {
         <div style={{
             background: `url(${background2}) no-repeat center center fixed`,
             backgroundSize: 'cover',
-            width: '100%',
+            width: '100vw',
             height: '100vh',
             position: 'relative'
         }}>
@@ -189,12 +268,12 @@ const MediaSection = (): JSX.Element => {
 
 function HomePage (): JSX.Element {
     return (
-        <>
+        <div style={{ top: '10px' }}>
             <FirstPartHomePage/>
             <SecondPartHomePage/>
             <ThirdPartHomePage/>
             <MediaSection/>
-        </>
+        </div>
     )
 }
 
