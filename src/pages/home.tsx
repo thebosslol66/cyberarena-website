@@ -19,6 +19,27 @@ const backgroundVideoPoster = '/img/vidoeplayback.png'
 
  */
 
+class TextContainerWithStyle extends React.Component<{ children: JSX.Element | JSX.Element[] }> {
+    render (): JSX.Element {
+        return (
+            <Container textAlign='left'
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    margin: 'O',
+                    padding: '15px 20px',
+                    borderRadius: '10px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                    backdropFilter: 'blur(20px)',
+                    boxShadow: '0 0 15px white'
+                }}
+            >
+                {this.props.children}
+            </Container>
+        )
+    }
+}
+
 function FirstPartHomePage (): JSX.Element {
     return (
 
@@ -55,18 +76,14 @@ function FirstPartHomePage (): JSX.Element {
             </div>
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
                 <Grid.Column
-                    style={{
-                        padding: '5px 10px 5px 10px',
-                        borderRadius: '10px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-                    }}
+
                     widescreen={6}
                     largeScreen={6}
                     computer={8}
                     tablet={12}
                     mobile={14}
                 >
-                    <Container textAlign='left'>
+                    <TextContainerWithStyle>
                         <Header as='h1'>
                             Welcome to CyberArena traveller!
                         </Header>
@@ -78,16 +95,17 @@ function FirstPartHomePage (): JSX.Element {
                             CyberArena and prove your worth on the virtual battlefield! Are you ready for an
                             electrifying adventure? Play now and find out what CyberArena has to offer!
                         </p>
-                        <Button
-                            primary={true}
-                            content='Play Now'
-                            icon='play'
-                            labelPosition='right'
-                            floated={'right'}
-                            as={Link}
-                            to={'/dashboard'}
-                        />
-                    </Container>
+                        <div style={{ justifyContent: 'end', display: 'flex' }}>
+                            <Button
+                                primary={true}
+                                content='Play Now'
+                                icon='play'
+                                labelPosition='right'
+                                as={Link}
+                                to={'/dashboard'}
+                            />
+                        </div>
+                    </TextContainerWithStyle>
                 </Grid.Column>
                 <Grid.Column only='large screen'>
                     <Container textAlign='center'>
@@ -200,31 +218,34 @@ function ThirdPartHomePage (): JSX.Element {
                 <Grid.Column>
                 </Grid.Column>
                 <Grid.Column
-                    style={{
-                        padding: '5px 10px 5px 10px',
-                        borderRadius: '10px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-                    }}
-                    widescreen={6}
-                    largeScreen={6}
-                    computer={8}
+                    widescreen={5}
+                    largeScreen={5}
+                    computer={7}
                     tablet={12}
                     mobile={14}
                 >
-                    <div className="flex absolute w-full h-full z-10 p-10 text-white">
-                        <div className="flex font-bold flex-col my-auto max-w-[38rem] backdrop-blur-[40px] p-4 rounded-3xl">
-                            <div className="uppercase text-8xl">Discover</div>
-                            <div className="uppercase text-4xl mb-6">The CyberWorld</div>
-                            <div className="mb-6">
-                                CyberArena take place in a futuristic world where humans and machines live side by side. The
-                                world is
-                                divided into four factions, each with their own unique play style. Choose your faction and
-                                fight for
-                                glory in the cyber arena!
-                            </div>
+                    <TextContainerWithStyle>
+                        <Header as='h2'>
+                            Discover the world of CyberArena!
+                        </Header>
+                        <p>
+                            CyberArena take place in a futuristic world where humans and machines live side by side. The
+                            world is
+                            divided into four factions, each with their own unique play style. Choose your faction and
+                            fight for
+                            glory in the cyber arena!
+                        </p>
+                        <div style={{ justifyContent: 'end', display: 'flex' }}>
+                            <Button
+                                primary={true}
+                                content='Play Now'
+                                icon='play'
+                                labelPosition='right'
+                                as={Link}
+                                to={'/dashboard'}
+                            />
                         </div>
-                    </div>
-
+                    </TextContainerWithStyle>
                 </Grid.Column>
             </Grid>
         </div>
@@ -268,7 +289,7 @@ const MediaSection = (): JSX.Element => {
 
 function HomePage (): JSX.Element {
     return (
-        <div style={{ top: '10px' }}>
+        <div style={{ paddingTop: '20px' }}>
             <FirstPartHomePage/>
             <SecondPartHomePage/>
             <ThirdPartHomePage/>
