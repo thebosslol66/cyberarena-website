@@ -13,7 +13,7 @@ export default class MatchmakingButton extends React.Component {
                 onOpen={() => { this.setState({ open: true }) }}
                 open={this.state.open}
                 size='small'
-                trigger={<Button primary positive size='massive' style={ { marginBottom: '1em' } }>Search for a player</Button>}
+                trigger={<Button primary size='massive' style={ { marginBottom: '1em' } }>Search for a player</Button>}
             >
                 <Loader active/>
                 <Header as='h2' textAlign='center' style={ { paddingBottom: '3em' }}>
