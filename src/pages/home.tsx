@@ -150,7 +150,14 @@ function SecondPartHomePage (): JSX.Element {
         Explain how work the game, the features, the cards,
      */
     return (
-        <Segment basic>
+        <Segment basic
+            style={{
+                background: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/07/HD-Cyberpunk-Picture.jpg) no-repeat center center',
+                backgroundSize: 'cover',
+                width: '100%',
+                position: 'relative',
+                marginTop: 0
+            }}>
             <Container>
                 <Grid columns={2} relaxed='very' stackable={true} reversed={'tablet computer'}
                     style={{ marginTop: '20px', marginBottom: '20px' }}>
@@ -210,7 +217,7 @@ function ThirdPartHomePage (): JSX.Element {
         <div style={{
             background: `url(${background2}) no-repeat center center fixed`,
             backgroundSize: 'cover',
-            width: '100vw',
+            width: '100%',
             height: '100vh',
             position: 'relative'
         }}>
