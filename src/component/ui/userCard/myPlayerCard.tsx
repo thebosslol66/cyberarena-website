@@ -19,7 +19,7 @@ export default class MyProfile extends React.Component {
     render () {
         return (
             <Container>
-                <Card>
+                <Card centered={true}>
                     <MyAvatar/>
                             <Card.Content extra={true}>
                                 <Card.Header>
