@@ -1,9 +1,7 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-
-
-export const WebsiteOverlay = () => {
+export const WebsiteOverlay = (): JSX.Element => {
     return (
         <div className="flex flex-col absolute w-full h-full z-10 p-10 text-white">
             <div className="flex font-bold flex-col my-auto max-w-[38rem] backdrop-blur-[40px] p-4 rounded-3xl">
