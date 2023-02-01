@@ -35,11 +35,12 @@ instance.interceptors.response.use(
         const originalConfig = err.config
 
         if (originalConfig.url !== API_URL.endpoint.signin && originalConfig.url !== API_URL.endpoint.refresh && err.response !== false) {
-            console.log(err.request.status)
+            /*
             if (err.request.status === 0) {
                 TokenService.removeUser()
                 return await Promise.reject(err)
             }
+             */
             // Access Token was expired
             if (err.response.status === 401 && originalConfig._retry !== true) {
                 originalConfig._retry = true
