@@ -1,0 +1,23 @@
+.div-background-clip {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    clip: rect(auto, auto, auto, auto);
+}
+
+.fixed-background-div-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.fixed-background-div-image {
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
