@@ -4,7 +4,7 @@ import Card from '../Card/card'
 import {CardModel} from "../../../client";
 interface Props {
     isDropDisabled: boolean
-    cards: CardModel[]
+    cards: string[]
     id: string
     color: string
     height: string
@@ -28,21 +28,32 @@ const Dropzone: React.FC<Props> = ({ isDropDisabled, cards, id , color, height, 
         </Droppable>
     )
 }
-
-const CardDrag = (card: CardModel, index: number): JSX.Element => (
-    <Draggable draggableId={(card.id).toString()} index={index}>
-        {provided => {
-            return (
-                <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                >
-                    Test
-                </div>
-            )
-        }}
-    </Draggable>
-)
+//<Card number={190}
+//                             name={'First'}
+//                             subtypes={'basic v'}
+//                             supertype={'pokemon'}
+//                             rarity={'rare ultra'}
+//                             gallery={'false'}
+//                             style={{ maxWidth: '35vmin', margin: 'auto' }}
+//
+//                             back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
+//                             front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
+const CardDrag = (card: string, index: number): JSX.Element => {
+    return (
+        <Draggable key={card} draggableId={(card).toString()} index={index}>
+            {provided => {
+                return (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >
+                        {card}
+                    </div>
+                )
+            }}
+        </Draggable>
+    )
+}
 
 export default Dropzone
