@@ -12,7 +12,7 @@ export default class AboutUsPage extends React.Component {
         this.setState({ activeIndex: newIndex })
     }
 
-    render () {
+    render (): JSX.Element {
         return (
             <Container fluid={true} style={{ paddingTop: '7em' }}>
                 <Container text={true}>

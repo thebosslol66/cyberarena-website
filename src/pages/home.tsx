@@ -301,6 +301,7 @@ function HomePage (): JSX.Element {
             <SecondPartHomePage/>
             <ThirdPartHomePage/>
             <MediaSection/>
+            <FourthPartHomePage/>
         </div>
     )
 }

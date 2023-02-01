@@ -17,7 +17,8 @@ function Layout (): JSX.Element {
                         </div>
                         <Footer/>
                     </div>
-                ) : (
+                )
+                : (
                     <Outlet/>
                 )
             }

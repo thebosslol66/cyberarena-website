@@ -3,7 +3,7 @@ import './VideoBackground.css'
 
 const VIDEO_WIDTH = 1920
 const VIDEO_HEIGHT = 1080
-export const VideoBackground = () => {
+export const VideoBackground = (): JSX.Element => {
     return <div className="video-background">
         <iframe
             width={VIDEO_WIDTH}
@@ -12,4 +12,4 @@ export const VideoBackground = () => {
             title='YouTube video player'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'/>
     </div>
-};
+}
