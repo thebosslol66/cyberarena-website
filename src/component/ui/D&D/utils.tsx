@@ -1,8 +1,10 @@
+import {Droppable} from "react-beautiful-dnd";
+import Dropzone from "./Dropzone";
 
-export const move: any = (state: any, source: any, destination: any) => {
-    const srcListClone = [...state[source.droppableId]]
+export const move: any = (state: any, source: any, destination: any, dropzoneId: string) => {
+    const srcListClone = [...state[dropzoneId]]
     const destListClone =
-        source.droppableId === destination.droppableId
+        dropzoneId === destination.droppableId
             ? srcListClone
             : [...state[destination.droppableId]]
 
@@ -10,8 +12,8 @@ export const move: any = (state: any, source: any, destination: any) => {
     destListClone.splice(destination.index, 0, movedElement)
 
     return {
-        [source.droppableId]: srcListClone,
-        ...(source.droppableId === destination.droppableId
+        [dropzoneId]: srcListClone,
+        ...(dropzoneId === destination.droppableId
             ? {}
             : {
                 [destination.droppableId]: destListClone

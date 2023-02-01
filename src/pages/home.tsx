@@ -85,7 +85,7 @@ function FirstPartHomePage (): JSX.Element {
                 >
                     <TextContainerWithStyle>
                         <Header as='h1'>
-                            Welcome to CyberArena traveller!
+                            "Dominate the Virtual Battlefield"
                         </Header>
                         <p>
                             Welcome to CyberArena, the ultimate card game experience!
