@@ -1,7 +1,9 @@
 import React from 'react'
-import { Button, Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import {  Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import Card from '../component/ui/Card/card'
-import { Link } from 'react-router-dom'
+import {  PlayNowButtonRight } from '../component/ui/button/PlayNowButton'
+import { BlurryBox } from '../component/ui/box/BlurryBox'
+import { FixedBackgroundDivImage, FixedBackgroundDivVideo } from '../component/ui/box/FixedBackgroundDiv'
 
 const background2 = '/img/background/testreact2.jpg'
 const backgroundVideo = '/video/videoplayback.webm'
@@ -19,27 +21,6 @@ const backgroundVideoPoster = '/img/vidoeplayback.png'
 
  */
 
-class TextContainerWithStyle extends React.Component<{ children: JSX.Element | JSX.Element[] }> {
-    render (): JSX.Element {
-        return (
-            <Container textAlign='left'
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    margin: 'O',
-                    padding: '15px 20px',
-                    borderRadius: '10px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                    backdropFilter: 'blur(20px)',
-                    boxShadow: '0 0 15px white'
-                }}
-            >
-                {this.props.children}
-            </Container>
-        )
-    }
-}
-
 function FirstPartHomePage (): JSX.Element {
     return (
 
@@ -49,31 +30,7 @@ function FirstPartHomePage (): JSX.Element {
             height: '100vh'
 
         }}>
-            <div style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                clip: 'rect(auto, auto, auto, auto)'
-            }}>
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    disablePictureInPicture
-                    style={{
-                        position: 'fixed',
-                        top: '0',
-                        left: '0',
-                        width: '100%',
-                        height: '100vh',
-                        objectFit: 'cover',
-                        zIndex: '-1'
-                    }}
-                    poster={backgroundVideoPoster}
-                >
-                    <source src={backgroundVideo} type='video/webm' />
-                </video>
-            </div>
+            <FixedBackgroundDivVideo src={backgroundVideo} poster={backgroundVideoPoster} />
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
                 <Grid.Column
 
@@ -83,7 +40,7 @@ function FirstPartHomePage (): JSX.Element {
                     tablet={12}
                     mobile={14}
                 >
-                    <TextContainerWithStyle>
+                    <BlurryBox>
                         <Header as='h1'>
                             Welcome to CyberArena traveller!
                         </Header>
@@ -95,17 +52,8 @@ function FirstPartHomePage (): JSX.Element {
                             CyberArena and prove your worth on the virtual battlefield! Are you ready for an
                             electrifying adventure? Play now and find out what CyberArena has to offer!
                         </p>
-                        <div style={{ justifyContent: 'end', display: 'flex' }}>
-                            <Button
-                                primary={true}
-                                content='Play Now'
-                                icon='play'
-                                labelPosition='right'
-                                as={Link}
-                                to={'/dashboard'}
-                            />
-                        </div>
-                    </TextContainerWithStyle>
+                        <PlayNowButtonRight />
+                    </BlurryBox>
                 </Grid.Column>
                 <Grid.Column only='large screen'>
                     <Container textAlign='center'>
@@ -214,13 +162,7 @@ function SecondPartHomePage (): JSX.Element {
 
 function ThirdPartHomePage (): JSX.Element {
     return (
-        <div style={{
-            background: `url(${background2}) no-repeat center center fixed`,
-            backgroundSize: 'cover',
-            width: '100%',
-            height: '100vh',
-            position: 'relative'
-        }}>
+        <FixedBackgroundDivImage src={background2}>
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
                 <Grid.Column>
                 </Grid.Column>
@@ -231,7 +173,7 @@ function ThirdPartHomePage (): JSX.Element {
                     tablet={12}
                     mobile={14}
                 >
-                    <TextContainerWithStyle>
+                    <BlurryBox>
                         <Header as='h2'>
                             Discover the world of CyberArena!
                         </Header>
@@ -242,20 +184,11 @@ function ThirdPartHomePage (): JSX.Element {
                             fight for
                             glory in the cyber arena!
                         </p>
-                        <div style={{ justifyContent: 'end', display: 'flex' }}>
-                            <Button
-                                primary={true}
-                                content='Play Now'
-                                icon='play'
-                                labelPosition='right'
-                                as={Link}
-                                to={'/dashboard'}
-                            />
-                        </div>
-                    </TextContainerWithStyle>
+                        <PlayNowButtonRight />
+                    </BlurryBox>
                 </Grid.Column>
             </Grid>
-        </div>
+        </FixedBackgroundDivImage>
     )
 }
 

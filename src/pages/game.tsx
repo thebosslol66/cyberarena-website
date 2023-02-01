@@ -9,8 +9,6 @@ import Dropzone from '../component/ui/D&D/Dropzone'
 import { GAME_STATE, move } from '../component/ui/D&D/utils'
 import { GameService } from '../client/services/GameService'
 import { CardModel } from '../client'
-import {WebsiteOverlay} from "../component/ui/homeElements/WebsiteOverlay";
-import {VideoBackground} from "../component/ui/homeElements/VideoBackground";
 
 const background = '/img/background/arena1.png'
 
