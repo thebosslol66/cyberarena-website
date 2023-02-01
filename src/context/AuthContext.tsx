@@ -16,12 +16,8 @@ const AuthContext = React.createContext<AuthContextInterface>({
 const AuthProvider = ({ children }: any): JSX.Element => {
     const [isLogged, setIsLogged] = useState(false)
 
-    TokenService.registerLoginHandler(setIsLogged)
-
     useState(() => {
-        if (TokenService.getLocalAccessToken() !== null) {
-            setIsLogged(true)
-        }
+        TokenService.registerLoginHandler(setIsLogged)
     })
 
     return (
