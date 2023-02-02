@@ -8,26 +8,34 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import Dropzone from '../component/ui/D&D/Dropzone'
 import { GAME_STATE, move } from '../component/ui/D&D/utils'
 import { GameService } from '../client/services/GameService'
+import Card from "../component/ui/Card/card";
+import {CardModel} from "../client";
 
 const background = '/img/background/arena1.png'
 
 interface State {
     gameState: typeof GAME_STATE.READY
-    main_1: string[]
-    main_2: string[]
-    plateau_1: string[]
-    plateau_2: string[]
+    main_1: CardModel[]
+    main_2: CardModel[]
+    plateau_1: CardModel[]
+    plateau_2: CardModel[]
 }
 export default class GamePage extends React.Component < {}, State > {
     componentDidMount () {
         //this.getCardInfo(1)
-        this.generateCard(3)
+        //this.generateCard(2)
     }
+    getItems = (count: number) =>
+        Array.from({ length: count }, (v, k) => k).map(k => ({
+            id: `item-${k}`,
+            content: `item ${k}`
+        }));
+
     constructor (props: any) {
         super(props)
         this.state = {
             gameState: GAME_STATE.READY,
-            main_1: [],
+            main_1: this.generateCard(4),
             main_2: [],
             plateau_1: [],
             plateau_2: []
@@ -41,9 +49,12 @@ export default class GamePage extends React.Component < {}, State > {
     }
 
     generateCard = (count: number) => {
+        var tab = []
         for (let i = 0; i < count; i++) {
-            this.setState({ main_1: this.state.main_1.concat("test "+i) })
+            let card: CardModel = { id: i, name: "test", description: "test"+i, cost: 2, damage: 2, health: 2, defense: 2 }
+            tab.push(card)
         }
+        return tab
     }
 
     startGame = () => {
@@ -61,6 +72,10 @@ export default class GamePage extends React.Component < {}, State > {
         }
 
         this.setState(state => move(state, source, destination, source.droppableId))
+        console.log("main1 : "+this.state.main_1)
+        console.log("plat1 : "+this.state.plateau_1)
+        console.log("plat2 : "+this.state.plateau_2)
+        console.log("main2 : "+this.state.main_2)
     }
 
     endGame = () => {
