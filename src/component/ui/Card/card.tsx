@@ -340,7 +340,7 @@ export default class Card extends Component<CardProps, {}> {
                         aria-label="Expand the Pokemon Card; {name}."
                         tabIndex={0}
                         onMouseEnter={this.handleMouseEnter}
-                        onMouseMove={this.handleMouseMove}
+                        // onMouseMove={this.handleMouseMove}
                         onMouseLeave={this.handleMouseLeave}
                         ref={this.element}
 
