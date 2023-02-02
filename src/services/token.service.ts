@@ -41,6 +41,7 @@ const removeUser = (): void => {
 
 function registerLoginHandler (setLogin: React.Dispatch<React.SetStateAction<boolean>>): void {
     setLoginHandler = setLogin
+    setLoginHandler(getUser().access_token !== undefined)
 }
 
 const TokenService = {

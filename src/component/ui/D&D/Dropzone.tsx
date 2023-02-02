@@ -1,7 +1,6 @@
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import Card from '../Card/card'
-import {CardModel} from "../../../client";
+import { CardModel } from '../../../client'
 interface Props {
     isDropDisabled: boolean
     cards: CardModel[]
@@ -10,14 +9,14 @@ interface Props {
     height: string
     width: string
 }
-const Dropzone: React.FC<Props> = ({ isDropDisabled, cards, id , color, height, width}) => {
+const Dropzone: React.FC<Props> = ({ isDropDisabled, cards, id, color, height, width }) => {
     return (
         <Droppable key={id} droppableId={id} direction="horizontal" isDropDisabled={isDropDisabled}>
             {(provided, snapshot) => (
                 <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    style={{backgroundColor: color, width: width, height: height, margin: 'auto'}}
+                    style={{ backgroundColor: color, width, height, margin: 'auto' }}
                 >
                     {cards.map((card, index) => (
                         CardDrag(card, index)
