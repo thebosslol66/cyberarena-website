@@ -37,6 +37,13 @@ export default class Navbar extends React.Component {
                                     name='dashboard'
                                 />
                             )}
+                            {isLogged && (
+                                <Menu.Item
+                                    as={NavLink}
+                                    to="/profile"
+                                    name='profile'
+                                />
+                            )}
                             <Menu.Menu position="right">
                                 {!isLogged && (
                                     <Menu.Item>

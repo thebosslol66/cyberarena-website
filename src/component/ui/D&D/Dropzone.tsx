@@ -55,7 +55,7 @@ const CardDrag = (card: CardModel, index: number): JSX.Element => {
                                 supertype={'pokemon'}
                                 rarity={'rare ultra'}
                                 gallery={'false'}
-                                style={{ maxWidth: '10vmin', margin: 'auto' }}
+                                style={{ maxWidth: '10vmin', margin: 'auto', width: '5vmin' }}
                                 back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
                                 front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
                     </div>

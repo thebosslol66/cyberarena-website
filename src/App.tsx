@@ -13,7 +13,7 @@ import NoPage from './pages/NoPage'
 import PrivacyPolicyPage from './pages/privacyPolicy'
 import AboutUsPage from './pages/aboutUs'
 import GamePage from './pages/game'
-
+import ProfilePage from './pages/Profile'
 function App (): JSX.Element {
     return (
         <Routes>
@@ -24,6 +24,7 @@ function App (): JSX.Element {
                 <Route element={<RequireLoginRoutes/>}>
                     <Route path="signout" element={<SignoutPage/>}/>
                     <Route path="dashboard" element={<DashboardPage/>}/>
+                    <Route path='profile' element={<ProfilePage/>}/>
                     <Route path='game' element={<GamePage/>}/>
                 </Route>
                 {process.env.NODE_ENV === 'development' && <Route path="theming" element={<ThemingLayout/>}/>}
