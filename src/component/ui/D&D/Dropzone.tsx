@@ -1,6 +1,7 @@
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { CardModel } from '../../../client'
+import Card from "../Card/card";
 interface Props {
     isDropDisabled: boolean
     cards: CardModel[]
