@@ -335,13 +335,13 @@ export default class Card extends Component<CardProps, {}> {
                 // onChange={this.interact}
             >
                 <div className="card__translater"
-                     style={{
-                         width: this.props.style.width,
-                         maxWidth: this.props.style.maxWidth,
-                         height: this.props.style.height,
-                         maxHeight: this.props.style.maxHeight,
-                         pointerEvents: 'none'
-                     }}
+                    style={{
+                        width: this.props.style.width,
+                        maxWidth: this.props.style.maxWidth,
+                        height: this.props.style.height,
+                        maxHeight: this.props.style.maxHeight,
+                        pointerEvents: 'none'
+                    }}
                 >
                     <button
                         className="card__rotator"
@@ -349,6 +349,8 @@ export default class Card extends Component<CardProps, {}> {
                         tabIndex={0}
                         ref={this.element}
                         style={{
+                            width: '100%',
+                            height: '100%'
                         }}
                     >
                         <img
@@ -357,7 +359,10 @@ export default class Card extends Component<CardProps, {}> {
                             alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
                             loading="lazy"
                             style={{
+                                width: '100%',
+                                height: '100%',
                                 pointerEvents: 'none'
+
                             }}
                         />
                         <div className="card__front">
@@ -367,6 +372,8 @@ export default class Card extends Component<CardProps, {}> {
                                 // onLoad={this.imageLoader}
                                 loading="lazy"
                                 style={{
+                                    width: '100%',
+                                    height: '100%',
                                     pointerEvents: 'none'
                                 }}
                             />

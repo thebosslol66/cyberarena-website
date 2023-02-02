@@ -9,6 +9,7 @@ interface Props {
 }
 export class DraggableCard extends React.Component<Props, any> {
     render (): JSX.Element {
+        const cardRef = React.createRef<Card>()
         return (
             <Draggable draggableId={`card-${this.props.card.id}`} index={this.props.index} >
                 {(provided) => (
@@ -30,10 +31,15 @@ export class DraggableCard extends React.Component<Props, any> {
 
                         style={{
                             userSelect: 'none',
+                            maxWidth: '200px',
+                            maxHeight: '200px',
                             padding: 16,
                             margin: '0 0 8px 0',
                             minHeight: '50px',
-
+                            backgroundColor: '#263B4A',
+                            color: 'white',
+                            borderRadius: '2px',
+                            border: '1px solid #456C86',
                             ...provided.draggableProps.style
                         }}
 

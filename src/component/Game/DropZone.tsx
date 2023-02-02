@@ -27,8 +27,8 @@ export class DropZone extends React.Component<Props, {}> {
                             margin: 'auto',
                             display: 'flex',
                             flexDirection: 'row',
-                            justifyContent: 'center'
-                        }}
+                            justifyContent: 'space-between'
+                    }}
                     >
                         {this.props.cards.map((card, index) => (
                             <DraggableCard index={index} card={card} key={card.id}/>
