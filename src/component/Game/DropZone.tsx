@@ -15,12 +15,20 @@ interface Props {
 export class DropZone extends React.Component<Props, {}> {
     render (): JSX.Element {
         return (
-            <Droppable droppableId={this.props.id} direction="vertical" isDropDisabled={this.props.isDropDisabled}>
+            <Droppable droppableId={this.props.id} direction="horizontal" isDropDisabled={this.props.isDropDisabled}>
                 {(provided, snapshot) => (
                     <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        style={{ backgroundColor: this.props.color, width: this.props.width, height: this.props.height, margin: 'auto' }}
+                        style={{
+                            backgroundColor: this.props.color,
+                            width: this.props.width,
+                            height: this.props.height,
+                            margin: 'auto',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between'
+                    }}
                     >
                         {this.props.cards.map((card, index) => (
                             <DraggableCard index={index} card={card} key={card.id}/>

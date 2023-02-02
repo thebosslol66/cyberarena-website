@@ -52,7 +52,6 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
         }
     }
 
-
     onDragEnd = (result: any): void => {
         if (result.destination == null) {
             return
@@ -63,12 +62,12 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
             return
         }
 
-        const sourceZoneId = result.source.droppableId
-        const destinationZoneId = result.destination.droppableId
+        const sourceZoneId = result.source.droppableId as keyof BoardState['board']
+        const destinationZoneId = result.destination.droppableId as keyof BoardState['board']
 
-        const sourceZone = this.state.board[sourceZoneId]
+        const sourceZone = this.state.board[sourceZoneId] as number[]
         sourceZone.splice(result.source.index, 1)
-        const destinationZone = Array.from(this.state.board[destinationZoneId])
+        const destinationZone = Array.from(this.state.board[destinationZoneId] as number[])
         destinationZone.splice(result.destination.index, 0,
             parseInt(result.draggableId.split('-')[1]))
 

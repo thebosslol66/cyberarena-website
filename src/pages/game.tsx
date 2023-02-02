@@ -9,7 +9,6 @@ import {Board} from "../component/Game/Board";
 import {GAME_STATE} from "../component/ui/D&D/utils";
 
 let board = {
-
     cards_on_board: {
         1: {
             id: 1,
@@ -26,6 +25,10 @@ let board = {
 
     },
     main_1: [1, 2, 3, 4],
+    main_2: [],
+    plateau_1: [],
+    plateau_2: [],
+    gameState: GAME_STATE.READY
 }
 
 const background = '/img/background/arena1.png'
