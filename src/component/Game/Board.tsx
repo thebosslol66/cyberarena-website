@@ -4,7 +4,7 @@ import { GAME_STATE } from '../ui/D&D/utils'
 import { CardModel } from '../../client'
 import { DropZone } from './DropZone'
 
-interface BoardProps {
+export interface BoardProps {
     gameState: typeof GAME_STATE.READY
     main_1: number[]
     main_2: number[]
@@ -78,7 +78,6 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
         }
 
         this.setState({ board: newBoard })
-
     }
 
     render (): JSX.Element {

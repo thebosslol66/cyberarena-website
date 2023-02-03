@@ -23,6 +23,8 @@
     will-change: transform, visibility;
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
+    aspect-ratio: 8 / 11;
+    max-height: 100%;
 }
 
 .card.interacting {
@@ -97,7 +99,8 @@ button.card__rotator {
 .card__rotator img {
     outline: 1px solid transparent;
     aspect-ratio: 0.716;
-    height: auto;
+    width: auto;
+
 }
 
 .card__back {

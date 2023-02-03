@@ -12,15 +12,15 @@ export default class Footer extends React.Component {
                             <Grid.Column width={3}>
                                 <Header inverted as='h4' content='About'/>
                                 <List link inverted>
-                                    <List.Item as={NavLink}>Contact Us</List.Item>
+                                    <List.Item as={NavLink} to={'#'}>Contact Us</List.Item>
                                     <List.Item as={NavLink} to={'/aboutus'} >About Us</List.Item>
-                                    <List.Item as={NavLink}>FAQ</List.Item>
+                                    <List.Item as={NavLink} to={'#'}>FAQ</List.Item>
                                 </List>
                             </Grid.Column>
                             <Grid.Column width={3}>
                                 <Header inverted as='h4' content='Legal'/>
                                 <List link inverted>
-                                    <List.Item as={NavLink}>Terms of Use</List.Item>
+                                    <List.Item as={NavLink} to={'#'}>Terms of Use</List.Item>
                                     <List.Item as={NavLink} to={'/privacypolicy'}>Privacy Policy</List.Item>
                                 </List>
                             </Grid.Column>
