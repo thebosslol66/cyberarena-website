@@ -1,7 +1,7 @@
 import React from 'react'
-import {  Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import Card from '../component/ui/Card/card'
-import {  PlayNowButtonRight } from '../component/ui/button/PlayNowButton'
+import { PlayNowButtonRight } from '../component/ui/button/PlayNowButton'
 import { BlurryBox } from '../component/ui/box/BlurryBox'
 import { FixedBackgroundDivImage, FixedBackgroundDivVideo } from '../component/ui/box/FixedBackgroundDiv'
 
@@ -42,7 +42,7 @@ function FirstPartHomePage (): JSX.Element {
                 >
                     <BlurryBox>
                         <Header as='h1'>
-                            "Dominate the Virtual Battlefield"
+                            &quot;Dominate the Virtual Battlefield&quot;
                         </Header>
                         <p>
                             Welcome to CyberArena, the ultimate card game experience!

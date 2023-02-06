@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Grid, Segment } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
 
 function ProfilePage (): JSX.Element {
     return (
