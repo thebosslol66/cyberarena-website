@@ -5,7 +5,7 @@ import {Card, Container, Grid, Header, Icon, Placeholder} from 'semantic-ui-reac
 import { ProfileService } from '../../../client'
 import MyAvatar from './MyAvatar'
 
-export default class MyProfile extends React.Component {
+export default class MyGameProfile extends React.Component {
     state = { loading: true, username: '', active: false }
     componentDidMount () {
         this.getProfile()
