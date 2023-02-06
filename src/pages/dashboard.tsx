@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Grid, Segment } from 'semantic-ui-react'
 import MyProfile from '../component/ui/userCard/myPlayerCard'
 import MatchmakingButton from '../component/ui/button/MatchmakingButton'
+import MyGameProfile from "../component/ui/userCard/myPlayerCard";
 
 function UserInteractions (): JSX.Element {
     return (
@@ -12,7 +13,7 @@ function UserInteractions (): JSX.Element {
                         <MatchmakingButton />
                     </Grid.Column>
                     <Grid.Column tablet={8} computer={7} widescreen={5}>
-                        <MyProfile />
+                        <MyGameProfile />
                     </Grid.Column>
                 </Grid>
             </Segment>

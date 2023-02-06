@@ -65,7 +65,7 @@ export default class SignInForm extends React.Component<SignInterface,
                                 iconPosition='left'
                                 placeholder='Password'
                                 type='password'
-                                onChange={event => this.setState({ password: event.target.value })}
+                                onChange={ event => this.setState({ password: event.target.value })}
                                 data-testid='password-field'
                             />
                             <Button primary fluid size='large' loading={this.state.isRequestWaiting}
