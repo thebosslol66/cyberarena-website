@@ -1,7 +1,6 @@
 import { Button } from 'semantic-ui-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { CardModel } from '../client'
 import { Board, BoardProps } from '../component/Game/Board'
 import { GAME_STATE } from '../component/ui/D&D/utils'
 
