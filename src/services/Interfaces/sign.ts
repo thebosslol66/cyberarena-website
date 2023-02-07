@@ -2,7 +2,11 @@ interface SignUpData {
     username: string
     password: string
     email: string
+}
 
+interface ChangeUserInformations {
+    password: string
+    new_setting: string
 }
 
 interface SignUpStatusDTO {
@@ -26,5 +30,6 @@ export type {
     SignUpData,
     SignUpStatusDTO,
     Tokens,
-    AskNewTokenData
+    AskNewTokenData,
+    ChangeUserInformations
 }

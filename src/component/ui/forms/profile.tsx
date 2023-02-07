@@ -1,13 +1,8 @@
 import React, { Context } from 'react'
 import { defaultSignValues, SignInterface } from '../../Interfaces/sign'
-import AuthContext, { AuthContextInterface } from '../../../context/AuthContext'
 import {Button, Form, Input, Message} from 'semantic-ui-react'
-import {
-    Body_change_avatar_api_profile_change_avatar_put,
-    ChangeUserInformations,
-    ProfileService
-} from "../../../client";
-
+import ProfileService from '../../../services/profile.service'
+import {ChangeUserInformations} from "../../../services/Interfaces/sign";
 
 export default class ProfileForm extends React.Component<SignInterface, {
     username: string
@@ -17,7 +12,7 @@ export default class ProfileForm extends React.Component<SignInterface, {
     newpassword: string
 }> {
     static defaultProps = defaultSignValues
-    static contextType: Context<AuthContextInterface> = AuthContext
+
 
     constructor (props: SignInterface) {
         super(props)
@@ -31,69 +26,38 @@ export default class ProfileForm extends React.Component<SignInterface, {
     }
 
 
-    updateUsername = (new_username: ChangeUserInformations): void => {
-        ProfileService.changeUsernameApiProfileChangeUsernamePut(new_username).catch((error) => {
-            console.log(error)
-        })
-    }
-
-    updateEmail = (new_email: ChangeUserInformations): void => {
-        ProfileService.changeEmailApiProfileChangeEmailPut(new_email).catch((error) => {
-            console.log(error)
-        })
-    }
-
-    updatePassword = (new_password: ChangeUserInformations): void => {
-        ProfileService.changePasswordApiProfileChangePasswordPut(new_password).then((response) => {
-            console.log(response)
-        })
-    }
-
-    updateAvatar = (new_avatar: Body_change_avatar_api_profile_change_avatar_put): void => {
-        ProfileService.changeAvatarApiProfileChangeAvatarPut(new_avatar).then((response) => {
-            console.log(response)
-        })
-    }
-
     handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
         if (this.state.username !== '') {
-            let new_username: ChangeUserInformations = {
-                password: this.state.password,
-                new_setting: this.state.username
-            }
-            ProfileService.changeUsernameApiProfileChangeUsernamePut(new_username).catch((error) => {
-                this.setState({ error: error })
+            ProfileService.change_username(this.state.password, this.state.username).then((response) => {
+            }).catch((error) => {
+                console.log(error)
+                this.setState({error: error.detail})
             })
         }
         if (this.state.email !== '') {
-            let new_email: ChangeUserInformations = {
-                password: this.state.password,
-                new_setting: this.state.email
-            }
-            ProfileService.changeEmailApiProfileChangeEmailPut(new_email).catch((error) => {
-                this.setState({ error: error })
+            ProfileService.change_email(this.state.password, this.state.email).then((response) => {
+            }).catch((error) => {
+                console.log(error)
+                this.setState({error: error.detail})
             })
         }
         if (this.state.newpassword !== '') {
-            let new_password: ChangeUserInformations = {
-                password: this.state.password,
-                new_setting: this.state.newpassword
-            }
-            ProfileService.changePasswordApiProfileChangePasswordPut(new_password).catch((error) => {
-                this.setState({ error: error })
+            ProfileService.change_password(this.state.password, this.state.newpassword).then((response) => {
+                this.setState({error: response})
+            }).catch((error) => {
+                console.log(error)
+                this.setState({error: error.detail})
             })
         }
-        window.location.reload();
-
     }
 
     render (): JSX.Element {
         return (
             <Form onSubmit={this.handleSubmit}>
                 {this.state.error !== '' && <Message negative>
-                    <Message.Header>Sign-up error</Message.Header>
-                    <p data-testid='error-signup-message'>{this.state.error}</p>
+                    <Message.Header>Profile Error</Message.Header>
+                    <p data-testid='error-profile-message'>{this.state.error}</p>
                 </Message>}
                 <Form.Field
                     fluid

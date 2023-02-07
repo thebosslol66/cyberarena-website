@@ -1,8 +1,7 @@
 import React from 'react'
 import { Container, Grid, Segment } from 'semantic-ui-react'
-import MyProfile from '../component/ui/userCard/myPlayerCard'
 import MatchmakingButton from '../component/ui/button/MatchmakingButton'
-import MyGameProfile from "../component/ui/userCard/myPlayerCard";
+import MyGameProfile from '../component/ui/userCard/myPlayerCard'
 
 function UserInteractions (): JSX.Element {
     return (

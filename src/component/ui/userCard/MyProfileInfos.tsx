@@ -25,12 +25,12 @@ export default class MyUserProfile extends React.Component {
                             {this.state.loading
                                 ?
                                 (
-                                <Placeholder>
-                                    <Placeholder.Header>
-                                        <Placeholder.Line/>
-                                    </Placeholder.Header>
-                                </Placeholder>
-                            ) : (
+                                    <Placeholder>
+                                        <Placeholder.Header>
+                                            <Placeholder.Line/>
+                                        </Placeholder.Header>
+                                    </Placeholder>
+                                ) : (
                                     this.state.username
                                 )}
                         </Card.Header>
