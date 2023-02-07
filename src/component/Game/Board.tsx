@@ -4,7 +4,7 @@ import { GAME_STATE } from '../ui/D&D/utils'
 import { CardModel } from '../../client'
 import { DropZone } from './DropZone'
 
-interface BoardProps {
+export interface BoardProps {
     gameState: typeof GAME_STATE.READY
     main_1: number[]
     main_2: number[]
@@ -62,12 +62,12 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
             return
         }
 
-        const sourceZoneId = result.source.droppableId
-        const destinationZoneId = result.destination.droppableId
+        const sourceZoneId = result.source.droppableId as keyof BoardState['board']
+        const destinationZoneId = result.destination.droppableId as keyof BoardState['board']
 
-        const sourceZone = this.state.board[sourceZoneId]
+        const sourceZone = this.state.board[sourceZoneId] as number[]
         sourceZone.splice(result.source.index, 1)
-        const destinationZone = Array.from(this.state.board[destinationZoneId])
+        const destinationZone = Array.from(this.state.board[destinationZoneId] as number[])
         destinationZone.splice(result.destination.index, 0,
             parseInt(result.draggableId.split('-')[1]))
 
