@@ -18,6 +18,8 @@ interface CardProps {
     back_img: string
     front_img: string
     options?: any
+    draggable_options?: any
+    forwardedRef?: any
 }
 
 interface CardState {
@@ -309,6 +311,7 @@ export default class Card extends Component<CardProps, {}> {
                 data-supertype={this.props.supertype}
                 data-rarity={this.props.rarity}
                 data-gallery={this.props.gallery}
+                {...this.props.draggable_options}
                 style={{
                     ...this.props.style,
                     ['--mx' as any]: this.state.mx.toString() + '%',
@@ -325,39 +328,37 @@ export default class Card extends Component<CardProps, {}> {
                     ['--galaxybg' as any]:
                     'center ' + this.state.galaxybg.toString() + 'px'
                 }}
+                ref={this.props.forwardedRef}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseMove={this.handleMouseMove}
+                onMouseLeave={this.handleMouseLeave}
                 // onChange={this.interact}
             >
                 <div className="card__translater"
-                    style={{
-                        width: this.props.style.width,
-                        maxWidth: this.props.style.maxWidth,
-                        height: this.props.style.height,
-                        maxHeight: this.props.style.maxHeight
-                    }}
+                     style={{
+                         width: this.props.style.width,
+                         maxWidth: this.props.style.maxWidth,
+                         height: this.props.style.height,
+                         maxHeight: this.props.style.maxHeight,
+                         pointerEvents: 'none'
+                     }}
                 >
                     <button
                         className="card__rotator"
                         aria-label="Expand the Pokemon Card; {name}."
                         tabIndex={0}
-                        onMouseEnter={this.handleMouseEnter}
-                        onMouseMove={this.handleMouseMove}
-                        onMouseLeave={this.handleMouseLeave}
                         ref={this.element}
-
-                        // onChange={this.rotator}
-                        // onClick={this.active}
-                        // onPointerMove={this.interact}
-                        // onMouseOut={this.interact}
-                        // onBlur={this.deactivate}
-
+                        style={{
+                        }}
                     >
                         <img
                             className="card__back"
                             src={this.props.back_img}
                             alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
                             loading="lazy"
-                            width="660"
-                            height="921"
+                            style={{
+                                pointerEvents: 'none'
+                            }}
                         />
                         <div className="card__front">
                             <img
@@ -365,8 +366,9 @@ export default class Card extends Component<CardProps, {}> {
                                 alt="Front design of the {name} Pokemon Card, with the stats and info around the edge"
                                 // onLoad={this.imageLoader}
                                 loading="lazy"
-                                width="660"
-                                height="921"
+                                style={{
+                                    pointerEvents: 'none'
+                                }}
                             />
                             <Shine/>
                             <Glare/>

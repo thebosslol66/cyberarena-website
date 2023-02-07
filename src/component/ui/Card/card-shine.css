@@ -9,6 +9,7 @@
     background-size: cover;
     background-position: center;
     opacity: var(--o);
+    pointer-events: none;
 }
 
 .card__shine:before {
