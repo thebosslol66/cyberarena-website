@@ -99,7 +99,7 @@ button.card__rotator {
 .card__rotator img {
     outline: 1px solid transparent;
     aspect-ratio: 0.716;
-    width: auto;
+    /* width: auto; */
 
 }
 

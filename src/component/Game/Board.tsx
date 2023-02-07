@@ -23,20 +23,6 @@ interface BoardState {
         cards_on_board: { [key: number]: CardModel }
     }
 }
-interface resultEndDrag {
-    draggableId: string
-    type: string
-    reason: string
-    source: {
-        droppableId: string
-        index: number
-    }
-    destination?: {
-        droppableId: string
-        index: number
-    }
-}
-
 export class Board extends React.Component<{ board: BoardProps }, BoardState> {
     constructor (props: { board: BoardProps }) {
         super(props)
