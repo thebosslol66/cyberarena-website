@@ -8,6 +8,7 @@
     );
     mix-blend-mode: overlay;
     opacity: var(--o);
+    pointer-events: none;
 }
 
 .card__glare.holo:not(.v):not(.vmax):not(.vstar) {

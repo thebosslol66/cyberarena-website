@@ -25,11 +25,12 @@ export default class Navbar extends React.Component {
                                 to="/"
                                 name='home'
                             />
-                            <Menu.Item
-                                as={NavLink}
-                                to="/theming"
-                                name='theming'
-                            />
+                            {process.env.NODE_ENV === 'development' && (
+                                <Menu.Item
+                                    as={NavLink}
+                                    to="/theming"
+                                    name='theming'
+                                />)}
                             {isLogged && (
                                 <Menu.Item
                                     as={NavLink}
@@ -45,24 +46,25 @@ export default class Navbar extends React.Component {
                                 />
                             )}
                             <Menu.Menu position="right">
-                                {!isLogged && (
-                                    <Menu.Item>
-                                        <Button as={NavLink} to="/signin" name="signin" className={'signin-button'}
-                                            primary>Sign In</Button>
-                                    </Menu.Item>
-                                )}
-                                {!isLogged && (
-                                    <Menu.Item>
-                                        <Button as={NavLink} to="/signup" name="signup" className={'signup-button'}>Sign
+                                {isLogged
+                                    ? (
+                                        <Menu.Item>
+                                            <Button as={NavLink} to="/signout" name="signout" className={'signout-button'}>Sign
+                                                Out</Button>
+                                        </Menu.Item>
+                                    )
+                                    : (
+                                        <>
+                                            <Menu.Item>
+                                                <Button as={NavLink} to="/signin" name="signin" className={'signin-button'}
+                                                    primary>Sign In</Button>
+                                            </Menu.Item>
+                                            <Menu.Item>
+                                                <Button as={NavLink} to="/signup" name="signup" className={'signup-button'}>Sign
                                             Up</Button>
-                                    </Menu.Item>
-                                )}
-                                {isLogged && (
-                                    <Menu.Item>
-                                        <Button as={NavLink} to="/signout" name="signout" className={'signout-button'}>Sign
-                                            Out</Button>
-                                    </Menu.Item>
-                                )}
+                                            </Menu.Item>
+                                        </>
+                                    )}
                             </Menu.Menu>
                         </Container>
                     </Menu>

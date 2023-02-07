@@ -1,7 +1,7 @@
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
+import Card from '../Card/card'
 import { CardModel } from '../../../client'
-import Card from "../Card/card";
 interface Props {
     isDropDisabled: boolean
     cards: CardModel[]
@@ -28,41 +28,21 @@ const Dropzone: React.FC<Props> = ({ isDropDisabled, cards, id, color, height, w
         </Droppable>
     )
 }
-//<Card number={190}
-//                             name={'First'}
-//                             subtypes={'basic v'}
-//                             supertype={'pokemon'}
-//                             rarity={'rare ultra'}
-//                             gallery={'false'}
-//                             style={{ maxWidth: '35vmin', margin: 'auto' }}
-//
-//                             back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
-//                             front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
-const CardDrag = (card: CardModel, index: number): JSX.Element => {
-    return (
-        <Draggable key={card.id} draggableId={(card.id).toString()} index={index}>
-            {provided => {
-                return (
-                    <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
 
-                    >
-                        <Card   number={190}
-                                name={'First'}
-                                subtypes={'basic v'}
-                                supertype={'pokemon'}
-                                rarity={'rare ultra'}
-                                gallery={'false'}
-                                style={{ maxWidth: '10vmin', margin: 'auto', width: '5vmin' }}
-                                back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
-                                front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
-                    </div>
-                )
-            }}
-        </Draggable>
-    )
-}
+const CardDrag = (card: CardModel, index: number): JSX.Element => (
+    <Draggable draggableId={(card.id).toString()} index={index}>
+        {provided => {
+            return (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                >
+                    Test
+                </div>
+            )
+        }}
+    </Draggable>
+)
 
 export default Dropzone
