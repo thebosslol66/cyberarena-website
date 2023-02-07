@@ -7,6 +7,10 @@
     "myavatar": "profile/me/avatar",
     "myprofile": "profile/me",
     "profile": "profile/{username}",
-    "avatar": "profile/{username}/avatar"
+    "avatar": "profile/{username}/avatar",
+    "change_password": "profile/change/password",
+    "change_email": "profile/change/email",
+    "change_username": "profile/change/username",
+    "change_avatar": "profile/change/avatar"
   }
 }
