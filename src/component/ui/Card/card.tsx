@@ -335,13 +335,13 @@ export default class Card extends Component<CardProps, {}> {
                 // onChange={this.interact}
             >
                 <div className="card__translater"
-                     style={{
-                         width: this.props.style.width,
-                         maxWidth: this.props.style.maxWidth,
-                         height: this.props.style.height,
-                         maxHeight: this.props.style.maxHeight,
-                         pointerEvents: 'none'
-                     }}
+                    style={{
+                        width: this.props.style.width,
+                        maxWidth: this.props.style.maxWidth,
+                        height: this.props.style.height,
+                        maxHeight: this.props.style.maxHeight,
+                        pointerEvents: 'none'
+                    }}
                 >
                     <button
                         className="card__rotator"
