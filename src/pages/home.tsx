@@ -65,8 +65,8 @@ function FirstPartHomePage (): JSX.Element {
                             gallery={'false'}
                             style={{ maxWidth: '35vmin', margin: 'auto' }}
 
-                            back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
-                            front_img={'https://images.pokemontcg.io/base1/1_hires.png'}/>
+                            back_img={'http://localhost:8000/api/game/card/0/image'}
+                            front_img={'http://localhost:8000/api/game/card/0/image'}/>
                     </Container>
                 </Grid.Column>
             </Grid>
