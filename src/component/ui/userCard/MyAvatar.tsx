@@ -10,10 +10,12 @@ export default class MyAvatar extends React.Component {
     }
 
     getAvatar = (): void => {
-         ProfileService.getCurrentUserAvatarApiProfileMeAvatarGet().then((response: ArrayBuffer) => {
+        ProfileService.getCurrentUserAvatarApiProfileMeAvatarGet().then((response: ArrayBuffer) => {
             const blob = new Blob([response], { type: 'image/jpeg' })
             const url = URL.createObjectURL(blob)
             this.setState({ avatar: url, loading: false })
+        }).catch((error: Error) => {
+            console.error(error)
         })
     }
 
