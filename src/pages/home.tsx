@@ -20,6 +20,7 @@ const backgroundVideoPoster = '/img/vidoeplayback.png'
                             </p>
 
  */
+const cardNumber = (Math.floor(Math.random() * 12) + 1)
 
 function FirstPartHomePage (): JSX.Element {
     return (
@@ -65,8 +66,8 @@ function FirstPartHomePage (): JSX.Element {
                             gallery={'false'}
                             style={{ maxWidth: '35vmin', margin: 'auto' }}
 
-                            back_img={'http://localhost:8000/api/game/card/0/image'}
-                            front_img={'http://localhost:8000/api/game/card/0/image'}/>
+                            back_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/image'}
+                            front_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/image'}/>
                     </Container>
                 </Grid.Column>
             </Grid>
