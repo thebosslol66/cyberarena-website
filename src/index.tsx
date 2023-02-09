@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { ProfileProvider } from './context/ProfileContext'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <BrowserRouter>
         <AuthProvider>
-            <App/>
+            <ProfileProvider>
+                <App/>
+            </ProfileProvider>
         </AuthProvider>
     </BrowserRouter>
 

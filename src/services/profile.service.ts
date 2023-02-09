@@ -38,10 +38,14 @@ const change_password = async (password: string, new_setting: string): Promise<s
     )
 }
 
-const change_avatar = async (password: string, new_setting: string): Promise<string> => {
+const change_avatar = async (avatar: string): Promise<string> => {
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
     return await api.put(API_URL.endpoint.change_avatar, {
-        password,
-        new_setting
+        avatar
     }).then(
         (response) => {
             return response.data
