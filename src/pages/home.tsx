@@ -34,7 +34,6 @@ function FirstPartHomePage (): JSX.Element {
             <FixedBackgroundDivVideo src={backgroundVideo} poster={backgroundVideoPoster} />
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' columns={2}>
                 <Grid.Column
-
                     widescreen={6}
                     largeScreen={6}
                     computer={8}
@@ -66,8 +65,8 @@ function FirstPartHomePage (): JSX.Element {
                             gallery={'false'}
                             style={{ maxWidth: '35vmin', margin: 'auto' }}
 
-                            back_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/image'}
-                            front_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/image'}/>
+                            back_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/imagefull'}
+                            front_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/imagefull'}/>
                     </Container>
                 </Grid.Column>
             </Grid>
