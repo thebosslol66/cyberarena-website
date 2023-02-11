@@ -31,6 +31,16 @@ export default class SignInForm extends React.Component<SignInterface,
         event.preventDefault()
         const { setIsLogged } = this.context as AuthContextInterface
 
+        if (this.state.username === '') {
+            this.setState({ error: 'Username is required' })
+            return
+        }
+
+        if (this.state.password === '') {
+            this.setState({ error: 'Password is required' })
+            return
+        }
+
         this.setState({ isRequestWaiting: true })
         AuthService.signin(this.state.username, this.state.password).then(() => {
             this.setState({ isRequestWaiting: false })
