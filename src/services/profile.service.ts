@@ -1,9 +1,5 @@
 import api from './api'
-import TokenService from './token.service'
-
 import API_URL from './api.endpoints.json'
-import { ChangeUserInformations } from './Interfaces/sign'
-
 
 const change_username = async (password: string, new_setting: string): Promise<string> => {
     return await api.put(API_URL.endpoint.change_username, {
