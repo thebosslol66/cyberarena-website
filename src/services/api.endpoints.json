@@ -11,6 +11,9 @@
     "change_password": "profile/change/password",
     "change_email": "profile/change/email",
     "change_username": "profile/change/username",
-    "change_avatar": "profile/change/avatar"
+    "change_avatar": "profile/change/avatar",
+    "ticketopen": "game/ticket/open",
+    "ticketcancel": "game/ticket/cancel?ticket_id=",
+    "ticketstatus": "game/ticket/status?ticket_id="
   }
 }
