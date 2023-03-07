@@ -1,17 +1,40 @@
 import { Button, Header, Icon, Loader, Modal } from 'semantic-ui-react'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import GameService from '../../../services/game.service'
 import { TicketData } from '../../../services/Interfaces/game'
 
-export default class MatchmakingButton extends React.Component {
-    state = { ticketID: '-1', open: false, room_id: null, playable: false }
+interface IMatchmakingButtonState {
+    ticketID: number;
+    open: boolean;
+    room_id: number;
+    playable: boolean;
+    playerID: number;
+
+}
+export default class MatchmakingButton extends React.Component<{}, IMatchmakingButtonState> {
+    state: IMatchmakingButtonState = { ticketID: -1, open: false, room_id: -1, playable: false, playerID: -1 }
     private timeout: NodeJS.Timeout | undefined
     private readonly interval: number = 1000
 
+    handleStartGame = (): void => {
+        console.log('start game1')
+        this.setState(prevState => {
+            if (prevState.playerID !== -1 && prevState.room_id !== null) {
+                console.log('start game2')
+                console.log(prevState.playerID)
+                console.log(prevState.room_id)
+                GameService.setIdUser(prevState.playerID)
+                GameService.setRoomID(prevState.room_id)
+                return { playable: true }
+            }
+            return null
+        })
+    }
+
     quitMachmaking = (): void => {
-        GameService.cancel_ticket(this.state.ticketID).then(() => {
-            this.setState({ ticketID: '-1', open: false })
+        GameService.cancelTicket(this.state.ticketID).then(() => {
+            this.setState({ ticketID: -1, open: false })
             clearTimeout(this.timeout as NodeJS.Timeout)
         }).catch((error) => {
             console.log(error)
@@ -19,7 +42,7 @@ export default class MatchmakingButton extends React.Component {
     }
 
     OpenMatchmaking = (): void => {
-        GameService.open_ticket().then((response: TicketData) => {
+        GameService.openTicket().then((response: TicketData) => {
             this.setState({ ticketID: response.id })
             this.timeout = setTimeout(() => {
                 this.fetchTicketStatus()
@@ -29,16 +52,17 @@ export default class MatchmakingButton extends React.Component {
         })
     }
 
-    fetchTicketStatus = (): void => {
-        GameService.ticket_status(this.state.ticketID).then(response => {
+    fetchTicketStatus = async (): Promise<void> => {
+        try {
+            const response = await GameService.ticketStatus(this.state.ticketID)
             if (response.room_id !== -1) {
-                this.setState({ room_id: response.room_id, playable: true })
+                this.setState({ room_id: response.room_id, playerID: response.player_id, playable: true });
             } else {
                 setTimeout(this.fetchTicketStatus, this.interval)
             }
-        }).catch(error => {
+        } catch(error) {
             console.log(error)
-        })
+        }
     }
 
     render (): JSX.Element {
@@ -69,9 +93,10 @@ export default class MatchmakingButton extends React.Component {
                     <Button disabled={this.state.playable} basic color='red' inverted onClick={this.quitMachmaking}>
                         <Icon name='remove' /> Cancel
                     </Button>
-                    <Button disabled={!this.state.playable} basic color='blue' inverted as={NavLink} to={'/game'}>
+                    <Button disabled={!this.state.playable} basic color='blue' inverted onClick={this.handleStartGame}>
                         <Icon name='check circle' /> Start game
                     </Button>
+                    {this.state.playable && <Navigate to="/game" />}
                 </Modal.Actions>
             </Modal>
         )

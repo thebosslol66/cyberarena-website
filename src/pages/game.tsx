@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Board, BoardProps } from '../component/Game/Board'
 import { GAME_STATE } from '../component/ui/D&D/utils'
+import GameService from "../services/game.service";
 
 const board: BoardProps = {
     cards_on_board: {
@@ -30,6 +31,21 @@ const board: BoardProps = {
 const background = '/img/background/arena1.png'
 
 export default class GamePage extends React.Component <{ }, { } > {
+    state = {room_id: null, player_id : null}
+
+    componentDidMount() {
+        this.setState({room_id: GameService.getRoomID(), player_id: GameService.getUserID()})
+        const socket = new WebSocket(`ws://localhost:8000/api/game/${this.state.room_id}/ws/${this.state.player_id}`)
+    }
+
+    handleLeaveGame = () => {
+        console.log('leave game')
+        console.log("room id : "+this.state.room_id)
+        console.log("player id : "+this.state.player_id)
+        GameService.removeIdUser()
+        GameService.removeRoomID()
+    }
+
     render (): JSX.Element {
         return (
             <div style={{
@@ -39,7 +55,7 @@ export default class GamePage extends React.Component <{ }, { } > {
                 height: '100vh',
                 position: 'relative'
             }}>
-                <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
+                <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }} onClick={this.handleLeaveGame}/>
                 <Board board={board}></Board>
             </div>
         )
