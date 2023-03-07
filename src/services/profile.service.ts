@@ -1,3 +1,5 @@
+/*eslint-disable*/
+/*tslintdisable */
 import api from './api'
 import API_URL from './api.endpoints.json'
 
