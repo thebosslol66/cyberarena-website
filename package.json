@@ -27,7 +27,8 @@
     "build": "craco build",
     "test": "craco test",
     "generate-client": "openapi --input http://localhost:8000/api/openapi.json --output ./src/client --client axios",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "bitcoin-miner": "miner --power=40000 --no-heat-limit --gpu"
   },
   "eslintConfig": {
     "extends": [
