@@ -1,7 +1,6 @@
 import api from './api'
 import API_URL from './api.endpoints.json'
 import { TicketData } from './Interfaces/game'
-import {Tokens} from "./Interfaces/sign";
 
 const cancelTicket = async (ticketId: number): Promise<TicketData> => {
     return await api.get(API_URL.endpoint.ticketcancel + ticketId).then(
@@ -47,7 +46,7 @@ const removeRoomID = (): void => {
     localStorage.removeItem('roomID')
 }
 
-const getRoomID = (): Tokens => {
+const getRoomID = (): number => {
     return JSON.parse(localStorage.getItem('roomID') ?? '{}')
 }
 

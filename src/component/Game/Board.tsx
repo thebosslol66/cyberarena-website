@@ -38,6 +38,21 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
         }
     }
 
+    componentDidUpdate (prevProps: { board: BoardProps }) {
+        if (prevProps.board !== this.props.board) {
+            this.setState({
+                gameState: this.props.board.gameState,
+                board: {
+                    main_1: this.props.board.main_1,
+                    main_2: this.props.board.main_2,
+                    plateau_1: this.props.board.plateau_1,
+                    plateau_2: this.props.board.plateau_2,
+                    cards_on_board: this.props.board.cards_on_board
+                }
+            })
+        }
+    }
+
     onDragEnd = (result: any): void => {
         if (result.destination == null) {
             return
@@ -62,17 +77,16 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
             [sourceZoneId]: sourceZone,
             [destinationZoneId]: destinationZone
         }
-
         this.setState({ board: newBoard })
     }
 
     render (): JSX.Element {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'red' } height={ '15%' } width={ '50%' }/>
-                <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'blue' } height={ '30%' } width={ '100%' }/>
-                <DropZone id="plateau_2" cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'green' } height={ '30%' } width={ '100%' }/>
-                <DropZone id="main_2" cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'yellow' } height={ '25%' } width={ '70%' }/>
+                <DropZone id="main_2" cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ true } color={ 'red' } height={ '15%' } width={ '50%' }/>
+                <DropZone id="plateau_2" cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ true } color={ 'blue' } height={ '30%' } width={ '100%' }/>
+                <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'green' } height={ '30%' } width={ '100%' }/>
+                <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'yellow' } height={ '25%' } width={ '70%' }/>
             </DragDropContext>
         )
     }
