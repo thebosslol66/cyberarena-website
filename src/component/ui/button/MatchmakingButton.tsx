@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Button, Header, Icon, Loader, Modal } from 'semantic-ui-react'
 import React from 'react'
 import { Navigate } from 'react-router-dom'
@@ -5,25 +6,20 @@ import GameService from '../../../services/game.service'
 import { TicketData } from '../../../services/Interfaces/game'
 
 interface IMatchmakingButtonState {
-    ticketID: number;
-    open: boolean;
-    room_id: number;
-    playable: boolean;
-    playerID: number;
-
+    ticketID: number
+    open: boolean
+    room_id: number
+    playable: boolean
+    playerID: number
+    ready: boolean
 }
 export default class MatchmakingButton extends React.Component<{}, IMatchmakingButtonState> {
-    state: IMatchmakingButtonState = { ticketID: -1, open: false, room_id: -1, playable: false, playerID: -1 }
+    state: IMatchmakingButtonState = { ticketID: -1, open: false, room_id: -1, playable: false, playerID: -1, ready: false }
     private timeout: NodeJS.Timeout | undefined
     private readonly interval: number = 1000
-
     handleStartGame = (): void => {
-        console.log('start game1')
         this.setState(prevState => {
-            if (prevState.playerID !== -1 && prevState.room_id !== null) {
-                console.log('start game2')
-                console.log(prevState.playerID)
-                console.log(prevState.room_id)
+            if (prevState.playerID !== -1 && prevState.room_id !== -1) {
                 GameService.setIdUser(prevState.playerID)
                 GameService.setRoomID(prevState.room_id)
                 return { playable: true }
@@ -60,7 +56,7 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
             } else {
                 setTimeout(this.fetchTicketStatus, this.interval)
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
     }
@@ -96,7 +92,7 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
                     <Button disabled={!this.state.playable} basic color='blue' inverted onClick={this.handleStartGame}>
                         <Icon name='check circle' /> Start game
                     </Button>
-                    {this.state.playable && <Navigate to="/game" />}
+                    {this.state.ready && <Navigate to="/game" />}
                 </Modal.Actions>
             </Modal>
         )
