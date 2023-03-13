@@ -9,6 +9,7 @@ const background = '/img/background/arena1.png'
 
 interface IGamePageState {
     board: BoardProps
+    turn: number
 }
 export default class GamePage extends React.Component <{}, IGamePageState> {
     private room_id: number = -1
@@ -19,41 +20,27 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         this.state = {
             board: {
                 cards_on_board: {
-                    1: { id: 1, name: 'Heisenberg', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    2: { id: 2, name: 'Walter', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    3: { id: 3, name: 'Jesse', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    4: { id: 4, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    5: { id: 5, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    6: { id: 6, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    7: { id: 7, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    8: { id: 8, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    9: { id: 9, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    10: { id: 10, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    11: { id: 11, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    12: { id: 12, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    13: { id: 13, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    14: { id: 14, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    15: { id: 15, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    16: { id: 16, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    17: { id: 17, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    18: { id: 18, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    19: { id: 19, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    20: { id: 20, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    21: { id: 21, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    22: { id: 22, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    23: { id: 23, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    24: { id: 24, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
-                    25: { id: 25, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 }
+                    1: { id: 1001, id_pic: 1, name: 'Heisenberg', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    2: { id: 1002, id_pic: 2, name: 'Walter', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    3: { id: 1003, id_pic: 3, name: 'Jesse', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    4: { id: 1004, id_pic: 4, name: 'Saul', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    5: { id: 1005, id_pic: 5, name: 'Gus', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    6: { id: 1006, id_pic: 6, name: 'Mike', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    7: { id: 1007, id_pic: 7, name: 'Hank', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    8: { id: 1008, id_pic: 8, name: 'Skyler', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    9: { id: 1009, id_pic: 9, name: 'Marie', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    10: { id: 1010, id_pic: 10, name: 'Walter Jr', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    11: { id: 1011, id_pic: 11, name: 'Tuco', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
+                    12: { id: 1012, id_pic: 12, name: 'Hector', description: 'useless', cost: 10, damage: 5, health: 22, defense: 13 },
                 },
                 main_1: [],
                 main_2: [],
                 plateau_1: [],
                 plateau_2: [],
                 gameState: GAME_STATE.READY
-            }
-            
+            },
+            turn : 0
         }
-
     }
 
     componentDidMount (): void {
@@ -78,25 +65,37 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
 
         // Vérifier le type du message
         if (data.type === 'begin_game') {
-            // Faire quelque chose avec le message, par exemple afficher un composant conditionnel[^2^][3]
             console.log(data)
-        } else if (data.type === 'end_game') {
+        } else if (data.type === 'get_turn'){
+            this.setState({turn : data.id_player})
+            console.log(data)
+        }
+        else if (data.type === 'end_game') {
             console.log(data)
         } else if (data.type === 'deploy_card') {
             console.log('deploy_card')
             console.log(data)
         } else if (data.type === 'draw_card') {
-            console.log("main web " + data.card.id_pic)
             this.setState(prevState => ({
                 board: {
                     ...prevState.board,
-                    main_1: [...prevState.board.main_1, data.card.id_pic]
+                    main_1: [...prevState.board.main_1, data.card.id],
+                    cards_on_board: {
+                        ...prevState.board.cards_on_board,
+                        [data.card.id]: data.card
+                    }
                 }
             }), () => {
-                console.log("main : " + this.state.board.main_1)
+                console.log("main : "+this.state.board.main_1)
+                console.log(this.state.board.cards_on_board)
             })
         } else if (data.type === 'draw_card_private') {
-            console.log(data)
+            this.setState(prevState => ({
+                board: {
+                    ...prevState.board,
+                    main_2: [...prevState.board.main_2, 1],
+                }
+            }))
         } else if (data.type === 'end_turn') {
             console.log(data)
         } else if (data.type === 'attack') {
@@ -130,6 +129,10 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         })
     }
 
+    nextTurn = (): void => {
+        this.sendMessage({ type: 'end_turn' })
+    }
+
     handleLeaveGame = (): void => {
         console.log(this.room_id)
         console.log(this.player_id)
@@ -151,6 +154,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 position: 'relative'
             }}>
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
+                <Button icon='remove' content='Next Turn' disabled={this.player_id !== this.state.turn} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <Board board={this.state.board}></Board>
             </div>
         )

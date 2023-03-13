@@ -22,7 +22,7 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
             if (prevState.playerID !== -1 && prevState.room_id !== -1) {
                 GameService.setIdUser(prevState.playerID)
                 GameService.setRoomID(prevState.room_id)
-                return { playable: true }
+                return { ready: true }
             }
             return null
         })

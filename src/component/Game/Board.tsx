@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import { GAME_STATE } from '../ui/D&D/utils'
 import { CardModel } from '../../client'
 import { DropZone } from './DropZone'
+import {Deck} from "./Deck";
 
 export interface BoardProps {
     gameState: typeof GAME_STATE.READY
@@ -82,12 +83,14 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
 
     render (): JSX.Element {
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <DropZone id="main_2" cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ true } color={ 'red' } height={ '15%' } width={ '50%' }/>
-                <DropZone id="plateau_2" cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ true } color={ 'blue' } height={ '30%' } width={ '100%' }/>
-                <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'green' } height={ '30%' } width={ '100%' }/>
-                <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={ false } color={ 'yellow' } height={ '25%' } width={ '70%' }/>
-            </DragDropContext>
+            <>
+                <Deck cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'red' } height={ '15%' } width={ '50%' }/>
+                <Deck cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'blue' } height={ '30%' } width={ '100%' }/>
+                <DragDropContext onDragEnd={this.onDragEnd}>
+                    <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'green' } height={ '30%' } width={ '100%' }/>
+                    <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'yellow' } height={ '25%' } width={ '70%' }/>
+                </DragDropContext>
+            </>
         )
     }
 }

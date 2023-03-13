@@ -4,7 +4,6 @@ import { Droppable } from 'react-beautiful-dnd'
 import { DraggableCard } from './DraggableCard'
 
 interface Props {
-    isDropDisabled: boolean
     cards: CardModel[]
     id: string
     color: string
@@ -15,7 +14,7 @@ interface Props {
 export class DropZone extends React.Component<Props, {}> {
     render (): JSX.Element {
         return (
-            <Droppable droppableId={this.props.id} direction="horizontal" isDropDisabled={this.props.isDropDisabled}>
+            <Droppable droppableId={this.props.id} direction="horizontal" isDropDisabled={ false }>
                 {(provided, snapshot) => (
                     <div
                         ref={provided.innerRef}
