@@ -21,7 +21,7 @@ export class DraggableCard extends React.Component<Props, any> {
                         gallery={'false'}
 
                         back_img={'https://images.pokemontcg.io/base1/1_hires.png'}
-                        front_img={`http://localhost:8000/api/game/card/${this.props.card.id}/image`}
+                        front_img={`http://localhost:8000/api/game/card/${this.props.card.id_pic}/image`}
 
                         draggable_options={{
                             ...provided.draggableProps,

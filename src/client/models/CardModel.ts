@@ -7,6 +7,7 @@
  */
 export type CardModel = {
     id: number;
+    id_pic: number;
     name: string;
     description: string;
     cost: number;
