@@ -6,16 +6,15 @@ import { DropZone } from './DropZone'
 import {Deck} from "./Deck";
 
 export interface BoardProps {
-    gameState: typeof GAME_STATE.READY
     main_1: number[]
     main_2: number[]
     plateau_1: number[]
     plateau_2: number[]
     cards_on_board: { [key: number]: CardModel }
+    onBoardChange?: (board1: BoardProps) => void
 }
 
-interface BoardState {
-    gameState: typeof GAME_STATE.READY
+export interface BoardState {
     board: {
         main_1: number[]
         main_2: number[]
@@ -28,29 +27,29 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
     constructor (props: { board: BoardProps }) {
         super(props)
         this.state = {
-            gameState: props.board.gameState,
             board: {
                 main_1: props.board.main_1,
                 main_2: props.board.main_2,
                 plateau_1: props.board.plateau_1,
                 plateau_2: props.board.plateau_2,
-                cards_on_board: props.board.cards_on_board
+                cards_on_board: props.board.cards_on_board,
             }
         }
     }
 
-    componentDidUpdate (prevProps: { board: BoardProps }) {
+    componentDidUpdate(prevProps: { board: BoardProps }) {
         if (prevProps.board !== this.props.board) {
-            this.setState({
-                gameState: this.props.board.gameState,
-                board: {
-                    main_1: this.props.board.main_1,
-                    main_2: this.props.board.main_2,
-                    plateau_1: this.props.board.plateau_1,
-                    plateau_2: this.props.board.plateau_2,
-                    cards_on_board: this.props.board.cards_on_board
+            this.setState(
+                {
+                    board: {
+                        main_1: this.props.board.main_1,
+                        main_2: this.props.board.main_2,
+                        plateau_1: this.props.board.plateau_1,
+                        plateau_2: this.props.board.plateau_2,
+                        cards_on_board: this.props.board.cards_on_board,
+                    },
                 }
-            })
+            )
         }
     }
 
@@ -67,6 +66,10 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
         const sourceZoneId = result.source.droppableId as keyof BoardState['board']
         const destinationZoneId = result.destination.droppableId as keyof BoardState['board']
 
+        if (sourceZoneId === 'plateau_1' && destinationZoneId === 'main_1') {
+            return
+        }
+
         const sourceZone = this.state.board[sourceZoneId] as number[]
         sourceZone.splice(result.source.index, 1)
         const destinationZone = Array.from(this.state.board[destinationZoneId] as number[])
@@ -78,7 +81,14 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
             [sourceZoneId]: sourceZone,
             [destinationZoneId]: destinationZone
         }
-        this.setState({ board: newBoard })
+        this.setState({
+            board: newBoard
+        }, () => {
+             if (this.props.board.onBoardChange){
+                this.props.board.onBoardChange(this.state.board)
+            }
+        });
+
     }
 
     render (): JSX.Element {

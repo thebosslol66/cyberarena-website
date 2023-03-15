@@ -9,6 +9,7 @@ interface Props {
     color: string
     height: string
     width: string
+
 }
 
 export class DropZone extends React.Component<Props, {}> {
