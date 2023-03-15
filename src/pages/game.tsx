@@ -10,6 +10,8 @@ const background = '/img/background/arena1.png'
 interface IGamePageState {
     board: BoardProps
     turn: number
+    mana: number
+    mana_max:number
 }
 export default class GamePage extends React.Component <{}, IGamePageState> {
     private room_id: number = -1
@@ -66,6 +68,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         // Vérifier le type du message
         if (data.type === 'begin_game') {
             console.log(data)
+            this.getMana()
         } else if (data.type === 'get_turn'){
             this.setState({turn : data.id_player})
             console.log(data)
@@ -100,6 +103,9 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             console.log(data)
         } else if (data.type === 'attack') {
             console.log(data)
+        } else if (data.type === 'get_mana') {
+            this.setState({mana : data.mana})
+            this.setState({mana_max : data.mana_max})
         }
     }
 
@@ -131,6 +137,12 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
 
     nextTurn = (): void => {
         this.sendMessage({ type: 'end_turn' })
+        this.getMana()
+    }
+
+    getMana = (): void => {
+        console.log("getmana")
+        this.sendMessage({type: 'get_mana'})
     }
 
     handleLeaveGame = (): void => {
@@ -156,6 +168,22 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
                 <Button icon='remove' content='Next Turn' disabled={this.player_id !== this.state.turn} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <Board board={this.state.board}></Board>
+                <div className='current-mana'
+                style={{
+                    fontSize: '30px',
+                    fontFamily: 'valorax, sans-serif',
+                    position: 'absolute',
+                    top: '75%',
+                    left: '84%',
+                    textAlign: 'right',
+                    width: '15%',
+                    color: 'white'
+                }}>
+                    <style>
+                        @import url('https://fonts.cdnfonts.com/css/valorax');
+                    </style>
+                    Votre Mana actuel : {this.state.mana} / {this.state.mana_max}
+                </div>
             </div>
         )
     }
