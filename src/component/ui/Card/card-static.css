@@ -1,0 +1,51 @@
+.card-static {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004177;
+    border-radius: 4.55% / 3.5%;
+    overflow: hidden;
+    aspect-ratio: 8 / 11;
+    max-height: 100%;
+    padding: 1px;
+}
+
+.card-static .card-image {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position:relative; /* Donne une position relative à l'image */
+    font-family: 'valorax', sans-serif;
+}
+
+.card-static .card-image .card-stats { /* Met les stats dans l'image */
+    position: absolute; /* Positionne les stats par rapport à l'image */
+    width: 100%; /* Donne une largeur de 100% aux stats */
+    display: flex; /* Crée un conteneur flex */
+    justify-content: space-around; /* Répartit les éléments avec un espace égal entre eux */
+    align-items: center; /**/
+    top:54.5%;
+    font-size:80%;
+}
+.card-static .card-image .card-cost{
+    position: absolute;
+    width: 100%;
+    font-size:80%;
+    left:5%;
+    top:3%;
+}
+
+.card-static .card-content .card-stats .card-hp {
+    order:1
+}
+
+.card-static .card-content .card-stats .card-dp {
+    order: 2;
+}
+
+.card-static .card-content .card-stats .card-ap {
+    order: 3;
+}
