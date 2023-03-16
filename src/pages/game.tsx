@@ -7,14 +7,15 @@ import {CardModel} from "../client";
 
 const background = '/img/background/arena1.png'
 
-
 interface IGamePageState {
     board: BoardData
     turn: number
     mana: number
+    mana_max:number
+    mynexushp:number
+    othernexushp:number
     dropDisabled: boolean
     onBoardChange?: (board: BoardData) => void
-
 }
 export default class GamePage extends React.Component <{}, IGamePageState> {
     private room_id: number = -1
@@ -102,16 +103,17 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
 
         // Vérifier le type du message
         if (data.type === 'begin_game') {
-
+            console.log(data)
+            this.getMana()
+            this.getNexusHealth()
         } else if (data.type === 'get_turn') {
             if (data.id_player === this.player_id) {
                 console.log("your turn")
-                this.setState({ dropDisabled: false })
+                this.setState({dropDisabled: false})
             } else {
                 console.log("not your turn")
-                this.setState({ dropDisabled: true })
+                this.setState({dropDisabled: true})
             }
-
             console.log(data)
         } else if (data.type === 'end_game') {
             console.log(data)
@@ -155,10 +157,10 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         } else if (data.type === 'attack') {
             console.log(data)
         } else if (data.type === 'get_mana') {
-            console.log("GET MANA")
-            this.setState({ mana: data.mana }), () => {
-                console.log("mana : " + this.state.mana)
-            }
+            this.setState({mana : data.mana})
+            this.setState({mana_max : data.mana_max})
+        } else if (data.type === 'get_nexus_health') {
+            this.setState({mynexushp: data.myhealth, othernexushp: data.ennemyhealth})
         }
     }
 
@@ -190,6 +192,17 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
 
     nextTurn = (): void => {
         this.sendMessage({ type: 'end_turn' })
+        this.getMana()
+    }
+
+    getMana = (): void => {
+        console.log("getmana")
+        this.sendMessage({type: 'get_mana'})
+    }
+
+    getNexusHealth = (): void => {
+        console.log("getnexushp")
+        this.sendMessage({type: 'get_nexus_health'})
     }
 
     handleLeaveGame = (): void => {
@@ -215,6 +228,51 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
                 <Button icon='remove' content='Next Turn' disabled={this.state.dropDisabled} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <Board board={this.state.board} onBoardChange={this.state.onBoardChange} dropDisabled={this.state.dropDisabled}></Board>
+                <div style={{position: 'absolute', right: '15%', width:'8%'}}>
+                    <img
+                        src={process.env.PUBLIC_URL + "/img/nexus/nexus_violet.png"}
+                        alt="Nexus ennemi"
+                        width={100}
+                        height={100}
+                    />
+                    <span style={{ position: "absolute", top: "36%", left: "23%", color: "white", fontFamily: 'valorax, sans-serif'}}>
+                        <style>
+                            @import url('https://fonts.cdnfonts.com/css/valorax');
+                        </style>
+                        {this.state.othernexushp}
+                    </span>
+                </div>
+                <div style={{position: 'absolute', left: '7.5%', width:'8%', bottom:'8.6%'}}>
+                    <img
+                        src={process.env.PUBLIC_URL + "/img/nexus/nexus_bleu.png"}
+                        alt="Mon nexus"
+                        width={100}
+                        height={100}
+                    />
+                    <span style={{ position: "absolute", top: "36%", left: "23%", color: "white", fontFamily: 'valorax, sans-serif'}}>
+                        <style>
+                            @import url('https://fonts.cdnfonts.com/css/valorax');
+                        </style>
+                        {this.state.mynexushp}
+                    </span>
+                </div>
+
+                <div className='current-mana'
+                style={{
+                    fontSize: '30px',
+                    fontFamily: 'valorax, sans-serif',
+                    position: 'absolute',
+                    top: '75%',
+                    left: '84%',
+                    textAlign: 'right',
+                    width: '15%',
+                    color: 'white'
+                }}>
+                    <style>
+                        @import url('https://fonts.cdnfonts.com/css/valorax');
+                    </style>
+                    Votre Mana actuel : {this.state.mana} / {this.state.mana_max}
+                </div>
             </div>
         )
     }
