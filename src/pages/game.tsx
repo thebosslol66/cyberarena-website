@@ -56,6 +56,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                     console.log("last card played : " + cardToPlay)
                     if (cardToPlay !== -1) {
                         this.sendMessage({type: 'deploy_card', id_card: cardToPlay, card: this.state.board.cards_on_board[cardToPlay] })
+                        this.getMana()
                     }
                 })
             },
@@ -97,6 +98,14 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         this.handleLeaveGame()
     }
 
+    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<IGamePageState>, snapshot?: any) {
+        console.log("pas update de cartes")
+        if(prevState.board !== this.state.board) {
+            console.log("update")
+            this.getNexusHealth()
+        }
+    }
+
     receiveMessage = (e: any): void => {
         // Convertir le message en objet JSON
         const data = JSON.parse(e.data)
@@ -107,6 +116,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.getMana()
             this.getNexusHealth()
         } else if (data.type === 'get_turn') {
+            this.getMana()
             if (data.id_player === this.player_id) {
                 console.log("your turn")
                 this.setState({dropDisabled: false})
@@ -157,7 +167,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         } else if (data.type === 'attack') {
             console.log(data)
         } else if (data.type === 'get_mana') {
-            this.setState({mana : data.mana})
+            this.setState({mana : data.mana}, ()=> {console.log("mana = " + data.mana)})
             this.setState({mana_max : data.mana_max})
         } else if (data.type === 'get_nexus_health') {
             this.setState({mynexushp: data.myhealth, othernexushp: data.ennemyhealth})
@@ -227,7 +237,6 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             }}>
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
                 <Button icon='remove' content='Next Turn' disabled={this.state.dropDisabled} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
-                <Board board={this.state.board} onBoardChange={this.state.onBoardChange} dropDisabled={this.state.dropDisabled}></Board>
                 <div style={{position: 'absolute', right: '15%', width:'8%'}}>
                     <img
                         src={process.env.PUBLIC_URL + "/img/nexus/nexus_violet.png"}
@@ -242,6 +251,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                         {this.state.othernexushp}
                     </span>
                 </div>
+                <Board board={this.state.board} onBoardChange={this.state.onBoardChange} dropDisabled={this.state.dropDisabled}></Board>
                 <div style={{position: 'absolute', left: '7.5%', width:'8%', bottom:'8.6%'}}>
                     <img
                         src={process.env.PUBLIC_URL + "/img/nexus/nexus_bleu.png"}
@@ -256,7 +266,6 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                         {this.state.mynexushp}
                     </span>
                 </div>
-
                 <div className='current-mana'
                 style={{
                     fontSize: '30px',
