@@ -12,6 +12,8 @@ interface IGamePageState {
     turn: number
     mana: number
     mana_max:number
+    mynexushp:number
+    othernexushp:number
 }
 export default class GamePage extends React.Component <{}, IGamePageState> {
     private room_id: number = -1
@@ -69,6 +71,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         if (data.type === 'begin_game') {
             console.log(data)
             this.getMana()
+            this.getNexusHealth()
         } else if (data.type === 'get_turn'){
             this.setState({turn : data.id_player})
             console.log(data)
@@ -106,6 +109,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         } else if (data.type === 'get_mana') {
             this.setState({mana : data.mana})
             this.setState({mana_max : data.mana_max})
+        } else if (data.type === 'get_nexus_health') {
+            this.setState({mynexushp: data.myhealth, othernexushp: data.ennemyhealth})
         }
     }
 
@@ -145,6 +150,11 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         this.sendMessage({type: 'get_mana'})
     }
 
+    getNexusHealth = (): void => {
+        console.log("getnexushp")
+        this.sendMessage({type: 'get_nexus_health'})
+    }
+
     handleLeaveGame = (): void => {
         console.log(this.room_id)
         console.log(this.player_id)
@@ -166,6 +176,34 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 position: 'relative'
             }}>
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
+                <div style={{position: 'absolute', right: '15%', width:'8%'}}>
+                    <img
+                        src={process.env.PUBLIC_URL + "/img/nexus/nexus_violet.png"}
+                        alt="Nexus ennemi"
+                        width={100}
+                        height={100}
+                    />
+                    <span style={{ position: "absolute", top: "36%", left: "23%", color: "white", fontFamily: 'valorax, sans-serif'}}>
+                        <style>
+                            @import url('https://fonts.cdnfonts.com/css/valorax');
+                        </style>
+                        {this.state.othernexushp}
+                    </span>
+                </div>
+                <div style={{position: 'absolute', left: '7.5%', width:'8%', bottom:'8.6%'}}>
+                    <img
+                        src={process.env.PUBLIC_URL + "/img/nexus/nexus_bleu.png"}
+                        alt="Mon nexus"
+                        width={100}
+                        height={100}
+                    />
+                    <span style={{ position: "absolute", top: "36%", left: "23%", color: "white", fontFamily: 'valorax, sans-serif'}}>
+                        <style>
+                            @import url('https://fonts.cdnfonts.com/css/valorax');
+                        </style>
+                        {this.state.mynexushp}
+                    </span>
+                </div>
                 <Button icon='remove' content='Next Turn' disabled={this.player_id !== this.state.turn} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <Board board={this.state.board}></Board>
                 <div className='current-mana'
