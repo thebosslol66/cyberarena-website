@@ -16,6 +16,7 @@ export interface BoardData {
 export interface BoardProps {
     board: BoardData
     onBoardChange?: (board: BoardData) => void
+    startDrag?: (start: any) => void
     dropDisabled?: boolean | undefined
 }
 
@@ -60,6 +61,10 @@ export class Board extends React.Component<BoardProps , BoardState> {
 
     }
 
+    onDragStart = (result: any): void => {
+        this.props.startDrag?.(result)
+    }
+
     onDragEnd = (result: any): void => {
         if (result.destination == null) {
             return
@@ -101,7 +106,7 @@ export class Board extends React.Component<BoardProps , BoardState> {
             <>
                 <Deck cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'red' } height={ '15%' } width={ '50%' }/>
                 <Deck cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'blue' } height={ '30%' } width={ '100%' }/>
-                <DragDropContext onDragEnd={this.onDragEnd}>
+                <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
                     <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} color={ 'green' } height={ '30%' } width={ '100%' }/>
                     <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} color={ 'yellow' } height={ '25%' } width={ '70%' }/>
                 </DragDropContext>

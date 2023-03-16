@@ -1,9 +1,9 @@
 import { Button } from 'semantic-ui-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Board, BoardProps, BoardData } from '../component/Game/Board'
+import { Board, BoardData } from '../component/Game/Board'
 import GameService from '../services/game.service'
-import {CardModel} from "../client";
+import {CardModel} from '../client'
 
 const background = '/img/background/arena1.png'
 
@@ -11,11 +11,12 @@ interface IGamePageState {
     board: BoardData
     turn: number
     mana: number
-    mana_max:number
-    mynexushp:number
-    othernexushp:number
+    mana_max: number
+    myNexusHp: number
+    otherNexusHp: number
     dropDisabled: boolean
     onBoardChange?: (board: BoardData) => void
+    startDrag?: (result: any) => void
 }
 export default class GamePage extends React.Component <{}, IGamePageState> {
     private room_id: number = -1
@@ -59,15 +60,25 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                     }
                 })
             },
+            startDrag: (result) => {
+                console.log("onDragStart")
+                console.log(result)
+                let cardDragged = parseInt(result.draggableId.match(/\d+/)[0], 10)
+                console.log("card dragged" + cardDragged)
+                if (this.state.board.cards_on_board[cardDragged].cost <= this.state.mana) {
+                    this.setState({dropDisabled: false})
+                } else {
+                    this.setState({dropDisabled: true})
+                }
+            },
             turn: 0,
-            mana : -1,
-            mana_max : -1,
+            mana: -1,
+            mana_max: -1,
             dropDisabled: true,
-            mynexushp:-1,
-            othernexushp:-1
+            myNexusHp: -1,
+            otherNexusHp: -1
         }
     }
-
 
     lastCardPlayed = (board: BoardData): number => {
         const boardLength = board.plateau_1.length
@@ -103,22 +114,19 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
 
         // Vérifier le type du message
         if (data.type === 'begin_game') {
-            console.log(data)
             this.getMana()
             this.getNexusHealth()
         } else if (data.type === 'get_turn') {
-            if (data.id_player === this.player_id) {
-                console.log("your turn")
-                this.setState({dropDisabled: false})
-            } else {
-                console.log("not your turn")
-                this.setState({dropDisabled: true})
-            }
+            this.setState({ turn: data.id_player })
             console.log(data)
         } else if (data.type === 'end_game') {
             console.log(data)
         } else if (data.type === 'deploy_card') {
             console.log('deploy_card')
+            if (data.data === "Not enough mana") {
+                console.log("Not enough mana")
+                return
+            }
             this.setState(prevState => ({
                 board: {
                     ...prevState.board,
@@ -143,7 +151,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                     main_1: [...prevState.board.main_1, data.card.id]
                 }
             }), () => {
-                console.log(this.state.board.cards_on_board)
+
             })
         } else if (data.type === 'draw_card_private') {
             this.setState(prevState => ({
@@ -160,7 +168,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.setState({mana : data.mana})
             this.setState({mana_max : data.mana_max})
         } else if (data.type === 'get_nexus_health') {
-            this.setState({mynexushp: data.myhealth, othernexushp: data.ennemyhealth})
+            this.setState({myNexusHp: data.myhealth, otherNexusHp: data.ennemyhealth})
         }
     }
 
@@ -226,8 +234,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 position: 'relative'
             }}>
                 <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
-                <Button icon='remove' content='Next Turn' disabled={this.state.dropDisabled} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
-                <Board board={this.state.board} onBoardChange={this.state.onBoardChange} dropDisabled={this.state.dropDisabled}></Board>
+                <Button icon='remove' content='Next Turn' disabled={this.player_id !== this.state.turn} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
+                <Board board={this.state.board} onBoardChange={this.state.onBoardChange} startDrag={this.state.startDrag} dropDisabled={this.state.dropDisabled}></Board>
                 <div style={{position: 'absolute', right: '15%', width:'8%'}}>
                     <img
                         src={process.env.PUBLIC_URL + "/img/nexus/nexus_violet.png"}
@@ -239,7 +247,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                         <style>
                             @import url('https://fonts.cdnfonts.com/css/valorax');
                         </style>
-                        {this.state.othernexushp}
+                        { this.state.myNexusHp }
                     </span>
                 </div>
                 <div style={{position: 'absolute', left: '7.5%', width:'8%', bottom:'8.6%'}}>
@@ -253,20 +261,20 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                         <style>
                             @import url('https://fonts.cdnfonts.com/css/valorax');
                         </style>
-                        {this.state.mynexushp}
+                        { this.state.myNexusHp }
                     </span>
                 </div>
 
                 <div className='current-mana'
                 style={{
-                    fontSize: '30px',
-                    fontFamily: 'valorax, sans-serif',
-                    position: 'absolute',
-                    top: '75%',
-                    left: '84%',
-                    textAlign: 'right',
-                    width: '15%',
-                    color: 'white'
+                        fontSize: '30px',
+                        fontFamily: 'valorax, sans-serif',
+                        position: 'absolute',
+                        top: '75%',
+                        left: '84%',
+                        textAlign: 'right',
+                        width: '15%',
+                        color: 'white'
                 }}>
                     <style>
                         @import url('https://fonts.cdnfonts.com/css/valorax');
