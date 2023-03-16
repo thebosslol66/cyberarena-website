@@ -9,13 +9,13 @@ interface Props {
     color: string
     height: string
     width: string
-
+    isDropDisabled: boolean | undefined
 }
 
 export class DropZone extends React.Component<Props, {}> {
     render (): JSX.Element {
         return (
-            <Droppable droppableId={this.props.id} direction="horizontal" isDropDisabled={ false }>
+            <Droppable droppableId={this.props.id} direction="horizontal" isDropDisabled={ this.props.isDropDisabled }>
                 {(provided, snapshot) => (
                     <div
                         ref={provided.innerRef}
