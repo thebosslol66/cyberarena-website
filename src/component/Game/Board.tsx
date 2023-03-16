@@ -5,13 +5,18 @@ import { CardModel } from '../../client'
 import { DropZone } from './DropZone'
 import {Deck} from "./Deck";
 
-export interface BoardProps {
+export interface BoardData {
     main_1: number[]
     main_2: number[]
     plateau_1: number[]
     plateau_2: number[]
     cards_on_board: { [key: number]: CardModel }
-    onBoardChange?: (board1: BoardProps) => void
+}
+
+export interface BoardProps {
+    board: BoardData
+    onBoardChange?: (board: BoardData) => void
+    dropDisabled?: boolean | undefined
 }
 
 export interface BoardState {
@@ -23,8 +28,8 @@ export interface BoardState {
         cards_on_board: { [key: number]: CardModel }
     }
 }
-export class Board extends React.Component<{ board: BoardProps }, BoardState> {
-    constructor (props: { board: BoardProps }) {
+export class Board extends React.Component<BoardProps , BoardState> {
+    constructor (props: BoardProps ) {
         super(props)
         this.state = {
             board: {
@@ -37,7 +42,7 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
         }
     }
 
-    componentDidUpdate(prevProps: { board: BoardProps }) {
+    componentDidUpdate(prevProps: BoardProps, prevState: BoardState) {
         if (prevProps.board !== this.props.board) {
             this.setState(
                 {
@@ -50,7 +55,9 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
                     },
                 }
             )
+            console.log('componentDidUpdate')
         }
+
     }
 
     onDragEnd = (result: any): void => {
@@ -84,11 +91,9 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
         this.setState({
             board: newBoard
         }, () => {
-             if (this.props.board.onBoardChange){
-                this.props.board.onBoardChange(this.state.board)
-            }
-        });
-
+            console.log('onDragEnd')
+            this.props.onBoardChange?.(newBoard)
+        })
     }
 
     render (): JSX.Element {
@@ -97,8 +102,8 @@ export class Board extends React.Component<{ board: BoardProps }, BoardState> {
                 <Deck cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'red' } height={ '15%' } width={ '50%' }/>
                 <Deck cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'blue' } height={ '30%' } width={ '100%' }/>
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                    <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'green' } height={ '30%' } width={ '100%' }/>
-                    <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } color={ 'yellow' } height={ '25%' } width={ '70%' }/>
+                    <DropZone id="plateau_1" cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} color={ 'green' } height={ '30%' } width={ '100%' }/>
+                    <DropZone id="main_1" cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} color={ 'yellow' } height={ '25%' } width={ '70%' }/>
                 </DragDropContext>
             </>
         )
