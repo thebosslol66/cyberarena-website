@@ -61,7 +61,10 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             },
             turn: 0,
             mana : -1,
-            dropDisabled: true
+            mana_max : -1,
+            dropDisabled: true,
+            mynexushp:-1,
+            othernexushp:-1
         }
     }
 
