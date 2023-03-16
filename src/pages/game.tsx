@@ -256,8 +256,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                         {this.state.mynexushp}
                     </span>
                 </div>
-                <Button icon='remove' content='Next Turn' disabled={this.player_id !== this.state.turn} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
-                <Board board={this.state.board}></Board>
+
                 <div className='current-mana'
                 style={{
                     fontSize: '30px',
