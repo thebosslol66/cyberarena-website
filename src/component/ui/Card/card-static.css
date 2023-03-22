@@ -29,6 +29,7 @@
     align-items: center; /**/
     top:54.5%;
     font-size:80%;
+    color: white;
 }
 .card-static .card-image .card-cost{
     position: absolute;

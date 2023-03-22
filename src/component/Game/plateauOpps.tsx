@@ -7,9 +7,9 @@ import {CardStatic} from "../ui/Card/card-static";
 
 interface Props {
     cards: CardModel[]
-    color: string
     height: string
     width: string
+    onCardClick?: (card: any) => void
 }
 
 export class PlateauOpps extends React.Component<Props, {}> {
@@ -17,7 +17,6 @@ export class PlateauOpps extends React.Component<Props, {}> {
         return (
             <div
                 style={{
-                    backgroundColor: this.props.color,
                     width: this.props.width,
                     height: this.props.height,
                     margin: 'auto',
@@ -39,7 +38,10 @@ export class PlateauOpps extends React.Component<Props, {}> {
                             margin: '0 0 8px 0',
                             minHeight: '50px',
                         }}
-                        key={index}/>
+                        onCardClick={() => this.props.onCardClick?.(card.id)}
+                        key={index}
+
+                    />
                 ))}
             </div>
         )

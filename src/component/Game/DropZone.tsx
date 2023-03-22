@@ -6,10 +6,11 @@ import { DraggableCard } from './DraggableCard'
 interface Props {
     cards: CardModel[]
     id: string
-    color: string
     height: string
     width: string
     isDropDisabled: boolean | undefined
+    onCardClick?: (card: any) => void
+    main: boolean
 }
 
 export class DropZone extends React.Component<Props, {}> {
@@ -21,7 +22,6 @@ export class DropZone extends React.Component<Props, {}> {
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                         style={{
-                            backgroundColor: this.props.color,
                             width: this.props.width,
                             height: this.props.height,
                             margin: 'auto',
@@ -31,7 +31,7 @@ export class DropZone extends React.Component<Props, {}> {
                         }}
                     >
                         {this.props.cards.map((card, index) => (
-                            <DraggableCard index={index} card={card} key={card.id}/>
+                            <DraggableCard index={index} card={card} key={card.id} onCardClick={this.props.onCardClick} main={this.props.main}/>
                         ))}
                         {provided.placeholder}
                     </div>
