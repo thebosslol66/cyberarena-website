@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Board, BoardData } from '../component/Game/Board'
 import GameService from '../services/game.service'
 import {CardModel} from '../client'
+import Card from "../component/ui/Card/card";
 
 const background = '/img/background/arena1.png'
 
@@ -15,14 +16,15 @@ interface IGamePageState {
     myNexusHp: number
     otherNexusHp: number
     dropDisabled: boolean
-    onBoardChange?: (board: BoardData) => void
-    startDrag?: (result: any) => void
+    turnDisabled: boolean
 }
 export default class GamePage extends React.Component <{}, IGamePageState> {
     private room_id: number = -1
     private player_id: number = -1
     private socket: WebSocket | undefined
-    private cardSaved: number[] = [];
+    private cardSaved: number[] = []
+    private joueur: number = 0
+    private attack: number[] = []
 
     constructor (props: {}) {
         super(props)
@@ -47,38 +49,65 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 main_2: [],
                 plateau_1: [],
                 plateau_2: [],
-
-
-            },
-            onBoardChange: (board1: BoardData) => {
-                let cardToPlay = this.lastCardPlayed(board1)
-                console.log("onBoardChange")
-                this.setState(({ board: board1 }), () => {
-                    console.log("last card played : " + cardToPlay)
-                    if (cardToPlay !== -1) {
-                        this.sendMessage({type: 'deploy_card', id_card: cardToPlay, card: this.state.board.cards_on_board[cardToPlay] })
-                        this.getMana()
-                    }
-                })
-            },
-            startDrag: (result) => {
-                console.log("onDragStart")
-                console.log(result)
-                let cardDragged = parseInt(result.draggableId.match(/\d+/)[0], 10)
-                console.log("card dragged" + cardDragged)
-                if (this.state.board.cards_on_board[cardDragged].cost <= this.state.mana) {
-                    this.setState({dropDisabled: false})
-                } else {
-                    this.setState({dropDisabled: true})
-                }
             },
             turn: 0,
-            mana: -1,
-            mana_max: -1,
+            mana: 5,
+            mana_max: 5,
             dropDisabled: true,
+            turnDisabled: true,
             myNexusHp: -1,
             otherNexusHp: -1
         }
+    }
+
+    onCardClick = (card: number) => {
+        console.log(card)
+
+        // Vérifier si le tableau d'attaque a déjà deux cartes
+        if (this.attack.length === 2) {
+            // Si oui, réinitialiser le tableau
+            this.attack = []
+        }
+
+        // Vérifier si la carte est valide
+        if (this.joueur === 1 && this.state.board.plateau_2.length !== 0 && !this.state.turnDisabled) {
+            console.log("joueur 1 " + this.joueur)
+            if ((card < 100  && this.attack.length === 0) || (card >= 100 && this.attack.length === 1)) {
+                console.log("push1")
+                this.attack.push(card)
+            }
+        } else if (this.joueur === 2 && this.state.board.plateau_2.length !== 0 && !this.state.turnDisabled) {
+            console.log("joueur 2 " + this.joueur)
+            if ((card >= 100 && this.attack.length === 0) || (card < 100 && this.attack.length === 1)) {
+                console.log("push2")
+                this.attack.push(card)
+            }
+        }
+
+        // Vérifier si le tableau contient deux cartes valides
+        if (this.attack.length === 2) {
+            console.log("attack")
+            this.sendMessage({type: 'attack', id_card: this.attack[0], id_card2: this.attack[1]})
+        }
+    }
+
+    startDrag = (result: any) => {
+        let cardDragged = parseInt(result.draggableId.match(/\d+/)[0], 10)
+        if (this.state.board.cards_on_board[cardDragged].cost <= this.state.mana && !this.state.turnDisabled) {
+            this.setState({dropDisabled: false})
+        } else {
+            this.setState({dropDisabled: true})
+        }
+    }
+
+    onBoardChange = (board1: BoardData) => {
+        let cardToPlay = this.lastCardPlayed(board1)
+        this.setState(({ board: board1 }), () => {
+            if (cardToPlay !== -1) {
+                this.sendMessage({type: 'deploy_card', id_card: cardToPlay, card: this.state.board.cards_on_board[cardToPlay] })
+                this.getMana()
+            }
+        })
     }
 
     lastCardPlayed = (board: BoardData): number => {
@@ -110,9 +139,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
     }
 
     componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<IGamePageState>, snapshot?: any) {
-        console.log("pas update de cartes")
         if(prevState.board !== this.state.board) {
-            console.log("update")
             this.getNexusHealth()
         }
     }
@@ -127,12 +154,14 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.getNexusHealth()
         } else if (data.type === 'get_turn') {
             this.getMana()
-            this.setState({ turn: data.id_player })
-            console.log(data)
+            if (data.id_player === this.player_id) {
+                this.setState({ turnDisabled: false })
+            } else {
+                this.setState({ turnDisabled: true })
+            }
         } else if (data.type === 'end_game') {
             console.log(data)
         } else if (data.type === 'deploy_card') {
-            console.log('deploy_card')
             this.setState(prevState => ({
                 board: {
                     ...prevState.board,
@@ -157,21 +186,61 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                     main_1: [...prevState.board.main_1, data.card.id]
                 }
             }), () => {
-
+                if (data.card.id >= 100) {
+                    this.joueur = 2
+                } else {
+                    this.joueur = 1
+                }
             })
         } else if (data.type === 'draw_card_private') {
             this.setState(prevState => ({
                 board: {
                     ...prevState.board,
-                    main_2: [...prevState.board.main_2, 1]
+                    main_2: [...prevState.board.main_2, -1]
                 }
             }))
         } else if (data.type === 'end_turn') {
             console.log(data)
         } else if (data.type === 'attack') {
-            console.log(data)
+            if (typeof data.card1 === 'number') {
+                this.setState(prevState => ({
+                    board: {
+                        ...prevState.board,
+                        plateau_1: prevState.board.plateau_1.filter(id => id !== data.card1),
+                        plateau_2: prevState.board.plateau_2.filter(id => id !== data.card1)
+                    }
+                }), () => {
+                    console.log("carte alliée tuée")
+                })
+            }
+            if (typeof data.card2 === 'number') {
+                this.setState(prevState => ({
+                    board: {
+                        ...prevState.board,
+                        plateau_1: prevState.board.plateau_1.filter(id => id !== data.card2),
+                        plateau_2: prevState.board.plateau_2.filter(id => id !== data.card2)
+                    }
+                }), () => {
+                    console.log("carte ennemie tuée")
+                })
+            }
+            if (typeof data.card1 === 'object' && typeof data.card2 === 'object') {
+                this.setState(prevState => ({
+                    board: {
+                        ...prevState.board,
+                        cards_on_board: {
+                            ...prevState.board.cards_on_board,
+                            [data.card1.id]: data.card1,
+                            [data.card2.id]: data.card2
+                        }
+                    }
+                }), () => {
+                    console.log(data.card1)
+                    console.log(data.card2)
+                })
+            }
         } else if (data.type === 'get_mana') {
-            this.setState({mana : data.mana}, ()=> {console.log("mana = " + data.mana)})
+            this.setState({mana : data.mana})
             this.setState({mana_max : data.mana_max})
         } else if (data.type === 'get_nexus_health') {
             this.setState({myNexusHp: data.myhealth, otherNexusHp: data.ennemyhealth})
@@ -179,7 +248,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
     }
 
     // Définir une fonction qui envoie un message au serveur
-    sendMessage = (msg: { type: string, card?: CardModel, id_card?: number }): void => {
+    sendMessage = (msg: { type: string, card?: CardModel, id_card?: number, id_card2?: number }): void => {
         // Convertir le message en chaîne JSON si nécessaire
         const data = JSON.stringify(msg)
         // Envoyer le message au serveur
@@ -210,12 +279,10 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
     }
 
     getMana = (): void => {
-        console.log("getmana")
         this.sendMessage({type: 'get_mana'})
     }
 
     getNexusHealth = (): void => {
-        console.log("getnexushp")
         this.sendMessage({type: 'get_nexus_health'})
     }
 
@@ -239,8 +306,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 height: '100vh',
                 position: 'relative'
             }}>
-                <Button icon='remove' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
-                <Button icon='remove' content='Next Turn' disabled={this.player_id !== this.state.turn} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
+                <Button icon='home' content='Leave Game' as={Link} to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
+                <Button circular icon='gem' size='huge' content='Next Turn' disabled={this.state.turnDisabled} negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <div style={{position: 'absolute', right: '15%', width:'8%'}}>
                     <img
                         src={process.env.PUBLIC_URL + "/img/nexus/nexus_violet.png"}
@@ -255,7 +322,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                         { this.state.myNexusHp }
                     </span>
                 </div>
-                <Board board={this.state.board} onBoardChange={this.state.onBoardChange} startDrag={this.state.startDrag} dropDisabled={this.state.dropDisabled}></Board>
+                <Board board={this.state.board} onBoardChange={this.onBoardChange} startDrag={this.startDrag} dropDisabled={this.state.dropDisabled} onCardClick={this.onCardClick}></Board>
                 <div style={{position: 'absolute', left: '7.5%', width:'8%', bottom:'8.6%'}}>
                     <img
                         src={process.env.PUBLIC_URL + "/img/nexus/nexus_bleu.png"}

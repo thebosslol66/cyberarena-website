@@ -1,7 +1,6 @@
-import React from "react";
-import "./card-static.css";
-import Shine from "./card-shine";
-import Glare from "./card-glare";
+import React from 'react'
+import './card-static.css'
+
 
 interface CardStaticProps {
     front_img: string;
@@ -12,6 +11,7 @@ interface CardStaticProps {
     dp:number
     ap:number
     cost:number
+    onCardClick?: (card: any) => void
 }
 const cardText = `
 <h3 className="card-title">{'name'}</h3>
@@ -25,6 +25,7 @@ export class CardStatic extends React.Component<CardStaticProps, any>{
             <div className="card-static"
                  {...this.props.draggable_options}
                  ref={this.props.forwardedRef}
+                 onClick={this.props.onCardClick}
                 >
                 <div className="card-image" style={{ backgroundImage: `url(${this.props.front_img})` }}>
                     <div className="card-content">

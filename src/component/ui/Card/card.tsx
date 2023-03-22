@@ -163,6 +163,10 @@ export default class Card extends Component<CardProps, {}> {
         this.updateCall = requestAnimationFrame(this.update)
     }
 
+    handleClick (e: React.MouseEvent<HTMLButtonElement>): void {
+
+    }
+
     reset (): void {
         this.rx.forceValue(0)
         this.ry.forceValue(0)
@@ -332,6 +336,7 @@ export default class Card extends Component<CardProps, {}> {
                 onMouseEnter={this.handleMouseEnter}
                 onMouseMove={this.handleMouseMove}
                 onMouseLeave={this.handleMouseLeave}
+                onClick={this.handleClick}
                 // onChange={this.interact}
             >
                 <div className="card__translater"
