@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Button, Header, Icon, Loader, Modal } from 'semantic-ui-react'
 import React from 'react'
 import { Navigate } from 'react-router-dom'
@@ -52,7 +51,7 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
         try {
             const response = await GameService.ticketStatus(this.state.ticketID)
             if (response.room_id !== -1) {
-                this.setState({ room_id: response.room_id, playerID: response.player_id, playable: true });
+                this.setState({ room_id: response.room_id, playerID: response.player_id, playable: true })
             } else {
                 setTimeout(this.fetchTicketStatus, this.interval)
             }
@@ -68,7 +67,7 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
                 onOpen={() => { this.setState({ open: true }) }}
                 open={this.state.open}
                 size='small'
-                trigger={<Button primary size='massive' style={ { marginBottom: '1em' } } onClick={this.OpenMatchmaking}>Search for a player</Button>}
+                trigger={<Button icon='play' primary size='massive' style={ { marginBottom: '1em' } } onClick={this.OpenMatchmaking}>Search for a player</Button>}
             >
                 {this.state.playable
                     ? (

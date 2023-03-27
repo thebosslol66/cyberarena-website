@@ -35,8 +35,9 @@
     position: absolute;
     width: 100%;
     font-size:80%;
-    left:5%;
+    left:9%;
     top:3%;
+    color: white;
 }
 
 .card-static .card-content .card-stats .card-hp {
