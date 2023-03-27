@@ -38,7 +38,7 @@ export default class MyGameProfile extends React.Component {
                                         )
                                         : (0)}
                                 </Card.Description>
-                                <Card.Description textAlign={ 'right' }>
+                                <Card.Description>
                                     <Icon name='gem' />
                                 Cyber Points :{' '}
                                     {loading

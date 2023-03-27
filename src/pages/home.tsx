@@ -20,7 +20,7 @@ const backgroundVideoPoster = '/img/vidoeplayback.png'
                             </p>
 
  */
-const cardNumber = (Math.floor(Math.random() * 12) + 1)
+const cardNumber = (Math.floor(Math.random() * 13) + 1)
 
 function FirstPartHomePage (): JSX.Element {
     return (
@@ -232,9 +232,7 @@ function HomePage (): JSX.Element {
         <div style={{ paddingTop: '20px' }}>
             <FirstPartHomePage/>
             <SecondPartHomePage/>
-            <ThirdPartHomePage/>
             <MediaSection/>
-            <FourthPartHomePage/>
         </div>
     )
 }
