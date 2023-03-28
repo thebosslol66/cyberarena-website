@@ -55,6 +55,7 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
             if (response.room_id !== -1) {
                 this.setState({ room_id: response.room_id, playerID: response.player_id, playable: true })
             } else {
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 setTimeout(this.fetchTicketStatus, this.interval)
             }
         } catch (error) {
