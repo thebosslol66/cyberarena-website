@@ -40,7 +40,9 @@ export default class MatchmakingButton extends React.Component<{}, IMatchmakingB
         GameService.openTicket().then((response: TicketData) => {
             this.setState({ ticketID: response.id })
             this.timeout = setTimeout(() => {
-                this.fetchTicketStatus()
+                this.fetchTicketStatus().catch((error) => {
+                    console.log(error)
+                })
             }, this.interval)
         }).catch((error) => {
             console.log(error)
