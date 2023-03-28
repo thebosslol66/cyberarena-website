@@ -39,7 +39,8 @@ export class DraggableCard extends React.Component<Props, any> {
                                 }}
                                 forwardedRef={provided.innerRef}
                             />
-                        ) : (
+                        )
+                        : (
                             <CardStatic
                                 front_img={`http://localhost:8000/api/game/card/${this.props.card.id_pic}/image`}
                                 hp={this.props.card.health}

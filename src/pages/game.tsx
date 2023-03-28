@@ -257,7 +257,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 myNexusHp = data.ennemyhealth
                 otherNexusHp = data.myhealth
             }
-            this.setState({ myNexusHp: myNexusHp, otherNexusHp: otherNexusHp }, () => {
+            this.setState({ myNexusHp, otherNexusHp }, () => {
                 if (this.state.myNexusHp <= 0) {
                     this.setState({ winner: 0 })
                     this.sendMessage({ type: 'end_game', winner: 1 })

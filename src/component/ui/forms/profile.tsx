@@ -27,7 +27,7 @@ export default class ProfileForm extends React.Component<SignInterface, {
         event.preventDefault()
         if (this.state.username !== '') {
             ProfileService.change_username(this.state.password, this.state.username).then((response) => {
-                this.setState({ response: response })
+                this.setState({ response })
             }).catch((error) => {
                 console.log(error)
                 this.setState({ error: error.detail })
@@ -35,14 +35,14 @@ export default class ProfileForm extends React.Component<SignInterface, {
         }
         if (this.state.email !== '') {
             ProfileService.change_email(this.state.password, this.state.email).then((response) => {
-                this.setState({ response: response })
+                this.setState({ response })
             }).catch((error) => {
                 this.setState({ error: error.detail })
             })
         }
         if (this.state.newpassword !== '') {
             ProfileService.change_password(this.state.password, this.state.newpassword).then((response) => {
-                this.setState({ response: response })
+                this.setState({ response })
             }).catch((error) => {
                 this.setState({ error: error.detail })
             })
