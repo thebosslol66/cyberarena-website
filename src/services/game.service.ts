@@ -3,7 +3,7 @@ import API_URL from './api.endpoints.json'
 import { TicketData } from './Interfaces/game'
 
 const cancelTicket = async (ticketId: number): Promise<TicketData> => {
-    return await api.get(API_URL.endpoint.ticketcancel + ticketId).then(
+    return await api.get(API_URL.endpoint.ticketcancel + ticketId.toString()).then(
         (response) => {
             return response.data
         }
@@ -11,7 +11,7 @@ const cancelTicket = async (ticketId: number): Promise<TicketData> => {
 }
 
 const ticketStatus = async (ticketId: number): Promise<TicketData> => {
-    return await api.get(API_URL.endpoint.ticketstatus + ticketId).then(
+    return await api.get(API_URL.endpoint.ticketstatus + ticketId.toString()).then(
         (response) => {
             return response.data
         }
