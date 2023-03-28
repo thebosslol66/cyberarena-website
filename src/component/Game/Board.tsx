@@ -107,9 +107,9 @@ export class Board extends React.Component<BoardProps, BoardState> {
         return (
             <>
                 <Deck cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '10%' } width={ '50%' }/>
-                <PlateauOpps cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '25%' } width={ '100%' } onCardClick={this.onCardClick}/>
+                <PlateauOpps cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '24%' } width={ '100%' } onCardClick={this.onCardClick}/>
                 <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                    <DropZone id="plateau_1" main={ false } cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '25%' } width={ '20%' } onCardClick={this.onCardClick}/>
+                    <DropZone id="plateau_1" main={ false } cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '25%' } width={ '100%' } onCardClick={this.onCardClick}/>
                     <DropZone id="main_1" main={ true } cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '40%' } width={ '70%' }/>
                 </DragDropContext>
             </>

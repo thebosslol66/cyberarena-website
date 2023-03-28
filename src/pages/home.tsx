@@ -1,9 +1,9 @@
 import React from 'react'
-import { Container, Divider, Embed, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Container, Divider, Grid, Header, Segment } from 'semantic-ui-react'
 import Card from '../component/ui/Card/card'
 import { PlayNowButtonRight } from '../component/ui/button/PlayNowButton'
 import { BlurryBox } from '../component/ui/box/BlurryBox'
-import {FixedBackgroundDivImage, FixedBackgroundDivVideo } from '../component/ui/box/FixedBackgroundDiv'
+import { FixedBackgroundDivImage, FixedBackgroundDivVideo } from '../component/ui/box/FixedBackgroundDiv'
 
 const backgroundVideo = '/video/videoplayback.webm'
 const backgroundVideoPoster = '/img/vidoeplayback.png'
@@ -108,15 +108,15 @@ function SecondPartHomePage (): JSX.Element {
                     style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <Grid.Column>
                         <Card number={190}
-                              name={'First'}
-                              subtypes={'basic v'}
-                              supertype={'pokemon'}
-                              rarity={'rare ultra'}
-                              gallery={'false'}
-                              style={{ maxWidth: '35vmin', margin: 'auto' }}
+                            name={'First'}
+                            subtypes={'basic v'}
+                            supertype={'pokemon'}
+                            rarity={'rare ultra'}
+                            gallery={'false'}
+                            style={{ maxWidth: '35vmin', margin: 'auto' }}
 
-                              back_img={'/img/card_background_1.png'}
-                              front_img={'http://localhost:8000/api/game/card/1/imagefull'}/>
+                            back_img={'/img/card_background_1.png'}
+                            front_img={'http://localhost:8000/api/game/card/1/imagefull'}/>
                     </Grid.Column>
                     <Grid.Column>
                         <Container style={{ position: 'relative', top: '50%', transform: 'translateY(-50%)' }}>
@@ -202,31 +202,6 @@ function ThirdPartHomePage (): JSX.Element {
                 </Grid.Column>
             </Grid>
         </FixedBackgroundDivImage>
-    )
-}
-
-const MediaSection = (): JSX.Element => {
-    return (
-        <div className="media-section">
-            <Header as="h2">Check out our game</Header>
-            <Grid columns={3}>
-                <Grid.Column>
-                    <Image src="/screenshots/screenshot1.png" alt="Screenshot of CyberArena gameplay"/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src="/screenshots/screenshot2.png" alt="Screenshot of CyberArena gameplay"/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src="/screenshots/screenshot3.png" alt="Screenshot of CyberArena gameplay"/>
-                </Grid.Column>
-            </Grid>
-            <Header as="h3">Watch the trailer</Header>
-            <Embed
-                id="dQw4w9WgXcQ"
-                placeholder="/trailer-thumbnail.png"
-                source="youtube"
-            />
-        </div>
     )
 }
 
