@@ -33,7 +33,7 @@ const signin = async (username: string, password: string): Promise<Tokens> => {
                 TokenService.setUser(response.data)
             }
             return response.data
-        }).catch ((error) => {
+        }).catch((error) => {
             console.log(error)
         })
 }

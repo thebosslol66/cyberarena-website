@@ -1,10 +1,9 @@
 import React from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
-import { GAME_STATE } from '../ui/D&D/utils'
 import { CardModel } from '../../client'
 import { DropZone } from './DropZone'
-import {Deck} from "./Deck";
-import {PlateauOpps} from "./plateauOpps";
+import { Deck } from './Deck'
+import { PlateauOpps } from './plateauOpps'
 
 export interface BoardData {
     main_1: number[]
@@ -31,8 +30,8 @@ export interface BoardState {
         cards_on_board: { [key: number]: CardModel }
     }
 }
-export class Board extends React.Component<BoardProps , BoardState> {
-    constructor (props: BoardProps ) {
+export class Board extends React.Component<BoardProps, BoardState> {
+    constructor (props: BoardProps) {
         super(props)
         this.state = {
             board: {
@@ -40,12 +39,12 @@ export class Board extends React.Component<BoardProps , BoardState> {
                 main_2: props.board.main_2,
                 plateau_1: props.board.plateau_1,
                 plateau_2: props.board.plateau_2,
-                cards_on_board: props.board.cards_on_board,
+                cards_on_board: props.board.cards_on_board
             }
         }
     }
 
-    componentDidUpdate(prevProps: BoardProps, prevState: BoardState) {
+    componentDidUpdate (prevProps: BoardProps, prevState: BoardState): void {
         if (prevProps.board !== this.props.board) {
             this.setState(
                 {
@@ -54,16 +53,15 @@ export class Board extends React.Component<BoardProps , BoardState> {
                         main_2: this.props.board.main_2,
                         plateau_1: this.props.board.plateau_1,
                         plateau_2: this.props.board.plateau_2,
-                        cards_on_board: this.props.board.cards_on_board,
-                    },
+                        cards_on_board: this.props.board.cards_on_board
+                    }
                 }
             )
         }
     }
 
     onCardClick = (card: number): void => {
-        this.props.onCardClick?.(card);
-
+        this.props.onCardClick?.(card)
     }
 
     onDragStart = (result: any): void => {
@@ -108,11 +106,11 @@ export class Board extends React.Component<BoardProps , BoardState> {
     render (): JSX.Element {
         return (
             <>
-                <Deck cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '15%' } width={ '50%' }/>
-                <PlateauOpps cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '30%' } width={ '100%' } onCardClick={this.onCardClick}/>
+                <Deck cards={ this.state.board.main_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '10%' } width={ '50%' }/>
+                <PlateauOpps cards={ this.state.board.plateau_2.map(cardId => this.state.board.cards_on_board[cardId]) } height={ '25%' } width={ '100%' } onCardClick={this.onCardClick}/>
                 <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                    <DropZone id="plateau_1" main={ false } cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '30%' } width={ '100%' } onCardClick={this.onCardClick}/>
-                    <DropZone id="main_1" main={ true } cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '25%' } width={ '70%' }/>
+                    <DropZone id="plateau_1" main={ false } cards={ this.state.board.plateau_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '25%' } width={ '20%' } onCardClick={this.onCardClick}/>
+                    <DropZone id="main_1" main={ true } cards={ this.state.board.main_1.map(cardId => this.state.board.cards_on_board[cardId]) } isDropDisabled={this.props.dropDisabled} height={ '40%' } width={ '70%' }/>
                 </DragDropContext>
             </>
         )

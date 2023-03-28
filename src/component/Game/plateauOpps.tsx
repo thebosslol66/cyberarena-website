@@ -1,9 +1,6 @@
-import {CardModel} from "../../client";
-import React from "react";
-import {Droppable} from "react-beautiful-dnd";
-import {DraggableCard} from "./DraggableCard";
-import Card from "../ui/Card/card";
-import {CardStatic} from "../ui/Card/card-static";
+import { CardModel } from '../../client'
+import React from 'react'
+import { CardStatic } from '../ui/Card/card-static'
 
 interface Props {
     cards: CardModel[]
@@ -36,7 +33,7 @@ export class PlateauOpps extends React.Component<Props, {}> {
                             userSelect: 'none',
                             padding: 16,
                             margin: '0 0 8px 0',
-                            minHeight: '50px',
+                            minHeight: '50px'
                         }}
                         onCardClick={() => this.props.onCardClick?.(card.id)}
                         key={index}

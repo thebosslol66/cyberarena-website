@@ -332,7 +332,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             }}>
                 <EndGame open={this.state.winner !== -1} winner={this.state.winner}/>
                 <Button icon='home' content='Leave Game' as={ Link } to='/dashboard' negative={ true } floated={ 'right' } style={{ marginTop: '2em', marginRight: '1em' }}/>
-                <Button circular icon='plus' size='huge' content='Next Turn' disabled={ this.state.turnDisabled } negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
+                <Button circular icon='plus' size='huge' content='Enemy Turn' disabled={ this.state.turnDisabled } negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <div style={{ position: 'absolute', right: '15%', width: '8%' }} onClick={ this.onNexusClick }>
                     <img
                         src={process.env.PUBLIC_URL + '/img/nexus/nexus_violet.png'}

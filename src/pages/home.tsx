@@ -3,12 +3,11 @@ import { Container, Divider, Embed, Grid, Header, Image, Segment } from 'semanti
 import Card from '../component/ui/Card/card'
 import { PlayNowButtonRight } from '../component/ui/button/PlayNowButton'
 import { BlurryBox } from '../component/ui/box/BlurryBox'
-import { FixedBackgroundDivImage, FixedBackgroundDivVideo } from '../component/ui/box/FixedBackgroundDiv'
+import {FixedBackgroundDivImage, FixedBackgroundDivVideo } from '../component/ui/box/FixedBackgroundDiv'
 
-const background2 = '/img/background/testreact2.jpg'
 const backgroundVideo = '/video/videoplayback.webm'
 const backgroundVideoPoster = '/img/vidoeplayback.png'
-
+const background2 = '/img/background/testreact2.jpg'
 /*
 1. Enter the CyberArena and take your chances in the ultimate card game challenge!
 2. Face off against opponents from around the world and prove you're the best in this epic cyber showdown!
@@ -65,7 +64,7 @@ function FirstPartHomePage (): JSX.Element {
                             gallery={'false'}
                             style={{ maxWidth: '35vmin', margin: 'auto' }}
 
-                            back_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/imagefull'}
+                            back_img={'/img/card_background_1.png'}
                             front_img={'http://localhost:8000/api/game/card/' + cardNumber.toString() + '/imagefull'}/>
                     </Container>
                 </Grid.Column>
@@ -100,8 +99,6 @@ function SecondPartHomePage (): JSX.Element {
     return (
         <Segment basic
             style={{
-                background: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/07/HD-Cyberpunk-Picture.jpg) no-repeat center center',
-                backgroundSize: 'cover',
                 width: '100%',
                 position: 'relative',
                 marginTop: 0
@@ -110,8 +107,16 @@ function SecondPartHomePage (): JSX.Element {
                 <Grid columns={2} relaxed='very' stackable={true} reversed={'tablet computer'}
                     style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <Grid.Column>
-                        {/*  TODO: Add a video or justa gameplay image */}
-                        <Image src='https://images.pokemontcg.io/base1/1_hires.png' size='medium' centered={true}/>
+                        <Card number={190}
+                              name={'First'}
+                              subtypes={'basic v'}
+                              supertype={'pokemon'}
+                              rarity={'rare ultra'}
+                              gallery={'false'}
+                              style={{ maxWidth: '35vmin', margin: 'auto' }}
+
+                              back_img={'/img/card_background_1.png'}
+                              front_img={'http://localhost:8000/api/game/card/1/imagefull'}/>
                     </Grid.Column>
                     <Grid.Column>
                         <Container style={{ position: 'relative', top: '50%', transform: 'translateY(-50%)' }}>
@@ -136,8 +141,16 @@ function SecondPartHomePage (): JSX.Element {
 
                 <Grid columns={2} relaxed='very' stackable={true} style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <Grid.Column>
-                        {/*  TODO: add other fun content */}
-                        <Image src='https://images.pokemontcg.io/base1/1_hires.png' size='medium' centered={true}/>
+                        <Card number={190}
+                            name={'First'}
+                            subtypes={'basic v'}
+                            supertype={'pokemon'}
+                            rarity={'rare ultra'}
+                            gallery={'false'}
+                            style={{ maxWidth: '35vmin', margin: 'auto' }}
+
+                            back_img={'/img/card_background_1.png'}
+                            front_img={'http://localhost:8000/api/game/card/2/imagefull'}/>
                     </Grid.Column>
                     <Grid.Column>
                         <Container style={{ position: 'relative', top: '50%', transform: 'translateY(-50%)' }}>
@@ -192,16 +205,6 @@ function ThirdPartHomePage (): JSX.Element {
     )
 }
 
-function FourthPartHomePage (): JSX.Element {
-    /*
-            Show the lootbox system
-            The purchases in game etc
-         */
-    return (
-        <></>
-    )
-}
-
 const MediaSection = (): JSX.Element => {
     return (
         <div className="media-section">
@@ -232,7 +235,7 @@ function HomePage (): JSX.Element {
         <div style={{ paddingTop: '20px' }}>
             <FirstPartHomePage/>
             <SecondPartHomePage/>
-            <MediaSection/>
+            <ThirdPartHomePage/>
         </div>
     )
 }

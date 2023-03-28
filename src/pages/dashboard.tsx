@@ -6,7 +6,7 @@ import MyGameProfile from '../component/ui/userCard/myPlayerCard'
 function UserInteractions (): JSX.Element {
     return (
         <Container>
-            <Segment style={{ background: 'url(https://tse2.mm.bing.net/th?id=OIP.3Ul6JBo9vK-rS4z-7GAnfwHaEK) no-repeat center center', backgroundSize: 'cover', marginTop: '1em', marginBottom: '1em' }}>
+            <Segment style={{ background: 'url(/img/dashboard.png) no-repeat center center', backgroundSize: 'cover', marginTop: '1em', marginBottom: '1em' }}>
                 <Grid columns={2} relaxed='very' centered={true} stackable={true} reversed={'tablet computer'}>
                     <Grid.Column verticalAlign={'middle'} tablet={7} computer={8} widescreen={10}>
                         <MatchmakingButton />

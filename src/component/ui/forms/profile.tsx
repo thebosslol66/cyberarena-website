@@ -68,7 +68,6 @@ export default class ProfileForm extends React.Component<SignInterface, {
                     label='Username'
                     placeholder='change your username'
                     onChange={ (event: { target: { value: any } }) => this.setState({ username: event.target.value })}
-
                 />
                 <Form.Field
                     fluid
