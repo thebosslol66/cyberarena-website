@@ -33,7 +33,7 @@
     "test": "craco test",
     "generate-client": "openapi --input http://localhost:8000/api/openapi.json --output ./src/client --client axios",
     "eject": "craco eject",
-    "lint": "eslint.js"
+    "lint": "eslint"
   },
   "eslintConfig": {
     "extends": [
