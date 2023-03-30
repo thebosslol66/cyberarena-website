@@ -1,0 +1,19 @@
+{
+  "url": "http://localhost:8000/api/",
+  "endpoint": {
+    "signup": "sign/sign-up",
+    "signin": "sign/token",
+    "refresh": "sign/refresh-token",
+    "myavatar": "profile/me/avatar",
+    "myprofile": "profile/me",
+    "profile": "profile/{username}",
+    "avatar": "profile/{username}/avatar",
+    "change_password": "profile/change/password",
+    "change_email": "profile/change/email",
+    "change_username": "profile/change/username",
+    "change_avatar": "profile/change/avatar",
+    "ticketopen": "game/ticket/open",
+    "ticketcancel": "game/ticket/cancel?ticket_id=",
+    "ticketstatus": "game/ticket/status?ticket_id="
+  }
+}
