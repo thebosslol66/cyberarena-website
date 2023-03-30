@@ -62,8 +62,10 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             winner: -1
         }
     }
-    //Fonction qui permet de savoir si la carte est valide et de l'ajouter au tableau d'attaque
-    //Si le tableau d'attaque contient deux cartes valides, on envoie le message d'attaque sur le nexus
+
+    /** Fonction qui permet de savoir si la carte est valide et de l'ajouter au tableau d'attaque
+    Si le tableau d'attaque contient deux cartes valides, on envoie le message d'attaque sur le nexus
+    **/
     onNexusClick = (): void => {
         console.log('click nexus')
         if (this.attack.length === 1 && !this.state.turnDisabled) {
@@ -72,8 +74,10 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.attack = []
         }
     }
-    //Fonction qui permet de savoir si la carte est valide et de l'ajouter au tableau d'attaque
-    //Si le tableau d'attaque contient deux cartes valides, on envoie le message d'attaque
+
+    /** Fonction qui permet de savoir si la carte est valide et de l'ajouter au tableau d'attaque
+     **/
+    // Si le tableau d'attaque contient deux cartes valides, on envoie le message d'attaque
     onCardClick = (card: number): void => {
         console.log(card)
 
@@ -102,7 +106,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.sendMessage({ type: 'attack', id_card: this.attack[0], id_card2: this.attack[1] })
         }
     }
-    //Active ou desactive le drag and drop en fonction de la mana et du tour
+
+    // Active ou desactive le drag and drop en fonction de la mana et du tour
     startDrag = (result: any): void => {
         const cardDragged = parseInt(result.draggableId.match(/\d+/)[0], 10)
         if (this.state.board.cards_on_board[cardDragged].cost <= this.state.mana && !this.state.turnDisabled) {
@@ -111,7 +116,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.setState({ dropDisabled: true })
         }
     }
-    //Envoie un message au serveur lorsque l'on dépose une carte
+
+    // Envoie un message au serveur lorsque l'on dépose une carte
     onBoardChange = (board1: BoardData): void => {
         const cardToPlay = this.lastCardPlayed(board1)
         this.setState(({ board: board1 }), () => {
@@ -121,7 +127,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             }
         })
     }
-    //Permet d'obtenir le dernier id de carte joué
+
+    // Permet d'obtenir le dernier id de carte joué
     lastCardPlayed = (board: BoardData): number => {
         const boardLength = board.plateau_1.length
         for (let i = boardLength - 1; i >= 0; i--) {
@@ -133,7 +140,8 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
         }
         return -1
     }
-    //Effectue le code pour créer une partie lorsque le composant est monté
+
+    // Effectue le code pour créer une partie lorsque le composant est monté
     componentDidMount (): void {
         this.createGame()
             .then(() => {
@@ -145,17 +153,20 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 console.error(error)
             })
     }
-    //Effectue le code pour quitter la partie lorsque le composant est démonté
+
+    // Effectue le code pour quitter la partie lorsque le composant est démonté
     componentWillUnmount (): void {
         this.handleLeaveGame()
     }
-    //Effectue le code pour obtenir la santé du nexus lorsque le composant est mis à jour
+
+    // Effectue le code pour obtenir la santé du nexus lorsque le composant est mis à jour
     componentDidUpdate (prevProps: Readonly<{}>, prevState: Readonly<IGamePageState>, snapshot?: any): void {
         if (prevState.board !== this.state.board) {
             this.getNexusHealth()
         }
     }
-    //Fonction qui permet d'effectuer une action suivant le type de message reçu
+
+    // Fonction qui permet d'effectuer une action suivant le type de message reçu
     receiveMessage = (e: any): void => {
         // Convertir le message en objet JSON
         const data = JSON.parse(e.data)
@@ -280,6 +291,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             this.socket.send(data)
         }
     }
+
     // Définir une fonction qui crée une nouvelle partie et se connecte au serveur
     createGame = async (): Promise<void> => {
         return await new Promise((resolve, reject) => {
@@ -296,21 +308,26 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
             }
         })
     }
-    //Envoie un message au serveur pour dire que le joueur a fini son tour
+
+    // Envoie un message au serveur pour dire que le joueur a fini son tour
     nextTurn = (): void => {
         this.sendMessage({ type: 'end_turn' })
         this.getMana()
     }
-    //Envoie un message au serveur pour obtenir le mana du joueur
+
+    // Envoie un message au serveur pour obtenir le mana du joueur
     getMana = (): void => {
         this.sendMessage({ type: 'get_mana' })
     }
-    //Envoie un message au serveur pour obtenir la vie des nexus
+
+    // Envoie un message au serveur pour obtenir la vie des nexus
     getNexusHealth = (): void => {
         this.sendMessage({ type: 'get_nexus_health' })
     }
-    //Envoie un message au serveur lorsque la partie est finie
-    //Supprime les données de la partie dans le local storage
+
+    // Envoie un message au serveur lorsque la partie est finie
+    // Supprime les données de la partie dans le local storage
+
     handleLeaveGame = (): void => {
         console.log(this.room_id)
         console.log(this.player_id)
