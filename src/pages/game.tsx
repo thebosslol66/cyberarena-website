@@ -355,7 +355,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 <Button circular icon='plus' size='huge' content='Enemy Turn' disabled={ this.state.turnDisabled } negative={ false } floated={ 'left' } style={{ marginTop: '2em', marginLeft: '1em' }} onClick={this.nextTurn}/>
                 <div style={{ position: 'absolute', right: '15%', width: '8%' }} onClick={ this.onNexusClick }>
                     <img
-                        src={process.env.PUBLIC_URL + '/img/nexus/nexus_violet.png'}
+                        src={(process.env.PUBLIC_URL != null) ? process.env.PUBLIC_URL + '/img/nexus/nexus_violet.png' : '/img/nexus/nexus_violet.png'}
                         alt='Nexus ennemi'
                         width={100}
                         height={100}
@@ -370,7 +370,7 @@ export default class GamePage extends React.Component <{}, IGamePageState> {
                 <Board board={ this.state.board } onBoardChange={ this.onBoardChange } startDrag={ this.startDrag } dropDisabled={ this.state.dropDisabled } onCardClick={ this.onCardClick }></Board>
                 <div style={{ position: 'absolute', left: '7.5%', width: '8%', bottom: '8.6%' }}>
                     <img
-                        src={process.env.PUBLIC_URL + '/img/nexus/nexus_bleu.png'}
+                        src={(process.env.PUBLIC_URL != null) ? process.env.PUBLIC_URL + '/img/nexus/nexus_bleu.png' : '/img/nexus/nexus_bleu.png'}
                         alt='Mon nexus'
                         width={ 100 }
                         height={ 100 }
